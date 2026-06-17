@@ -1,4 +1,95 @@
-<a href="/">
-  <img src="/assets/images/home-icon.png" alt="Home" width="30" height="30">
-</a>
-<a href="about.html">Go to About Page<
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar Example</title>
+    <style>
+        /* Reset default browser margins and paddings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        /* Navbar Layout styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 15px 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Brand Logo styling */
+        .nav-logo a {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        /* Navigation List container */
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        /* Navigation Links spacing */
+        .nav-links li {
+            padding: 0 15px;
+        }
+
+        /* Hyperlink styles */
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        /* Hover interaction effect */
+        .nav-links a:hover {
+            color: #ff9900;
+        }
+
+        /* Responsive Design: Stack layout on mobile screens */
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .nav-links li {
+                padding: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Semantic HTML5 Navigation Block -->
+    <nav class="navbar">
+        <div class="nav-logo">
+            <a href="#">MyBrand</a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+</body>
+</html>
