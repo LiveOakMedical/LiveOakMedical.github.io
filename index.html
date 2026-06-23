@@ -71,7 +71,21 @@
             font-size: 16px;
             transition: color 0.3s ease;
         }
+        
+        .phone-links li {
+            display: flex;
+        }
 
+        /* Hyperlink styles */
+        .phone-links a {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            color: #000;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
         .nav-links li:hover{
             background-image: linear-gradient(0deg, #2A7E19, #ffffff);
         }
@@ -141,7 +155,7 @@
             <li><a href="#services">Services</a></li>
             <li><a href="#visit">Visit Us</a></li>
         </ul>
-        <ul>
+        <ul class="phone-links">
             <li>
                 <a href="tel:+6264478000" style="
                   display: inline-flex; 
@@ -153,7 +167,7 @@
                   border-radius: 5px; 
                   font-weight: bold; 
                   gap: 8px;">
-                  📞 (626) 447-8000
+                  ☏ (626) 447-8000
                 </a>
             </li>
             <li>
