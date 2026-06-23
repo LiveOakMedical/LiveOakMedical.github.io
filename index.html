@@ -88,7 +88,7 @@
             transition: color 0.3s ease;
         }
         .nav-links li:hover{
-            background-image: linear-gradient(to up, #2A7E19 20%, #ffffff 80%);
+            background-image: linear-gradient(0deg, #2A7E19 20%, #ffffff 80%);
         }
         /* Hover interaction effect */
         .nav-links a:hover {
@@ -123,7 +123,7 @@
 
         .grid-container {
           display: grid;
-          grid-template-columns: repeat(3, 1fr); 
+          grid-template-columns: repeat(3, 3fr); 
           gap: 20px; 
         }
         
@@ -135,12 +135,17 @@
           font-size: 1.5rem;
           border-radius: 5px; 
         }
+        
+        .unhighlightable {
+          -webkit-user-select: none; /* Safari */
+          user-select: none;         /* Standard syntax */
+        }
     </style>
 </head>
 <body>
     <!-- Semantic HTML5 Navigation Block -->
     <nav class="navbar">
-        <div class="nav-logo">
+        <div class="nav-logo" class="unhighlightable">
             <a href="#home">Live Oak Medical Inc</a>
         </div>
         <div id="google_translate_element" style="
@@ -152,7 +157,7 @@
         }
         </script>
         <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-        <ul class="nav-links">
+        <ul class="nav-links" class="unhighlightable">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#services">Services</a></li>
@@ -174,14 +179,15 @@
                 </a>
             </li>
             <li>
-                Text (626) 775-7054
+                <p class="unhighlightable">Text:</p>
+                (626) 775-7054
             </li>
         </ul>
     </nav>
 
     <section id="home">
         <div class="grid-container">
-          <div class="grid-item">1</div>
+          <div></div>
           <div class="grid-item">2</div>
           <div class="grid-item">3</div>
           <div class="grid-item">4</div>
@@ -203,7 +209,7 @@
     <section id="visit">
       <h1>Location</h1>
       <h2>Visit Us</h2>
-      <div class="flex-container">
+      <div class="visit-us">
           <div class="column">Left Column Content</div>
           <div class="column">
               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3302.252688688344!2d-118.03523014711642!3d34.13987680403843!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2dbc2cb4947e3%3A0xf532a8fbdf63d0a6!2s20%20E%20Huntington%20Dr%2C%20Arcadia%2C%20CA%2091006!5e0!3m2!1sen!2sus!4v1781736675621!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
