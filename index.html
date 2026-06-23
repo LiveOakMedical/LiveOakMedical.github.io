@@ -136,6 +136,13 @@
           border-radius: 5px; 
         }
         
+        .circle-img {
+          width: 200px;
+          height: 200px;
+          border-radius: 50%;
+          object-fit: cover; /* Prevents distortion if the image isn't perfectly square */
+        }
+        
         .unhighlightable {
           -webkit-user-select: none; /* Safari */
           user-select: none;         /* Standard syntax */
@@ -146,6 +153,9 @@
     <!-- Semantic HTML5 Navigation Block -->
     <nav class="navbar">
         <div class="nav-logo unhighlightable">
+            <a href="#home">
+                <img src="live_oak_logo.jpg" alt="Live Oak Logo" class="circle-img">
+            </a>
             <a href="#home">Live Oak Medical Inc</a>
         </div>
         <div id="google_translate_element" style="
