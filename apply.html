@@ -1,1 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Oak Medical Inc</title>
+    <link rel="stylesheet" href="global.css">
+    <style>
+        /* Reset default browser margins and paddings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        #home{
+            background-image: url('live_oak_front.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        body {
+            font-family: 'Open-Sans', sans-serif;
+        }
+
+        /* Navbar Layout styling */
+        .navbar {
+            position: sticky;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            background-color: #fff;
+            padding: 0px 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Brand Logo styling */
+        .nav-logo a {
+            color: #000;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        /* Navigation List container */
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        /* Navigation Links spacing */
+        .nav-links li {
+            display: flex;
+        }
+
+        /* Hyperlink styles */
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            color: #000;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        
+        .phone-links li {
+            display: flex;
+        }
+
+        /* Hyperlink styles */
+        .phone-links a {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            color: #000;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        .nav-links li:hover{
+            background-image: linear-gradient(0deg, #2A7E19 0%, white 33%);
+        }
+        /* Hover interaction effect */
+        .nav-links a:hover {
+            color: #2A7E19;
+        }   
+        
+        .nav-logo a:hover {
+            color: #2A7E19;
+        }
+
+        /* Responsive Design: Stack layout on mobile screens */
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .nav-links li {
+                padding: 5px 0;
+            }
+        }
+        .curved-image {
+          width: 50%;
+          height: auto;
+          border: 0px
+          border-radius: 25px;
+        }
+
+        .grid-container {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr); 
+          gap: 20px; 
+        }
+        
+        .grid-item {
+          background-color: #3498db;
+          color: white;
+          padding: 20px;
+          text-align: center;
+          font-size: 1.5rem;
+          border-radius: 5px; 
+        }
+        
+        .circle-img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover; /* Prevents distortion if the image isn't perfectly square */
+        }
+        
+        .unhighlightable {
+          -webkit-user-select: none; /* Safari */
+          user-select: none;         /* Standard syntax */
+        }
+    </style>
+</head>
+<body>
+    <!-- Semantic HTML5 Navigation Block -->
+    <nav class="navbar">
+        <div class="nav-logo unhighlightable">
+            <a href="#home">
+                <img src="live_oak_logo.png" alt="Live Oak Logo" class="circle-img">
+            </a>
+            <a href="#home">Live Oak Medical Inc</a>
+        </div>
+        <div id="google_translate_element" style="
+            display: flex;
+            align-items: center;"></div>
+        <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,es,zh,zh-CN', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+        }
+        </script>
+        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        <ul class="nav-links unhighlightable">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#visit">Visit Us</a></li>
+            <li><a href="apply">Apply Now</a></li>
+        </ul>
+        <ul class="phone-links">
+            <li>
+                <a href="tel:+6264478000" style="
+                  display: inline-flex; 
+                  align-items: center; 
+                  background-color: #28a745; 
+                  color: white; 
+                  padding: 10px 20px; 
+                  text-decoration: none; 
+                  border-radius: 5px; 
+                  font-weight: bold; 
+                  gap: 8px;">
+                  ☏ (626) 447-8000
+                </a>
+            </li>
+            <li>
+                <a class="unhighlightable" href="tel:+6267757054" style="
+                  display: inline-flex; 
+                  align-items: center;
+                  padding: 0px">
+                  Text: (626) 775-7054
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+</body>
+</html>
