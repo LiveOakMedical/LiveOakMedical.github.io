@@ -95,9 +95,26 @@
             font-size: 16px;
         }
 
-        .phone-links li:hover{
-            backround-color: #D4A857
+        .phone-links a:hover{
+            background-color: #D4A857
         }
+        
+        .phone-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 15px;
+            color: #F5F1E8;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            gap: 8px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .phone-btn-call { background-color: #7FA692; }
+        .phone-btn-call:hover { background-color: #6B9080;}
+        .phone-btn-text { background-color: #C87D56; }
+        .phone-btn-text:hover { background-color: #B06A46;}
         
         .nav-links li:hover{
             background-image: linear-gradient(0deg, #D4A857 0%, #F5F1E8 33%);
@@ -192,7 +209,7 @@
         </ul>
         <ul class="phone-links">
             <li>
-                <a class="unhighlightable" href="tel:+6264478000" style="
+                <a class="unhighlightable phone-btn phone-btn-call" href="tel:+6264478000" style="
                   display: inline-flex; 
                   align-items: center; 
                   background-color: #7FA692; 
@@ -207,17 +224,7 @@
                 </a>
             </li>
             <li>
-                <a class="unhighlightable" href="tel:+6267757054" style="
-                  display: inline-flex; 
-                  align-items: center; 
-                  background-color: #C87D56; 
-                  color: #F5F1E8; 
-                  padding: 5px 5px; 
-                  margins: 0px 10px;
-                  text-decoration: none; 
-                  border-radius: 5px; 
-                  font-weight: bold; 
-                  gap: 8px;">
+                <a class="unhighlightable phone-btn phone-btn-text" href="tel:+6267757054" style=">
                   Text: (626) 775-7054
                 </a>
             </li>
