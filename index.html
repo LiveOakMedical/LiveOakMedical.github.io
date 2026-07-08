@@ -322,49 +322,49 @@
       </div>
     </section>
     <script>
-      const carousel = document.getElementById('carousel');
-      const items = carousel.querySelectorAll('.carousel-btn');
-      const radius = 160;
-      const theta  = 360 / items.length;
-    
-      items.forEach((item, i) => {
-        item.style.transform =
-          `rotateY(${i * theta}deg) translateZ(${radius}px)`;
-      });
-    
-      let angle = 0;
-      let dragging = false;
-      let lastX = 0;
-      const autoSpeed = 0.3;
-    
-      function render() {
-        carousel.style.transform =
-          `translateZ(-${radius}px) rotateY(${angle}deg)`;
-      }
-    
-      function tick() {
-        if (!dragging) angle += autoSpeed;
-        render();
-        requestAnimationFrame(tick);
-      }
-      tick();
-    
-      carousel.addEventListener('mousedown', (e) => {
-        dragging = true;
-        lastX = e.clientX;
-        carousel.classList.add('dragging');
-        e.preventDefault();
-      });
-      window.addEventListener('mousemove', (e) => {
-        if (!dragging) return;
-        const dx = e.clientX - lastX;
-        lastX = e.clientX;
-        angle += dx * 0.5;
-      });
-      window.addEventListener('mouseup', () => {
-        dragging = false;
-        carousel.classList.remove('dragging');
-      });
+        const carousel = document.getElementById('carousel');
+        const items = carousel.querySelectorAll('.carousel-btn');
+        const radius = 160;
+        const theta  = 360 / items.length;
+        
+        let angle = 0;
+        let dragging = false;
+        let lastX = 0;
+        const autoSpeed = 0.3;
+        
+        function render() {
+        carousel.style.transform = `translateZ(-${radius}px)`;
+        
+        items.forEach((item, i) => {
+          const itemAngle = i * theta + angle;
+          item.style.transform =
+            `rotateY(${itemAngle}deg) translateZ(${radius}px) rotateY(${-itemAngle}deg)`;
+        });
+        }
+        
+        function tick() {
+            if (!dragging) angle += autoSpeed;
+            render();
+            requestAnimationFrame(tick);
+        }
+        tick();
+        
+        carousel.addEventListener('mousedown', (e) => {
+            dragging = true;
+            lastX = e.clientX;
+            carousel.classList.add('dragging');
+            e.preventDefault();
+        });
+        window.addEventListener('mousemove', (e) => {
+            if (!dragging) return;
+            const dx = e.clientX - lastX;
+            lastX = e.clientX;
+            angle += dx * 0.5;
+        });
+        window.addEventListener('mouseup', () => {
+            dragging = false;
+            carousel.classList.remove('dragging');
+        });
     </script>
 </body>
 </html>
