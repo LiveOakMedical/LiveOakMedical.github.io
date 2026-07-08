@@ -76,8 +76,6 @@
             position: relative;
             display: flex; 
         }
-
-
         
         .nav-links li::before {
             content: "";
@@ -192,7 +190,8 @@
         .grid-list {
           display: grid;
           grid-template-columns: 1fr;
-          row-gap: 10px;
+          row-gap: 12px;
+          justify-items: center;
         }
         
         .circle-image {
@@ -221,44 +220,60 @@
           user-select: none;
         }
 
-      /* The stage provides the 3D perspective */
       .carousel-stage {
-        perspective: 900px;      /* lower = more dramatic 3D; higher = flatter */
+        perspective: 900px;
         width: 260px;
-        height: 60px;
+        height: 260px;
         margin: 0 auto;
       }
     
-      /* The ring that actually rotates */
       .carousel {
         position: relative;
         width: 100%;
         height: 100%;
-        transform-style: preserve-3d;   /* lets children live in 3D space */
+        transform-style: preserve-3d;
         cursor: grab;
       }
       .carousel.dragging { cursor: grabbing; }
-    
-      /* Each button sits on the ring */
       .carousel-btn {
         position: absolute;
         left: 50%;
         top: 50%;
-        width: 220px;
-        height: 44px;
-        margin-left: -110px;
-        margin-top: -20px;
+        width: 200px;
+        height: 240px;
+        margin-left: -100px;
+        margin-top: -120px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 5px;
+        padding: 18px 16px;
+        border-radius: 14px;
         font-weight: bold;
-        text-decoration: none;
         color: #F5F1E8;
         user-select: none;
+        cursor: pointer;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      }
+      .carousel-btn:focus-visible {
+        outline: 3px solid #D4A857;
+        outline-offset: 3px;
       }
       .carousel-btn.ryan { background: #7FA692; }
       .carousel-btn.ida  { background: #C87D56; }
+
+      /* Circular headshot inside each card */
+      .doctor-photo {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        border: 3px solid rgba(245, 241, 232, 0.6);
+      }
+      .doctor-name {
+        font-size: 18px;
+        text-align: center;
+      }
 
       .info-column {
         display: flex;
@@ -317,7 +332,6 @@
     </style>
 </head>
 <body>
-    <!-- Semantic HTML5 Navigation Block -->
     <nav class="navbar">
         <div class="nav-logo unhighlightable">
             <a href="#home">
@@ -356,17 +370,16 @@
             <div class="rotate-container">
               <div class="carousel-stage">
                 <div class="carousel" id="carousel">
-                    
-                  <div class="carousel-btn ryan" href="#!" data-key="ryan">
+                  <div class="carousel-btn ryan" role="button" tabindex="0" data-key="ryan">
                       <div class="grid-list">
-                          <div><img src="doctor.png" alt="Dr Ryan Wang" class="curved-image"></div>
-                          <div>Dr. Ryan Wang DO</div>
+                          <div><img src="doctor.png" alt="Dr Ryan Wang" class="doctor-photo"></div>
+                          <div class="doctor-name">Ryan Wang DO</div>
                       </div>
                   </div>
-                  <div class="carousel-btn ida" href="#!" data-key="ida">
+                  <div class="carousel-btn ida" role="button" tabindex="0" data-key="ida">
                       <div class="grid-list">
-                          <div><img src="doctor.png" alt="Dr Ida Wang" class="curved-image"></div>
-                          <div>Dr. Ida Wang MD</div>
+                          <div><img src="doctor.png" alt="Dr Ida Wang" class="doctor-photo"></div>
+                          <div class="doctor-name">Ida Wang MD</div>
                       </div>
                   </div>
                 </div>
@@ -374,7 +387,7 @@
             </div>
           <div class="info-column">
               <div id="info-panel" class="info-panel">
-                  <p class="info-placeholder"></p>
+                  <p class="info-placeholder">Select a provider to see their details.</p>
               </div>
           </div>
         </div>
@@ -408,24 +421,24 @@
         const theta      = 360 / items.length;
         const autoSpeed  = 0.3;
 
-        // Content shown on the right when a button is selected
+
         const info = {
           ryan: {
-            title: 'Ryan Wang DO',
-            blurb: 'Speak directly with our front desk during office hours.',
+            title: 'Dr. Ryan Wang DO',
+            blurb: 'Board-certified in family medicine, Dr. Ryan Wang focuses on preventive care and chronic disease management for patients of every age.',
           },
           ida: {
-            title: 'Ida Wang MD',
-            blurb: "Send us a quick message and we'll reply as soon as we can.",
+            title: 'Dr. Ida Wang MD',
+            blurb: 'Dr. Ida Wang provides comprehensive primary care with a special interest in women\'s health and geriatric medicine.',
           }
         };
 
-        let angle       = 0;   // current ring rotation
-        let targetAngle = 0;   // where we ease to when a button is selected
+        let angle       = 0;
+        let targetAngle = 0;
         let selected    = false;
         let dragging    = false;
         let lastX       = 0;
-        let moved       = 0;   // total travel during a press (click vs drag)
+        let moved       = 0;
         let pressTarget = null;
 
         function render() {
@@ -439,7 +452,6 @@
 
         function tick() {
           if (selected) {
-            // ease the selected button to the front and hold it there
             angle += (targetAngle - angle) * 0.12;
           } else if (!dragging) {
             angle += autoSpeed;
@@ -453,9 +465,7 @@
           const data = info[btn.dataset.key];
           if (!data) return;
           const i = items.indexOf(btn);
-
-          // Angle that brings this button to face the viewer (itemAngle === 0),
-          // chosen along the shortest path from the current angle.
+            
           let target = -i * theta;
           while (target - angle > 180)  target -= 360;
           while (target - angle < -180) target += 360;
@@ -479,10 +489,9 @@
         function resume() {
           selected = false;
           infoPanel.innerHTML =
-            '<p class="info-placeholder"></p>';
+            '<p class="info-placeholder">Select a provider to see their details.</p>';
         }
 
-        /* ---- Press handling: a small move = click (select), a big move = drag ---- */
         function startDrag(x, target) {
           dragging = true;
           lastX = x;
@@ -495,7 +504,7 @@
           const dx = x - lastX;
           lastX = x;
           moved += Math.abs(dx);
-          if (!selected) angle += dx * 0.5;   // manual spin only while unlocked
+          if (!selected) angle += dx * 0.5;
         }
         function endDrag() {
           if (!dragging) return;
@@ -513,8 +522,14 @@
         window.addEventListener('touchmove', (e) => { if (dragging) moveDrag(e.touches[0].clientX); }, { passive: true });
         window.addEventListener('touchend', endDrag);
 
-        // The carousel buttons now select instead of dialing directly.
-        items.forEach((btn) => btn.addEventListener('click', (e) => e.preventDefault()));
+        items.forEach((btn) => {
+          btn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              selectButton(btn);
+            }
+          });
+        });
     </script>
 </body>
 </html>
