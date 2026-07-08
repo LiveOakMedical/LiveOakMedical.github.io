@@ -266,10 +266,12 @@
         justify-content: center;
         min-height: 240px;
       }
+        
       .info-panel {
         width: 100%;
         max-width: 340px;
       }
+        
       .info-placeholder {
         background: rgba(47, 74, 63, 0.85);
         color: #F5F1E8;
@@ -279,6 +281,7 @@
         font-size: 15px;
         line-height: 1.5;
       }
+        
       .info-card {
         background: #2F4A3F;
         color: #F5F1E8;
@@ -288,10 +291,12 @@
         text-align: center;
         animation: infoFadeIn 0.35s ease;
       }
+        
       @keyframes infoFadeIn {
         from { opacity: 0; transform: translateY(8px); }
         to   { opacity: 1; transform: translateY(0); }
       }
+        
       .info-title { color: #D4A857; font-size: 22px; margin-bottom: 8px; }
       .info-blurb { font-size: 14px; line-height: 1.5; margin-bottom: 16px; color: #E4DFD2; }
       .info-back {
@@ -474,7 +479,7 @@
         function resume() {
           selected = false;
           infoPanel.innerHTML =
-            '<p class="info-placeholder">Tap a button on the left to get in touch.</p>';
+            '<p class="info-placeholder"></p>';
         }
 
         /* ---- Press handling: a small move = click (select), a big move = drag ---- */
