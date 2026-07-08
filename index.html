@@ -19,6 +19,13 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            padding: 60px 30px;
+        }
+
+        #home > .grid-container {
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
         }
         
         #visit {
@@ -41,6 +48,7 @@
             background-color: #F5F1E8;
             padding: 0px 30px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 10;
         }
 
         .nav-logo {
@@ -160,21 +168,11 @@
             .nav-links li {
                 padding: 5px 0;
             }
-        }
-        .curved-image {
-          width: 100%;
-          height: auto;
-          border: 0px;
-          border-radius: 25px;
-          overflow: hidden; 
+            #home > .grid-container {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .curved-image iframe {
-            display: block;
-            width: 100%;
-            height: 450px;
-            border: 0;
-        }
         
         .grid-container {
           display: grid;
@@ -191,13 +189,27 @@
           border-radius: 5px; 
         }
         
-        .circle-img {
+        .circle-image {
             width: 30px;
             height: 30px;
             border-radius: 50%;
             object-fit: cover;
         }
         
+        .curved-image {
+          width: 100%;
+          height: auto;
+          border: 0px;
+          border-radius: 25px;
+          overflow: hidden; 
+        }
+
+        .curved-image iframe {
+            display: block;
+            width: 100%;
+            height: 450px;
+            border: 0;
+        }
         .unhighlightable {
           -webkit-user-select: none;
           user-select: none;
@@ -208,6 +220,7 @@
         perspective: 900px;      /* lower = more dramatic 3D; higher = flatter */
         width: 260px;
         height: 60px;
+        margin: 0 auto;
       }
     
       /* The ring that actually rotates */
@@ -238,8 +251,73 @@
         color: #F5F1E8;
         user-select: none;
       }
-      .carousel-btn.call { background: #7FA692; }
-      .carousel-btn.text { background: #C87D56; }
+      .carousel-btn.ryan { background: #7FA692; }
+      .carousel-btn.ida  { background: #C87D56; }
+
+      /* ---- Info panel shown in the right-hand grid ---- */
+      .info-column {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 240px;
+      }
+      .info-panel {
+        width: 100%;
+        max-width: 340px;
+      }
+      .info-placeholder {
+        background: rgba(47, 74, 63, 0.85);
+        color: #F5F1E8;
+        padding: 24px;
+        border-radius: 12px;
+        text-align: center;
+        font-size: 15px;
+        line-height: 1.5;
+      }
+      .info-card {
+        background: #2F4A3F;
+        color: #F5F1E8;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+        text-align: center;
+        animation: infoFadeIn 0.35s ease;
+      }
+      @keyframes infoFadeIn {
+        from { opacity: 0; transform: translateY(8px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      .info-title { color: #D4A857; font-size: 22px; margin-bottom: 8px; }
+      .info-blurb { font-size: 14px; line-height: 1.5; margin-bottom: 16px; color: #E4DFD2; }
+      .info-number { font-size: 24px; font-weight: bold; letter-spacing: 1px; margin-bottom: 16px; }
+      .info-action {
+        display: block;
+        padding: 12px 16px;
+        border-radius: 6px;
+        color: #F5F1E8;
+        text-decoration: none;
+        font-weight: bold;
+        margin-bottom: 12px;
+        transition: filter 0.2s ease;
+      }
+      .info-action:hover { filter: brightness(1.08); }
+      .info-action.ryan { background: #7FA692; }
+      .info-action.ida { background: #C87D56; }
+      .info-back {
+        background: transparent;
+        border: 1px solid rgba(245, 241, 232, 0.5);
+        color: #F5F1E8;
+        padding: 8px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.2s ease;
+      }
+      .info-back:hover { background: rgba(245, 241, 232, 0.12); }
+
+      @media (prefers-reduced-motion: reduce) {
+        .info-card { animation: none; }
+      }
     </style>
 </head>
 <body>
@@ -247,7 +325,7 @@
     <nav class="navbar">
         <div class="nav-logo unhighlightable">
             <a href="#home">
-                <img src="live_oak_logo.png" alt="Live Oak Logo" class="circle-img">
+                <img src="live_oak_logo.png" alt="Live Oak Logo" class="circle-image">
             </a>
             <a href="#home">Wang Family Medicine Clinic</a>
         </div>
@@ -282,19 +360,25 @@
             <div class="rotate-container">
               <div class="carousel-stage">
                 <div class="carousel" id="carousel">
-                  <a class="carousel-btn call" href="tel:+6264478000">☏ (626) 447-8000</a>
-                  <a class="carousel-btn text" href="tel:+6267757054">Text: (626) 775-7054</a>
+                    
+                  <div class="carousel-btn ryan" href="#!" data-key="ryan">
+                      <ul>
+                          <li><img src="doctor.png" alt="Dr Ryan Wang" class="curved-image"></li>
+                          <li>Ryan Wang DO</li>
+                      </ul>
+                  </div>
+                  <div class="carousel-btn ida" href="#!" data-key="ida">
+                      <ul>
+                          <li><img src="doctor.png" alt="Dr Ida Wang" class="curved-image"></li>
+                          <li>Ida Wang MD</li>
+                      </ul>
+                  </div>
                 </div>
               </div>
             </div>
-          <div>
-              <div class="grid-container">
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
+          <div class="info-column">
+              <div id="info-panel" class="info-panel">
+                  <p class="info-placeholder">Tap a button on the left to get in touch.</p>
               </div>
           </div>
         </div>
@@ -321,49 +405,122 @@
       </div>
     </section>
     <script>
-        const carousel = document.getElementById('carousel');
-        const items = carousel.querySelectorAll('.carousel-btn');
-        const radius = 160;
-        const theta  = 360 / items.length;
-        
-        let angle = 0;
-        let dragging = false;
-        let lastX = 0;
-        const autoSpeed = 0.3;
-        
+        const carousel   = document.getElementById('carousel');
+        const infoPanel  = document.getElementById('info-panel');
+        const items      = Array.from(carousel.querySelectorAll('.carousel-btn'));
+        const radius     = 160;
+        const theta      = 360 / items.length;
+        const autoSpeed  = 0.3;
+
+        // Content shown on the right when a button is selected
+        const info = {
+          ryan: {
+            title: 'Ryan Wang DO',
+            blurb: 'Speak directly with our front desk during office hours.',
+          },
+          ida: {
+            title: 'Ida Wang MD',
+            blurb: "Send us a quick message and we'll reply as soon as we can.",
+          }
+        };
+
+        let angle       = 0;   // current ring rotation
+        let targetAngle = 0;   // where we ease to when a button is selected
+        let selected    = false;
+        let dragging    = false;
+        let lastX       = 0;
+        let moved       = 0;   // total travel during a press (click vs drag)
+        let pressTarget = null;
+
         function render() {
-        carousel.style.transform = `translateZ(-${radius}px)`;
-        
-        items.forEach((item, i) => {
-          const itemAngle = i * theta + angle;
-          item.style.transform =
-            `rotateY(${itemAngle}deg) translateZ(${radius}px) rotateY(${-itemAngle}deg)`;
-        });
+          carousel.style.transform = `translateZ(-${radius}px)`;
+          items.forEach((item, i) => {
+            const itemAngle = i * theta + angle;
+            item.style.transform =
+              `rotateY(${itemAngle}deg) translateZ(${radius}px) rotateY(${-itemAngle}deg)`;
+          });
         }
-        
+
         function tick() {
-            if (!dragging) angle += autoSpeed;
-            render();
-            requestAnimationFrame(tick);
+          if (selected) {
+            // ease the selected button to the front and hold it there
+            angle += (targetAngle - angle) * 0.12;
+          } else if (!dragging) {
+            angle += autoSpeed;
+          }
+          render();
+          requestAnimationFrame(tick);
         }
         tick();
-        
-        carousel.addEventListener('mousedown', (e) => {
-            dragging = true;
-            lastX = e.clientX;
-            carousel.classList.add('dragging');
-            e.preventDefault();
-        });
-        window.addEventListener('mousemove', (e) => {
-            if (!dragging) return;
-            const dx = e.clientX - lastX;
-            lastX = e.clientX;
-            angle += dx * 0.5;
-        });
-        window.addEventListener('mouseup', () => {
-            dragging = false;
-            carousel.classList.remove('dragging');
-        });
+
+        function selectButton(btn) {
+          const data = info[btn.dataset.key];
+          if (!data) return;
+          const i = items.indexOf(btn);
+
+          // Angle that brings this button to face the viewer (itemAngle === 0),
+          // chosen along the shortest path from the current angle.
+          let target = -i * theta;
+          while (target - angle > 180)  target -= 360;
+          while (target - angle < -180) target += 360;
+
+          targetAngle = target;
+          selected = true;
+          showInfo(data);
+        }
+
+        function showInfo(data) {
+          infoPanel.innerHTML = `
+            <div class="info-card">
+              <h3 class="info-title">${data.title}</h3>
+              <p class="info-blurb">${data.blurb}</p>
+              <p class="info-number">${data.number}</p>
+              <a class="info-action ${data.cls}" href="${data.href}">${data.action}</a>
+              <button class="info-back" type="button">← Back to menu</button>
+            </div>
+          `;
+          infoPanel.querySelector('.info-back').addEventListener('click', resume);
+        }
+
+        function resume() {
+          selected = false;
+          infoPanel.innerHTML =
+            '<p class="info-placeholder">Tap a button on the left to get in touch.</p>';
+        }
+
+        /* ---- Press handling: a small move = click (select), a big move = drag ---- */
+        function startDrag(x, target) {
+          dragging = true;
+          lastX = x;
+          moved = 0;
+          pressTarget = target ? target.closest('.carousel-btn') : null;
+          carousel.classList.add('dragging');
+        }
+        function moveDrag(x) {
+          if (!dragging) return;
+          const dx = x - lastX;
+          lastX = x;
+          moved += Math.abs(dx);
+          if (!selected) angle += dx * 0.5;   // manual spin only while unlocked
+        }
+        function endDrag() {
+          if (!dragging) return;
+          dragging = false;
+          carousel.classList.remove('dragging');
+          if (moved < 6 && pressTarget) selectButton(pressTarget);
+          pressTarget = null;
+        }
+
+        carousel.addEventListener('mousedown', (e) => { startDrag(e.clientX, e.target); e.preventDefault(); });
+        window.addEventListener('mousemove', (e) => moveDrag(e.clientX));
+        window.addEventListener('mouseup', endDrag);
+
+        carousel.addEventListener('touchstart', (e) => startDrag(e.touches[0].clientX, e.target), { passive: true });
+        window.addEventListener('touchmove', (e) => { if (dragging) moveDrag(e.touches[0].clientX); }, { passive: true });
+        window.addEventListener('touchend', endDrag);
+
+        // The carousel buttons now select instead of dialing directly.
+        items.forEach((btn) => btn.addEventListener('click', (e) => e.preventDefault()));
     </script>
 </body>
 </html>
