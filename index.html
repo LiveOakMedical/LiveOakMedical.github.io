@@ -175,11 +175,12 @@
             background-color: #2F4A3F;
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
-        
+        /* Morph the three bars into an X when the menu is open */
         .nav-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
         .nav-toggle.open span:nth-child(2) { opacity: 0; }
         .nav-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
+        /* Responsive Design: collapse the tabs into a sliding dropdown on mobile */
         @media (max-width: 600px) {
             .navbar {
                 flex-wrap: wrap;
@@ -192,6 +193,7 @@
             #google_translate_element { order: 3; }
             .phone-links { order: 4; }
 
+            /* The tab list becomes a panel that slides down from under the navbar */
             .nav-links {
                 order: 5;
                 position: absolute;
@@ -278,30 +280,33 @@
           user-select: none;
         }
 
+      /* The stage provides the 3D perspective */
       .carousel-stage {
-        perspective: 900px;
+        perspective: 900px;      /* lower = more dramatic 3D; higher = flatter */
         width: 260px;
-        height: 260px; 
+        height: 260px;           /* tall enough to hold and center a profile card */
         margin: 0 auto;
       }
     
+      /* The ring that actually rotates */
       .carousel {
         position: relative;
         width: 100%;
         height: 100%;
-        transform-style: preserve-3d;
+        transform-style: preserve-3d;   /* lets children live in 3D space */
         cursor: grab;
       }
       .carousel.dragging { cursor: grabbing; }
     
+      /* Each profile card sits on the ring */
       .carousel-btn {
         position: absolute;
         left: 50%;
         top: 50%;
         width: 200px;
         height: 240px;
-        margin-left: -100px;
-        margin-top: -120px;
+        margin-left: -100px;   /* -width / 2  */
+        margin-top: -120px;    /* -height / 2 */
         display: flex;
         align-items: center;
         justify-content: center;
@@ -320,6 +325,7 @@
       .carousel-btn.ryan { background: #7FA692; }
       .carousel-btn.ida  { background: #C87D56; }
 
+      /* Circular headshot inside each card */
       .doctor-photo {
         width: 130px;
         height: 130px;
@@ -331,6 +337,17 @@
       .doctor-name {
         font-size: 18px;
         text-align: center;
+      }
+
+      /* "Select a Provider:" label over the hero image */
+      .home-heading {
+        max-width: 1000px;
+        margin: 0 auto 24px;
+        color: #F5F1E8;
+        font-size: 28px;
+        font-weight: bold;
+        letter-spacing: 0.3px;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
       }
 
       .info-column {
@@ -428,7 +445,7 @@
     </nav>
 
     <section id="home">
-        <div>Select a Provider:</div>
+        <div class="home-heading">Select a Provider:</div>
         <div class="grid-container">
             <div class="rotate-container">
               <div class="carousel-stage">
@@ -451,7 +468,7 @@
             </div>
           <div class="info-column">
               <div id="info-panel" class="info-panel">
-                  <p class="info-placeholder"></p>
+
               </div>
           </div>
         </div>
@@ -492,10 +509,12 @@
           setMenu(!navLinks.classList.contains('open'));
         });
 
+        // Tapping a tab closes the menu after navigating.
         navLinks.querySelectorAll('a').forEach((link) => {
           link.addEventListener('click', () => setMenu(false));
         });
 
+        // Reset the menu if the viewport grows back to desktop width.
         window.addEventListener('resize', () => {
           if (window.innerWidth > 600) setMenu(false);
         });
@@ -523,7 +542,7 @@
         };
 
         let angle       = 0;   // current ring rotation
-        let targetAngle = 0; 
+        let targetAngle = 0;   // where we ease to when a card is selected
         let selected    = false;
         let dragging    = false;
         let lastX       = 0;
@@ -541,6 +560,7 @@
 
         function tick() {
           if (selected) {
+            // ease the selected card to the front and hold it there
             angle += (targetAngle - angle) * 0.12;
           } else if (!dragging) {
             angle += autoSpeed;
@@ -555,6 +575,8 @@
           if (!data) return;
           const i = items.indexOf(btn);
 
+          // Angle that brings this card to face the viewer (itemAngle === 0),
+          // chosen along the shortest path from the current angle.
           let target = -i * theta;
           while (target - angle > 180)  target -= 360;
           while (target - angle < -180) target += 360;
@@ -577,10 +599,10 @@
 
         function resume() {
           selected = false;
-          infoPanel.innerHTML =
-            '<p class="info-placeholder"></p>';
+          infoPanel.innerHTML = '';
         }
 
+        /* ---- Press handling: a small move = click (select), a big move = drag ---- */
         function startDrag(x, target) {
           dragging = true;
           lastX = x;
@@ -593,7 +615,7 @@
           const dx = x - lastX;
           lastX = x;
           moved += Math.abs(dx);
-          if (!selected) angle += dx * 0.5; 
+          if (!selected) angle += dx * 0.5;   // manual spin only while unlocked
         }
         function endDrag() {
           if (!dragging) return;
@@ -611,6 +633,7 @@
         window.addEventListener('touchmove', (e) => { if (dragging) moveDrag(e.touches[0].clientX); }, { passive: true });
         window.addEventListener('touchend', endDrag);
 
+        // Keyboard: Enter or Space selects the focused card.
         items.forEach((btn) => {
           btn.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
