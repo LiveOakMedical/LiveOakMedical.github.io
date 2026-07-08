@@ -76,6 +76,8 @@
             position: relative;
             display: flex; 
         }
+
+
         
         .nav-links li::before {
             content: "";
@@ -152,19 +154,75 @@
             color: #D4A857;
         }
 
-        /* Responsive Design: Stack layout on mobile screens */
+        /* Hamburger toggle — hidden on desktop, shown on mobile */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 42px;
+            height: 42px;
+            padding: 9px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        .nav-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            border-radius: 2px;
+            background-color: #2F4A3F;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        
+        .nav-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .nav-toggle.open span:nth-child(2) { opacity: 0; }
+        .nav-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
         @media (max-width: 600px) {
             .navbar {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-            .nav-links {
-                flex-direction: column;
+                flex-wrap: wrap;
+                align-items: center;
                 gap: 10px;
+                padding: 10px 20px;
+            }
+            .nav-logo   { order: 1; flex: 1 1 auto; }
+            .nav-toggle { display: flex; order: 2; }
+            #google_translate_element { order: 3; }
+            .phone-links { order: 4; }
+
+            .nav-links {
+                order: 5;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 0;
+                background-color: #F5F1E8;
+                box-shadow: 0 8px 10px rgba(0,0,0,0.12);
+                border-top: 1px solid rgba(47,74,63,0.12);
+                overflow: hidden;
+                max-height: 0;                       /* closed */
+                transition: max-height 0.35s ease;
+                z-index: 20;
+            }
+            .nav-links.open {
+                max-height: 340px;                   /* open — enough for all tabs */
             }
             .nav-links li {
-                padding: 5px 0;
+                padding: 0;
+                width: 100%;
+            }
+            .nav-links li:not(:last-child) {
+                border-bottom: 1px solid rgba(47,74,63,0.08);
+            }
+            .nav-links a {
+                width: 100%;
+                padding: 16px 24px;
+                align-items: center;
+                justify-content: flex-start;
             }
             #home > .grid-container {
                 grid-template-columns: 1fr;
@@ -223,7 +281,7 @@
       .carousel-stage {
         perspective: 900px;
         width: 260px;
-        height: 260px;
+        height: 260px; 
         margin: 0 auto;
       }
     
@@ -235,6 +293,7 @@
         cursor: grab;
       }
       .carousel.dragging { cursor: grabbing; }
+    
       .carousel-btn {
         position: absolute;
         left: 50%;
@@ -261,7 +320,6 @@
       .carousel-btn.ryan { background: #7FA692; }
       .carousel-btn.ida  { background: #C87D56; }
 
-      /* Circular headshot inside each card */
       .doctor-photo {
         width: 130px;
         height: 130px;
@@ -332,6 +390,7 @@
     </style>
 </head>
 <body>
+    <!-- Semantic HTML5 Navigation Block -->
     <nav class="navbar">
         <div class="nav-logo unhighlightable">
             <a href="#home">
@@ -348,7 +407,10 @@
         }
         </script>
         <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-        <ul class="nav-links unhighlightable">
+        <button class="nav-toggle unhighlightable" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-nav">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links unhighlightable" id="primary-nav">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#services">Services</a></li>
@@ -366,21 +428,22 @@
     </nav>
 
     <section id="home">
-        <div>See our Providers:</div>
+        <div>Select a Provider:</div>
         <div class="grid-container">
             <div class="rotate-container">
               <div class="carousel-stage">
                 <div class="carousel" id="carousel">
+                    
                   <div class="carousel-btn ryan" role="button" tabindex="0" data-key="ryan">
                       <div class="grid-list">
                           <div><img src="doctor.png" alt="Dr Ryan Wang" class="doctor-photo"></div>
-                          <div class="doctor-name">Ryan Wang DO</div>
+                          <div class="doctor-name">Dr. Ryan Wang DO</div>
                       </div>
                   </div>
                   <div class="carousel-btn ida" role="button" tabindex="0" data-key="ida">
                       <div class="grid-list">
                           <div><img src="doctor.png" alt="Dr Ida Wang" class="doctor-photo"></div>
-                          <div class="doctor-name">Ida Wang MD</div>
+                          <div class="doctor-name">Dr. Ida Wang MD</div>
                       </div>
                   </div>
                 </div>
@@ -415,6 +478,30 @@
       </div>
     </section>
     <script>
+        /* ---- Mobile sliding dropdown menu ---- */
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks  = document.getElementById('primary-nav');
+
+        function setMenu(open) {
+          navLinks.classList.toggle('open', open);
+          navToggle.classList.toggle('open', open);
+          navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+
+        navToggle.addEventListener('click', () => {
+          setMenu(!navLinks.classList.contains('open'));
+        });
+
+        navLinks.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => setMenu(false));
+        });
+
+        window.addEventListener('resize', () => {
+          if (window.innerWidth > 600) setMenu(false);
+        });
+    </script>
+
+    <script>
         const carousel   = document.getElementById('carousel');
         const infoPanel  = document.getElementById('info-panel');
         const items      = Array.from(carousel.querySelectorAll('.carousel-btn'));
@@ -422,7 +509,8 @@
         const theta      = 360 / items.length;
         const autoSpeed  = 0.3;
 
-
+        // Content shown on the right when a provider is selected.
+        // TODO: replace the placeholder blurbs with real bios.
         const info = {
           ryan: {
             title: 'Dr. Ryan Wang DO',
@@ -430,16 +518,16 @@
           },
           ida: {
             title: 'Dr. Ida Wang MD',
-            blurb: 'Dr. Ida Wang provides comprehensive primary care with a special interest in women\'s health and geriatric medicine.',
+            blurb: 'Dr. Ida Wang provides comprehensive primary care with a special interest in women\'s health and pediatric medicine.',
           }
         };
 
-        let angle       = 0;
-        let targetAngle = 0;
+        let angle       = 0;   // current ring rotation
+        let targetAngle = 0; 
         let selected    = false;
         let dragging    = false;
         let lastX       = 0;
-        let moved       = 0;
+        let moved       = 0;   // total travel during a press (click vs drag)
         let pressTarget = null;
 
         function render() {
@@ -466,7 +554,7 @@
           const data = info[btn.dataset.key];
           if (!data) return;
           const i = items.indexOf(btn);
-            
+
           let target = -i * theta;
           while (target - angle > 180)  target -= 360;
           while (target - angle < -180) target += 360;
@@ -505,7 +593,7 @@
           const dx = x - lastX;
           lastX = x;
           moved += Math.abs(dx);
-          if (!selected) angle += dx * 0.5;
+          if (!selected) angle += dx * 0.5; 
         }
         function endDrag() {
           if (!dragging) return;
