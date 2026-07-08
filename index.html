@@ -189,6 +189,12 @@
           border-radius: 5px; 
         }
         
+        .grid-list {
+          display: grid;
+          grid-template-columns: 1fr;
+          row-gap: 10px;
+        }
+        
         .circle-image {
             width: 30px;
             height: 30px;
@@ -254,7 +260,6 @@
       .carousel-btn.ryan { background: #7FA692; }
       .carousel-btn.ida  { background: #C87D56; }
 
-      /* ---- Info panel shown in the right-hand grid ---- */
       .info-column {
         display: flex;
         align-items: center;
@@ -289,20 +294,6 @@
       }
       .info-title { color: #D4A857; font-size: 22px; margin-bottom: 8px; }
       .info-blurb { font-size: 14px; line-height: 1.5; margin-bottom: 16px; color: #E4DFD2; }
-      .info-number { font-size: 24px; font-weight: bold; letter-spacing: 1px; margin-bottom: 16px; }
-      .info-action {
-        display: block;
-        padding: 12px 16px;
-        border-radius: 6px;
-        color: #F5F1E8;
-        text-decoration: none;
-        font-weight: bold;
-        margin-bottom: 12px;
-        transition: filter 0.2s ease;
-      }
-      .info-action:hover { filter: brightness(1.08); }
-      .info-action.ryan { background: #7FA692; }
-      .info-action.ida { background: #C87D56; }
       .info-back {
         background: transparent;
         border: 1px solid rgba(245, 241, 232, 0.5);
@@ -362,16 +353,16 @@
                 <div class="carousel" id="carousel">
                     
                   <div class="carousel-btn ryan" href="#!" data-key="ryan">
-                      <ul>
-                          <li><img src="doctor.png" alt="Dr Ryan Wang" class="curved-image"></li>
-                          <li>Ryan Wang DO</li>
-                      </ul>
+                      <div class="grid-list">
+                          <div><img src="doctor.png" alt="Dr Ryan Wang" class="curved-image"></div>
+                          <div>Dr. Ryan Wang DO</div>
+                      </div>
                   </div>
                   <div class="carousel-btn ida" href="#!" data-key="ida">
-                      <ul>
-                          <li><img src="doctor.png" alt="Dr Ida Wang" class="curved-image"></li>
-                          <li>Ida Wang MD</li>
-                      </ul>
+                      <div class="grid-list">
+                          <div><img src="doctor.png" alt="Dr Ida Wang" class="curved-image"></div>
+                          <div>Dr. Ida Wang MD</div>
+                      </div>
                   </div>
                 </div>
               </div>
@@ -474,8 +465,6 @@
             <div class="info-card">
               <h3 class="info-title">${data.title}</h3>
               <p class="info-blurb">${data.blurb}</p>
-              <p class="info-number">${data.number}</p>
-              <a class="info-action ${data.cls}" href="${data.href}">${data.action}</a>
               <button class="info-back" type="button">← Back to menu</button>
             </div>
           `;
