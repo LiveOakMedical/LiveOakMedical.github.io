@@ -195,16 +195,46 @@
             width: 30px;
             height: 30px;
             border-radius: 50%;
-            object-fit: cover; /* Prevents distortion if the image isn't perfectly square */
-        }
-
-        .phone-links:hover{
-            
+            object-fit: cover;
         }
         
         .unhighlightable {
-          -webkit-user-select: none; /* Safari */
-          user-select: none;         /* Standard syntax */
+          -webkit-user-select: none;
+          user-select: none;
+        }
+
+
+        .rotate-container {
+          font-family: sans-serif;
+          font-size: 32px;
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+          height: 50px;
+          overflow: hidden;
+        }
+        
+        .words-wrapper {
+          display: inline-flex;
+          flex-direction: column;
+          height: 100%;
+          padding-left: 10px;
+          animation: slide-up 8s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+        }
+        
+        .words-wrapper b {
+          height: 100%;
+          display: flex;
+          align-items: center;
+          color: #0077ff;
+        }
+        
+        @keyframes slide-up {
+          0%, 20% { transform: translateY(0); }
+          25%, 45% { transform: translateY(-100%); }
+          50%, 70% { transform: translateY(-200%); }
+          75%, 95% { transform: translateY(-300%); }
+          100% { transform: translateY(0); }
         }
     </style>
 </head>
@@ -245,16 +275,15 @@
 
     <section id="home">
         <div class="grid-container">
-          <div>
-            <div class="grid-container">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div class="grid-item">5</div>
-              <div class="grid-item">6</div>
+            <div class="rotate-container">
+              <span>I am a </span>
+              <div class="words-wrapper">
+                <b>Developer</b>
+                <b>Designer</b>
+                <b>Creator</b>
+                <b>Freelancer</b>
+              </div>
             </div>
-          </div>
           <div>
               <div class="grid-container">
                   <div></div>
