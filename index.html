@@ -17,9 +17,10 @@
         #home{
             background-image: url('live_oak_front.jpg');
             background-repeat: no-repeat;
-            background-size: cover;
+            background-size: cover;            /* fills the box; a 16:9 box means no crop */
             background-position: center;
-            background-attachment: fixed;
+            background-color: #F5F1E8;         /* fallback before the image loads */
+            aspect-ratio: 16 / 9;              /* match the image's ratio */
             padding: 60px 30px;
         }
 
@@ -131,7 +132,7 @@
         .phone-btn {
             display: inline-flex;
             align-items: center;
-            padding: 5px 5px;
+            padding: 2px 5px;
             color: #F5F1E8;
             text-decoration: none;
             border-radius: 5px;
@@ -428,7 +429,7 @@
             <a href="#home">
                 <img src="WFM_logo_green.png" alt="WFM Logo">
             </a>
-            <a href="#home">Wang Family Medicine</a>
+            <a href="#home">Wang Family Medicine Clinic</a>
         </div>
         <div id="google_translate_element" style="
             display: flex;
