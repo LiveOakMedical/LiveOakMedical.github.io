@@ -343,11 +343,19 @@
       .home-heading {
         max-width: 1000px;
         margin: 0 auto 24px;
+      }
+      .home-heading span {
+        display: inline-block;
+        background: rgba(47, 74, 63, 0.65);   /* translucent brand-green chip */
+        -webkit-backdrop-filter: blur(2px);
+        backdrop-filter: blur(2px);
         color: #F5F1E8;
         font-size: 28px;
         font-weight: bold;
         letter-spacing: 0.3px;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+        padding: 8px 16px;
+        border-radius: 10px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
       }
 
       .info-column {
@@ -445,7 +453,7 @@
     </nav>
 
     <section id="home">
-        <div class="home-heading">Select a Provider:</div>
+        <div class="home-heading"><span>Select a Provider:</span></div>
         <div class="grid-container">
             <div class="rotate-container">
               <div class="carousel-stage">
