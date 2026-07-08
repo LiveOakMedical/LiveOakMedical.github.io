@@ -141,6 +141,11 @@
         
         .phone-btn-call { background-color: #7FA692; }
         .phone-btn-call:hover { background-color: #6B9080;}
+        .phone-links a.phone-btn-call {
+            padding-top: 6px;
+            padding-bottom: 6px;
+            margin-top: 10px;
+        }
         .phone-btn-text {
             background-color: #F5F1E8;
         }
@@ -159,6 +164,23 @@
         
         .nav-logo a:hover {
             color: #D4A857;
+        }
+
+        /* "Current Hours:" label sitting directly on top of the status text */
+        .hours-status {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            text-align: center;
+        }
+        .hours-label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #2F4A3F;
+            white-space: nowrap;
+            line-height: 1;
         }
 
         /* Open / Closed status badge (between the tabs and phone buttons) */
@@ -306,6 +328,12 @@
             height: 450px;
             border: 0;
         }
+
+        /* Breathing room to the right and bottom of the map */
+        #visit .curved-image {
+            margin-right: 30px;
+            margin-bottom: 30px;
+        }
         .unhighlightable {
           -webkit-user-select: none;
           user-select: none;
@@ -370,7 +398,6 @@
         text-align: center;
       }
 
-      /* "Select a Provider:" label over the hero image */
       .home-heading {
         max-width: 1000px;
         margin: 0 auto 24px;
@@ -440,11 +467,23 @@
       }
       .info-back:hover { background: rgba(245, 241, 232, 0.12); }
 
-      /* Services section + office-hours schedule */
       #services {
         padding: 60px 30px;
       }
       #services .services-grid {
+        max-width: 1000px;
+        margin: 0 auto;
+        align-items: start;
+      }
+
+      #about, #visit {
+        padding: 60px 30px;
+      }
+      #about .section-inner {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      #visit .visit-grid {
         max-width: 1000px;
         margin: 0 auto;
         align-items: start;
@@ -475,7 +514,6 @@
       .hours-list .day  { font-weight: bold; }
       .hours-list .time { color: #E4DFD2; }
       .hours-list li.closed .time { color: #C9A7A0; }
-      /* Highlight the current day */
       .hours-list li.today {
         background: rgba(212, 168, 87, 0.20);
         border-radius: 6px;
@@ -488,7 +526,6 @@
     </style>
 </head>
 <body>
-    <!-- Semantic HTML5 Navigation Block -->
     <nav class="navbar">
         <div class="nav-logo unhighlightable">
             <a href="#home">
@@ -515,8 +552,8 @@
             <li><a href="#visit">Visit Us</a></li>
             <li><a href="apply">Apply Now</a></li>
         </ul>
-        <div class="grid-list">
-            <div>Current Hours:</div>
+        <div class="hours-status">
+            <div class="hours-label">Current Hours:</div>
             <div class="status-badge" id="status-badge" aria-live="polite" title="Current clinic status">
                 <span class="status-dot" aria-hidden="true"></span>
                 <span class="status-text">Checking hours…</span>
@@ -562,8 +599,10 @@
         </div>
     </section>
     <section id="about">
-      <h2>About Us</h2>
-      <p>This is the target destination when clicking the About link.</p>
+      <div class="section-inner">
+        <h2>About Us</h2>
+        <p>This is the target destination when clicking the About link.</p>
+      </div>
     </section>
     
     <section id="services">
@@ -588,18 +627,17 @@
     </section>
     
     <section id="visit">
-      <h2>Visit Us</h2>
-      <div class="visit-us">
-          <div class="grid-container">
-              <div>Make an Appointment Today!</div>
-               <div class="curved-image">
-                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3302.252688688344!2d-118.03523014711642!3d34.13987680403843!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2dbc2cb4947e3%3A0xf532a8fbdf63d0a6!2s20%20E%20Huntington%20Dr%2C%20Arcadia%2C%20CA%2091006!5e0!3m2!1sen!2sus!4v1781736675621!5m2!1sen!2sus" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-              </div>
-          </div>
+      <div class="grid-container visit-grid">
+        <div class="visit-info">
+          <h2>Visit Us</h2>
+          <p>Make an Appointment Today!</p>
+        </div>
+        <div class="curved-image">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3302.252688688344!2d-118.03523014711642!3d34.13987680403843!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2dbc2cb4947e3%3A0xf532a8fbdf63d0a6!2s20%20E%20Huntington%20Dr%2C%20Arcadia%2C%20CA%2091006!5e0!3m2!1sen!2sus!4v1781736675621!5m2!1sen!2sus" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
       </div>
     </section>
     <script>
-        /* ---- Mobile sliding dropdown menu ---- */
         const navToggle = document.querySelector('.nav-toggle');
         const navLinks  = document.getElementById('primary-nav');
 
@@ -613,19 +651,16 @@
           setMenu(!navLinks.classList.contains('open'));
         });
 
-        // Tapping a tab closes the menu after navigating.
         navLinks.querySelectorAll('a').forEach((link) => {
           link.addEventListener('click', () => setMenu(false));
         });
 
-        // Reset the menu if the viewport grows back to desktop width.
         window.addEventListener('resize', () => {
           if (window.innerWidth > 600) setMenu(false);
         });
     </script>
 
     <script>
-        /* ---- Open / Closed status + "today" highlight ---- */
         // Ranges are minutes from midnight; keys match JS getDay() (0 = Sun … 6 = Sat).
         const OFFICE_HOURS = {
           0: [],                          // Sunday    — Closed
@@ -637,7 +672,6 @@
           6: []                           // Saturday  — Closed
         };
 
-        // Evaluate against the clinic's local time (Pacific), not the visitor's.
         function clinicNow() {
           const laString = new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
           return new Date(laString);
@@ -662,7 +696,7 @@
         }
 
         refreshStatus();
-        setInterval(refreshStatus, 60 * 1000);   // keep it current
+        setInterval(refreshStatus, 60 * 1000);
     </script>
 
     <script>
@@ -673,8 +707,6 @@
         const theta      = 360 / items.length;
         const autoSpeed  = 0.2;
 
-        // Content shown on the right when a provider is selected.
-        // TODO: replace the placeholder blurbs with real bios.
         const info = {
           ryan: {
             title: 'Dr. Ryan Wang DO',
@@ -691,7 +723,7 @@
         let selected    = false;
         let dragging    = false;
         let lastX       = 0;
-        let moved       = 0;   // total travel during a press (click vs drag)
+        let moved       = 0;
         let pressTarget = null;
 
         function render() {
@@ -705,7 +737,6 @@
 
         function tick() {
           if (selected) {
-            // ease the selected card to the front and hold it there
             angle += (targetAngle - angle) * 0.12;
           } else if (!dragging) {
             angle += autoSpeed;
@@ -720,8 +751,6 @@
           if (!data) return;
           const i = items.indexOf(btn);
 
-          // Angle that brings this card to face the viewer (itemAngle === 0),
-          // chosen along the shortest path from the current angle.
           let target = -i * theta;
           while (target - angle > 180)  target -= 360;
           while (target - angle < -180) target += 360;
@@ -747,7 +776,6 @@
           infoPanel.innerHTML = '';
         }
 
-        /* ---- Press handling: a small move = click (select), a big move = drag ---- */
         function startDrag(x, target) {
           dragging = true;
           lastX = x;
@@ -760,7 +788,7 @@
           const dx = x - lastX;
           lastX = x;
           moved += Math.abs(dx);
-          if (!selected) angle += dx * 0.5;   // manual spin only while unlocked
+          if (!selected) angle += dx * 0.5;
         }
         function endDrag() {
           if (!dragging) return;
