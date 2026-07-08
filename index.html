@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wang Family Medicine</title>
-    <link rel="icon" type="image/png" href="/WFM_favicon.png">
     <link rel="stylesheet" href="global.css">
     <style>
         /* Reset default browser margins and paddings */
@@ -21,6 +20,7 @@
             background-position: center;
             background-color: #F5F1E8;         /* fallback before the image loads */
             aspect-ratio: 16 / 9;              /* match the image's ratio */
+            max-width: 500px;
             padding: 60px 30px;
         }
 
@@ -162,6 +162,29 @@
             color: #D4A857;
         }
 
+        /* Open / Closed status badge (between the tabs and phone buttons) */
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 0 14px;
+            font-size: 14px;
+            font-weight: bold;
+            white-space: nowrap;
+            color: #2F4A3F;
+        }
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #9aa0a6;   /* neutral until evaluated */
+            flex: none;
+        }
+        .status-badge.open  .status-dot  { background: #6B9080; }
+        .status-badge.open  .status-text { color: #2F4A3F; }
+        .status-badge.closed .status-dot  { background: #C0654E; }
+        .status-badge.closed .status-text { color: #C0654E; }
+
         /* Hamburger toggle — hidden on desktop, shown on mobile */
         .nav-toggle {
             display: none;
@@ -198,12 +221,13 @@
             }
             .nav-logo   { order: 1; flex: 1 1 auto; }
             .nav-toggle { display: flex; order: 2; }
-            #google_translate_element { order: 3; }
-            .phone-links { order: 4; }
+            .status-badge { order: 3; }
+            #google_translate_element { order: 4; }
+            .phone-links { order: 5; }
 
             /* The tab list becomes a panel that slides down from under the navbar */
             .nav-links {
-                order: 5;
+                order: 6;
                 position: absolute;
                 top: 100%;
                 left: 0;
@@ -417,6 +441,48 @@
       }
       .info-back:hover { background: rgba(245, 241, 232, 0.12); }
 
+      /* Services section + office-hours schedule */
+      #services {
+        padding: 60px 30px;
+      }
+      #services .services-grid {
+        max-width: 1000px;
+        margin: 0 auto;
+        align-items: start;
+      }
+      .hours-card {
+        background: #2F4A3F;
+        color: #F5F1E8;
+        border-radius: 12px;
+        padding: 24px 28px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      }
+      .hours-title {
+        color: #D4A857;
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 16px;
+      }
+      .hours-list { list-style: none; }
+      .hours-list li {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 9px 8px;
+        font-size: 15px;
+        border-bottom: 1px solid rgba(245, 241, 232, 0.12);
+      }
+      .hours-list li:last-child { border-bottom: none; }
+      .hours-list .day  { font-weight: bold; }
+      .hours-list .time { color: #E4DFD2; }
+      .hours-list li.closed .time { color: #C9A7A0; }
+      /* Highlight the current day */
+      .hours-list li.today {
+        background: rgba(212, 168, 87, 0.20);
+        border-radius: 6px;
+      }
+      .hours-list li.today .time { color: #F5F1E8; }
+
       @media (prefers-reduced-motion: reduce) {
         .info-card { animation: none; }
       }
@@ -450,6 +516,10 @@
             <li><a href="#visit">Visit Us</a></li>
             <li><a href="apply">Apply Now</a></li>
         </ul>
+        <div class="status-badge" id="status-badge" aria-live="polite" title="Current clinic status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="status-text">Checking hours…</span>
+        </div>
         <ul class="phone-links">
             <li>
                 <a class="unhighlightable phone-btn phone-btn-call" href="tel:+6264478000">☏ (626) 447-8000</a>
@@ -495,8 +565,24 @@
     </section>
     
     <section id="services">
-      <h2>Services</h2>
-      <p>This is the target destination when clicking the Services link.</p>
+      <div class="grid-container services-grid">
+        <div class="services-info">
+          <h2>Services</h2>
+          <p>This is the target destination when clicking the Services link.</p>
+        </div>
+        <div class="hours-card">
+          <h3 class="hours-title">Office Hours</h3>
+          <ul class="hours-list">
+            <li data-day="1"><span class="day">Monday</span><span class="time">9 AM–1 PM, 2–6 PM</span></li>
+            <li data-day="2"><span class="day">Tuesday</span><span class="time">9 AM–1 PM, 2–6 PM</span></li>
+            <li data-day="3"><span class="day">Wednesday</span><span class="time">9 AM–1 PM</span></li>
+            <li data-day="4"><span class="day">Thursday</span><span class="time">9 AM–1 PM, 2–6 PM</span></li>
+            <li data-day="5"><span class="day">Friday</span><span class="time">9 AM–1 PM, 2–6 PM</span></li>
+            <li data-day="6" class="closed"><span class="day">Saturday</span><span class="time">Closed</span></li>
+            <li data-day="0" class="closed"><span class="day">Sunday</span><span class="time">Closed</span></li>
+          </ul>
+        </div>
+      </div>
     </section>
     
     <section id="visit">
@@ -534,6 +620,47 @@
         window.addEventListener('resize', () => {
           if (window.innerWidth > 600) setMenu(false);
         });
+    </script>
+
+    <script>
+        /* ---- Open / Closed status + "today" highlight ---- */
+        // Ranges are minutes from midnight; keys match JS getDay() (0 = Sun … 6 = Sat).
+        const OFFICE_HOURS = {
+          0: [],                          // Sunday    — Closed
+          1: [[540, 780], [840, 1080]],   // Monday    — 9–1, 2–6
+          2: [[540, 780], [840, 1080]],   // Tuesday   — 9–1, 2–6
+          3: [[540, 780]],                // Wednesday — 9–1
+          4: [[540, 780], [840, 1080]],   // Thursday  — 9–1, 2–6
+          5: [[540, 780], [840, 1080]],   // Friday    — 9–1, 2–6
+          6: []                           // Saturday  — Closed
+        };
+
+        // Evaluate against the clinic's local time (Pacific), not the visitor's.
+        function clinicNow() {
+          const laString = new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
+          return new Date(laString);
+        }
+
+        function refreshStatus() {
+          const now  = clinicNow();
+          const day  = now.getDay();
+          const mins = now.getHours() * 60 + now.getMinutes();
+          const open = (OFFICE_HOURS[day] || []).some(([start, end]) => mins >= start && mins < end);
+
+          const badge = document.getElementById('status-badge');
+          if (badge) {
+            badge.classList.toggle('open', open);
+            badge.classList.toggle('closed', !open);
+            badge.querySelector('.status-text').textContent = open ? 'Open now' : 'Closed';
+          }
+
+          document.querySelectorAll('.hours-list li').forEach((li) => {
+            li.classList.toggle('today', Number(li.dataset.day) === day);
+          });
+        }
+
+        refreshStatus();
+        setInterval(refreshStatus, 60 * 1000);   // keep it current
     </script>
 
     <script>
