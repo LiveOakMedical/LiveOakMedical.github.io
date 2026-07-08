@@ -64,10 +64,23 @@
 
         /* Navigation Links spacing */
         .nav-links li {
-            display: flex;
-            transition: background-image 0.3s ease;
+            position: relative;
         }
-
+        
+        .nav-links li::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(0deg, #D4A857 0%, #F5F1E8 33%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+        
+        .nav-links li:hover::before {
+            opacity: 1;
+        }
+        
         /* Hyperlink styles */
         .nav-links a {
             display: flex;
@@ -76,9 +89,10 @@
             color: #2F4A3F;
             text-decoration: none;
             font-size: 16px;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease;            
+            position: relative;
+            z-index: 1;
         }
-        
         .phone-links li {
             display: flex;
             transition: background-color 0.3s ease;
@@ -116,9 +130,6 @@
         .phone-btn-text { background-color: #C87D56; }
         .phone-btn-text:hover { background-color: #B06A46;}
         
-        .nav-links li:hover{
-            background-image: linear-gradient(0deg, #D4A857 0%, #F5F1E8 33%);
-        }
         /* Hover interaction effect */
         .nav-links a:hover {
             color: #D4A857;
