@@ -558,6 +558,32 @@
         transition: background-color 0.2s ease;
       }
       .info-back:hover { background: rgba(245, 241, 232, 0.12); }
+      .info-hint {
+        background: rgba(47, 74, 63, 0.85);
+        color: #F5F1E8;
+        padding: 26px 24px;
+        border-radius: 12px;
+        text-align: center;
+        font-size: 15px;
+        line-height: 1.5;
+        animation: infoFadeIn 0.35s ease;
+      }
+      .info-hint .hint-cursor {
+        display: block;
+        font-size: 30px;
+        margin-bottom: 10px;
+        animation: hintTap 1.6s ease-in-out infinite;
+      }
+      @keyframes hintTap {
+        0%, 100% { transform: translateX(0); }
+        30%      { transform: translateX(-9px); }
+        55%      { transform: translateX(2px); }
+      }
+      @keyframes providerInvite {
+        0%, 100% { box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+        50%      { box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 0 0 5px rgba(212,168,87,0.55); }
+      }
+      .carousel-btn.inviting { animation: providerInvite 2.1s ease-in-out infinite; }
       #services {
         padding: 60px 30px;
       }
@@ -703,6 +729,7 @@
       @media (prefers-reduced-motion: reduce) {
         .info-card { animation: none; }
         .announcement-track { animation: none; }
+        .info-hint, .info-hint .hint-cursor, .carousel-btn.inviting { animation: none; }
       }
     </style>
 </head>
@@ -946,8 +973,10 @@
             nav_home: 'Home', nav_about: 'About', nav_services: 'Services', nav_visit: 'Visit Us', nav_apply: 'Apply Now',
             current_hours: 'Current Hours:', status_checking: 'Checking hours…',
             status_open: 'Open', status_closed: 'Closed', status_holiday: 'On Holiday',
+            status_open_until: 'Open until {time}', status_closed_until: 'Closed until {time}',
+            status_closed_tomorrow: 'Closed until tomorrow', status_closed_until_day: 'Closed until {day}',
             call_now: 'Call Now', or: '-or-', text_label: 'Text',
-            our_providers: 'Our Providers:', info_back: '← Back to menu',
+            our_providers: 'Our Providers:', info_back: '← Back to menu', info_hint: 'Click a provider to see more information',
             blurb_ryan: 'Board-certified in family medicine, Dr. Ryan Wang focuses on preventive care and chronic disease management for patients of every age.',
             blurb_ida: "Dr. Ida Wang provides comprehensive primary care with a special interest in women's health and geriatric medicine.",
             about_title: 'About Us', about_body: 'This is the target destination when clicking the About link.',
@@ -971,8 +1000,10 @@
             nav_home: 'Inicio', nav_about: 'Nosotros', nav_services: 'Servicios', nav_visit: 'Visítenos', nav_apply: 'Solicitar ahora',
             current_hours: 'Horario actual:', status_checking: 'Verificando horario…',
             status_open: 'Abierto', status_closed: 'Cerrado', status_holiday: 'En festivo',
+            status_open_until: 'Abierto hasta las {time}', status_closed_until: 'Cerrado hasta las {time}',
+            status_closed_tomorrow: 'Cerrado hasta mañana', status_closed_until_day: 'Cerrado hasta el {day}',
             call_now: 'Llamar', or: '-o-', text_label: 'Mensaje',
-            our_providers: 'Nuestros médicos:', info_back: '← Volver al menú',
+            our_providers: 'Nuestros médicos:', info_back: '← Volver al menú', info_hint: 'Haga clic en un médico para ver más información',
             blurb_ryan: 'Certificado en medicina familiar, el Dr. Ryan Wang se enfoca en la atención preventiva y el manejo de enfermedades crónicas para pacientes de todas las edades.',
             blurb_ida: 'La Dra. Ida Wang ofrece atención primaria integral, con un interés especial en la salud de la mujer y la medicina geriátrica.',
             about_title: 'Sobre nosotros', about_body: 'Este es el destino al hacer clic en el enlace Nosotros.',
@@ -996,8 +1027,10 @@
             nav_home: '首页', nav_about: '关于我们', nav_services: '服务', nav_visit: '就诊信息', nav_apply: '立即申请',
             current_hours: '当前营业时间：', status_checking: '正在查询…',
             status_open: '营业中', status_closed: '已关闭', status_holiday: '假期休息',
+            status_open_until: '营业至{time}', status_closed_until: '休息至{time}',
+            status_closed_tomorrow: '休息至明天', status_closed_until_day: '休息至{day}',
             call_now: '致电', or: '或', text_label: '短信',
-            our_providers: '我们的医生：', info_back: '← 返回菜单',
+            our_providers: '我们的医生：', info_back: '← 返回菜单', info_hint: '点击医生查看更多信息',
             blurb_ryan: '王瑞恩医生是家庭医学认证医生，专注于各年龄段患者的预防保健和慢性病管理。',
             blurb_ida: '王伊达医生提供全面的初级保健服务，尤其专注于妇科健康和老年医学领域。',
             about_title: '关于我们', about_body: '点击"关于"链接后将跳转至此。',
@@ -1042,6 +1075,7 @@
           if (typeof refreshStatus === 'function') refreshStatus();
           if (typeof buildAnnouncement === 'function') buildAnnouncement();
           if (selected && selectedKey && typeof showInfo === 'function') showInfo(selectedKey);
+          else if (!selected && typeof showHint === 'function') showHint();
           const sel = document.getElementById('lang-select');
           if (sel && sel.value !== currentLang) sel.value = currentLang;
         }
@@ -1083,20 +1117,72 @@
           const day = String(d.getDate()).padStart(2, '0');
           return `${y}-${m}-${day}`;
         }
-        function refreshStatus() {
-          const t = translations[currentLang];
+        const DAY_KEYS = ['day_sun', 'day_mon', 'day_tue', 'day_wed', 'day_thu', 'day_fri', 'day_sat'];
+        function dayName(wd) {
+          return translations[currentLang][DAY_KEYS[wd]];
+        }
+        function formatTime(mins) {
+          const h = Math.floor(mins / 60);
+          const m = mins % 60;
+          if (currentLang === 'zh') {
+            const period = h < 12 ? '上午' : '下午';
+            let hh = h % 12; if (hh === 0) hh = 12;
+            return period + hh + '点' + (m ? m + '分' : '');
+          }
+          if (currentLang === 'es') {
+            return h + ':' + String(m).padStart(2, '0');
+          }
+          const period = h < 12 ? 'AM' : 'PM';
+          let hh = h % 12; if (hh === 0) hh = 12;
+          return m ? `${hh}:${String(m).padStart(2, '0')} ${period}` : `${hh} ${period}`;
+        }
+        // Work out the clinic's live status from the current time, the day's
+        // remaining hours, and the next upcoming open day (holidays skipped).
+        function computeStatus() {
           const now  = clinicNow();
           const day  = now.getDay();
           const mins = now.getHours() * 60 + now.getMinutes();
-          const holiday = HOLIDAYS.includes(dateKey(now));
-          const open = !holiday && (OFFICE_HOURS[day] || []).some(([start, end]) => mins >= start && mins < end);
+          const todayHoliday = HOLIDAYS.includes(dateKey(now));
+          const closedState = todayHoliday ? 'holiday' : 'closed';
+          if (!todayHoliday) {
+            for (const [start, end] of (OFFICE_HOURS[day] || [])) {
+              if (mins >= start && mins < end) return { state: 'open', kind: 'open_until', value: end };
+            }
+            for (const [start] of (OFFICE_HOURS[day] || [])) {
+              if (start > mins) return { state: closedState, kind: 'closed_until_time', value: start };
+            }
+          }
+          for (let offset = 1; offset <= 7; offset++) {
+            const d = new Date(now);
+            d.setDate(now.getDate() + offset);
+            if (HOLIDAYS.includes(dateKey(d))) continue;
+            if ((OFFICE_HOURS[d.getDay()] || []).length) {
+              if (offset === 1) return { state: closedState, kind: 'closed_tomorrow' };
+              return { state: closedState, kind: 'closed_until_day', value: d.getDay() };
+            }
+          }
+          return { state: closedState, kind: 'closed_generic' };
+        }
+        function statusText(res) {
+          const t = translations[currentLang];
+          switch (res.kind) {
+            case 'open_until':        return t.status_open_until.replace('{time}', formatTime(res.value));
+            case 'closed_until_time': return t.status_closed_until.replace('{time}', formatTime(res.value));
+            case 'closed_tomorrow':   return t.status_closed_tomorrow;
+            case 'closed_until_day':  return t.status_closed_until_day.replace('{day}', dayName(res.value));
+            default:                  return res.state === 'holiday' ? t.status_holiday : t.status_closed;
+          }
+        }
+        function refreshStatus() {
+          const now = clinicNow();
+          const day = now.getDay();
+          const res = computeStatus();
           const badge = document.getElementById('status-badge');
           if (badge) {
-            badge.classList.toggle('open', open);
-            badge.classList.toggle('closed', !open && !holiday);
-            badge.classList.toggle('holiday', holiday);
-            badge.querySelector('.status-text').textContent =
-              holiday ? t.status_holiday : (open ? t.status_open : t.status_closed);
+            badge.classList.toggle('open', res.state === 'open');
+            badge.classList.toggle('closed', res.state === 'closed');
+            badge.classList.toggle('holiday', res.state === 'holiday');
+            badge.querySelector('.status-text').textContent = statusText(res);
           }
           document.querySelectorAll('.hours-list li').forEach((li) => {
             li.classList.toggle('today', Number(li.dataset.day) === day);
@@ -1174,6 +1260,7 @@
         function selectButton(btn) {
           const key = btn.dataset.key;
           if (!PROVIDERS[key]) return;
+          items.forEach((b) => b.classList.remove('inviting'));
           const i = items.indexOf(btn);
           let target = -i * theta;
           while (target - angle > 180)  target -= 360;
@@ -1194,10 +1281,19 @@
           `;
           infoPanel.querySelector('.info-back').addEventListener('click', resume);
         }
+        function showHint() {
+          const t = translations[currentLang];
+          infoPanel.innerHTML = `
+            <div class="info-hint">
+              <span class="hint-cursor" aria-hidden="true">👈</span>
+              ${t.info_hint}
+            </div>
+          `;
+        }
         function resume() {
           selected = false;
           selectedKey = null;
-          infoPanel.innerHTML = '';
+          showHint();
         }
         function startDrag(x, target) {
           dragging = true;
@@ -1234,6 +1330,8 @@
             }
           });
         });
+        items.forEach((btn) => btn.classList.add('inviting'));
+        showHint();
     </script>
 </body>
 </html>
