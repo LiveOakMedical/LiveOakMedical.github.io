@@ -36,6 +36,11 @@
             background-color: #202124;
             color: #F5F1E8;
         }
+        #visit .visit-info a { color: #D4A857; }
+        
+        .visit-info.grid-container {
+          grid-template-columns: auto 1fr;
+        }
 
         body {
             font-family: 'Open Sans', sans-serif;
@@ -345,6 +350,7 @@
             margin-right: 30px;
             margin-bottom: 30px;
         }
+        
         .unhighlightable {
           -webkit-user-select: none;
           user-select: none;
@@ -639,7 +645,7 @@
     
     <section id="visit">
       <div class="grid-split visit-grid">
-        <div class="visit-info grid-container unhighlightable" style="grid-template-columns: auto 1fr;">
+        <div class="visit-info grid-container unhighlightable">
             <div><h2>Visit Us</h2></div>
             <div></div> 
             <div>⚑</div>
