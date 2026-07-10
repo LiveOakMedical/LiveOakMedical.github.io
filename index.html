@@ -88,21 +88,34 @@
             transition: color 0.3s ease;
             position: relative;
             z-index: 1;
-        }\
+        }
+        /* Keep the Call and Text groups together as one navbar item so
+           justify-content: space-between doesn't push them apart */
         .phone-group {
             display: flex;
             align-items: stretch;
         }
-
+        /* "-or-" divider: mirror the label+button stack so the text lands on
+           the button row. The hidden spacer occupies the same height a label
+           would, pushing "-or-" down to line up with the buttons. */
         .phone-group .phone-or {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            padding: 0 6px;     
-            color: #2F4A3F;     
+            padding: 0 6px;
+            color: #2F4A3F;
             font-size: 13px;
             font-weight: bold;
         }
-        
+        .phone-or .phone-or-spacer {
+            visibility: hidden;      /* invisible, but takes up a label's height */
+            font-size: 13px;
+            padding: 0 15px;
+        }
+        .phone-or .phone-or-text {
+            margin-top: 3px;         /* same offset the buttons use */
+            padding: 6px 0;          /* roughly match button height for centering */
+        }
         .phone-links li {
             display: flex;
             transition: background-color 0.3s ease;
@@ -143,8 +156,8 @@
         .phone-links a.phone-btn-call {
             padding-top: 6px;
             padding-bottom: 6px;
-            margin-top: 3px;
-            margin-bottom: 6px;
+            margin-top: 3px;   /* tighter gap below the "Call Now" label */
+            margin-bottom: 6px;   /* small space under the call button */
         }
         .phone-btn-text {
             background-color: #F5F1E8;
@@ -157,7 +170,7 @@
             color: #2F4A3F;
             padding: 2px 6px;
             font-size: 13px;
-            margin-top: 3px;
+            margin-top: 3px;   /* match the call button so their tops align */
         }
         /* Hover interaction effect */
         .nav-links a:hover {
@@ -226,7 +239,7 @@
             background-color: #2F4A3F;
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
-        
+        /* Morph the three bars into an X when the menu is open */
         .nav-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
         .nav-toggle.open span:nth-child(2) { opacity: 0; }
         .nav-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
@@ -622,7 +635,10 @@
                     <a class="unhighlightable phone-btn phone-btn-call" href="tel:+6264478000">☏ (626) 447-8000</a>
                 </li>
             </ul>
-            <div class="phone-or unhighlightable">-or-</div>
+            <div class="phone-or unhighlightable" aria-hidden="true">
+                <span class="phone-or-spacer">Text</span>
+                <span class="phone-or-text">-or-</span>
+            </div>
             <ul class="phone-links">       
                 <li class="phone-label unhighlightable">Text</li>
                 <li>
