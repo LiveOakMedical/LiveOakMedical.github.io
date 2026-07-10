@@ -554,7 +554,6 @@
         margin: 0 auto;
         align-items: start;
       }
-
       .services-heading {
         font-family: 'Roboto', sans-serif;
       }
@@ -571,7 +570,6 @@
         margin: 0 auto;
         align-items: start;
       }
-
       .about-heading{
         font-family: 'Roboto', sans-serif;
       }
@@ -606,7 +604,6 @@
         border-radius: 6px;
       }
       .hours-list li.today .time { color: #F5F1E8; }
-
       /* Scrolling announcement bar under the navbar */
       .announcement-bar {
         background: #2F4A3F;
@@ -634,7 +631,6 @@
         from { transform: translateX(0); }
         to   { transform: translateX(-50%); }
       }
-
       /* Site footer */
       .site-footer {
         background: #202124;
@@ -645,7 +641,6 @@
       }
       .site-footer a { color: #D4A857; text-decoration: none; }
       .site-footer a:hover { text-decoration: underline; }
-
       @media (prefers-reduced-motion: reduce) {
         .info-card { animation: none; }
         .announcement-track { animation: none; }
@@ -823,7 +818,6 @@
           5: [[540, 780], [840, 1080]],   // Friday    — 9–1, 2–6
           6: []                           // Saturday  — Closed
         };
-
         // Holiday closures. Add dates as 'YYYY-MM-DD' strings (clinic's local date).
         // On any date listed here the status shows "On Holiday" and the clinic
         // counts as closed regardless of the normal office hours above.
@@ -835,7 +829,6 @@
           '2026-12-25',   // Christmas
           '2027-01-01',   // New Year's Day
         ];
-
         function clinicNow() {
           const laString = new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
           return new Date(laString);
@@ -867,34 +860,46 @@
         }
         refreshStatus();
         setInterval(refreshStatus, 60 * 1000);
-
         const footerYear = document.getElementById('footer-year');
         if (footerYear) footerYear.textContent = new Date().getFullYear();
-
         // Announcement bar text. Edit ANNOUNCEMENT freely; holiday dates are
         // appended automatically from HOLIDAYS (only today's and future ones).
         const ANNOUNCEMENT =
           '📢 Now accepting new patients! &nbsp;•&nbsp; Flu shots available — walk-ins welcome. &nbsp;•&nbsp; Call <a href="tel:+6264478000">(626) 447-8000</a> to schedule.';
-
         function formatHoliday(key) {
           const [y, m, d] = key.split('-').map(Number);
           const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
           return `${months[m - 1]} ${d}`;
         }
-
         function buildAnnouncement() {
           const track = document.getElementById('announcement-track');
           if (!track) return;
+          const bar = track.parentElement;
           const todayKey = dateKey(clinicNow());
           const upcoming = HOLIDAYS.filter((h) => h >= todayKey).sort();
           let msg = ANNOUNCEMENT;
           if (upcoming.length) {
             msg += ' &nbsp;•&nbsp; 🎄 Holiday closures: ' + upcoming.map(formatHoliday).join(', ');
           }
-          track.innerHTML =
-            `<span>${msg}</span><span aria-hidden="true">${msg}</span>`;
+          const unit = `<span>${msg}</span>`;
+          track.style.animation = 'none';
+          track.innerHTML = unit;
+          let chunk = unit;
+          while (track.scrollWidth < bar.offsetWidth && track.children.length < 50) {
+            chunk += unit;
+            track.innerHTML = chunk;
+          }
+          const chunkWidth = track.scrollWidth;
+          track.innerHTML = chunk + chunk;
+          track.style.animation = '';
+          track.style.animationDuration = Math.max(chunkWidth / 60, 12) + 's';
         }
         buildAnnouncement();
+        let announcementTimer;
+        window.addEventListener('resize', () => {
+          clearTimeout(announcementTimer);
+          announcementTimer = setTimeout(buildAnnouncement, 200);
+        });
     </script>
     
     <!-- Carousel Script-->
