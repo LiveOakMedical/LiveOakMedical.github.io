@@ -10,7 +10,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Reset default browser margins and paddings */
         * {
             margin: 0;
             padding: 0;
@@ -21,10 +20,16 @@
             font-family: 'Open Sans', sans-serif;
             background-color: #F5F1E8;
         }
-        /* Navbar Layout styling */
-        .navbar {
+        
+        .site-header {
             position: sticky;
             top: 0;
+            z-index: 10;
+        }
+        
+        /* Navbar Layout styling */
+        .navbar {
+            position: relative;
             display: flex;
             justify-content: space-between;
             align-items: stretch;
@@ -53,11 +58,13 @@
             transition: color 0.3s ease;
             font-family: 'Roboto', sans-serif;
         }
+        
         /* Navigation List container */
         .nav-links {
             display: flex;
             list-style: none;
         }
+        
         /* Navigation Links spacing */
         .nav-links li {
             position: relative;
@@ -89,15 +96,12 @@
             position: relative;
             z-index: 1;
         }
-        /* Keep the Call and Text groups together as one navbar item so
-           justify-content: space-between doesn't push them apart */
+        
         .phone-group {
             display: flex;
             align-items: stretch;
         }
-        /* "-or-" divider: mirror the label+button stack so the text lands on
-           the button row. The hidden spacer occupies the same height a label
-           would, pushing "-or-" down to line up with the buttons. */
+        
         .phone-group .phone-or {
             display: flex;
             flex-direction: column;
@@ -108,13 +112,13 @@
             font-weight: bold;
         }
         .phone-or .phone-or-spacer {
-            visibility: hidden;      /* invisible, but takes up a label's height */
+            visibility: hidden;
             font-size: 13px;
             padding: 0 15px;
         }
         .phone-or .phone-or-text {
-            margin-top: 3px;         /* same offset the buttons use */
-            padding: 6px 0;          /* roughly match button height for centering */
+            margin-top: 3px;
+            padding: 6px 0;
         }
         .phone-links li {
             display: flex;
@@ -122,6 +126,7 @@
             align-items: center;
             justify-content: center;
         }
+        
         /* Hyperlink styles */
         .phone-links a {
             display: flex;
@@ -137,7 +142,7 @@
             font-weight: bold;
             font-size: 13px;
             padding: 0 15px;
-            justify-content: center;   /* center the label text horizontally */
+            justify-content: center;
         }
         
         .phone-btn {
@@ -156,8 +161,8 @@
         .phone-links a.phone-btn-call {
             padding-top: 6px;
             padding-bottom: 6px;
-            margin-top: 3px;   /* tighter gap below the "Call Now" label */
-            margin-bottom: 6px;   /* small space under the call button */
+            margin-top: 3px; 
+            margin-bottom: 6px;
         }
         .phone-btn-text {
             background-color: #F5F1E8;
@@ -170,8 +175,9 @@
             color: #2F4A3F;
             padding: 2px 6px;
             font-size: 13px;
-            margin-top: 3px;   /* match the call button so their tops align */
+            margin-top: 3px; 
         }
+        
         /* Hover interaction effect */
         .nav-links a:hover {
             color: #D4A857;
@@ -180,7 +186,7 @@
         .nav-logo a:hover {
             color: #D4A857;
         }
-        /* "Current Hours:" label sitting directly on top of the status text */
+        
         .hours-status {
             display: flex;
             flex-direction: column;
@@ -196,7 +202,8 @@
             white-space: nowrap;
             line-height: 1;
         }
-        /* Open / Closed status badge (between the tabs and phone buttons) */
+        
+        /* Open and Closed status badge (between the tabs and phone buttons) */
         .status-badge {
             display: flex;
             align-items: center;
@@ -207,17 +214,21 @@
             white-space: nowrap;
             color: #2F4A3F;
         }
+        
         .status-dot {
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: #9aa0a6;   /* neutral until evaluated */
+            background: #9aa0a6;
             flex: none;
         }
         .status-badge.open  .status-dot  { background: #6B9080; }
         .status-badge.open  .status-text { color: #2F4A3F; }
         .status-badge.closed .status-dot  { background: #C0654E; }
         .status-badge.closed .status-text { color: #C0654E; }
+        .status-badge.holiday .status-dot  { background: #D4A857; }
+        .status-badge.holiday .status-text { color: #D4A857; }
+        
         /* Hamburger toggle — hidden on desktop, shown on mobile */
         .nav-toggle {
             display: none;
@@ -239,6 +250,7 @@
             background-color: #2F4A3F;
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
+        
         /* Morph the three bars into an X when the menu is open */
         .nav-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
         .nav-toggle.open span:nth-child(2) { opacity: 0; }
@@ -275,7 +287,7 @@
           font-family: 'Roboto', sans-serif;
         }
         .visit-directions {
-          grid-column: 1 / -1;   /* span both columns so it sits full-width below */
+          grid-column: 1 / -1;
           margin-top: 16px;
         }
         #visit .visit-info a.directions-btn {
@@ -292,7 +304,6 @@
         }
         #visit .visit-info a.directions-btn:hover { background: #6B9080; }
         
-        /* Breathing room to the right and bottom of the map */
         #visit .curved-image {
             margin-right: 30px;
             margin-bottom: 30px;
@@ -311,7 +322,7 @@
             .status-badge { order: 3; }
             #google_translate_element { order: 4; }
             .phone-links { order: 5; }
-            /* The tab list becomes a panel that slides down from under the navbar */
+            
             .nav-links {
                 order: 6;
                 position: absolute;
@@ -324,13 +335,15 @@
                 box-shadow: 0 8px 10px rgba(0,0,0,0.12);
                 border-top: 1px solid rgba(47,74,63,0.12);
                 overflow: hidden;
-                max-height: 0;                       /* closed */
+                max-height: 0; 
                 transition: max-height 0.35s ease;
                 z-index: 20;
             }
+            
             .nav-links.open {
-                max-height: 340px;                   /* open — enough for all tabs */
+                max-height: 340px;
             }
+            
             .nav-links li {
                 padding: 0;
                 width: 100%;
@@ -401,36 +414,36 @@
         }
         
         .unhighlightable {
-          -webkit-user-select: none;
-          user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
+        
       /* The stage provides the 3D perspective */
-      .carousel-stage {
-        perspective: 900px;      /* lower = more dramatic 3D; higher = flatter */
-        width: 260px;
-        height: 260px;           /* tall enough to hold and center a profile card */
-        margin: 0 auto;
-      }
+        .carousel-stage {
+            perspective: 900px;      /* lower = more dramatic 3D; higher = flatter */
+            width: 260px;
+            height: 260px;
+            margin: 0 auto;
+        }
     
       /* The ring that actually rotates */
       .carousel {
         position: relative;
         width: 100%;
         height: 100%;
-        transform-style: preserve-3d;   /* lets children live in 3D space */
+        transform-style: preserve-3d;
         cursor: grab;
       }
       .carousel.dragging { cursor: grabbing; }
     
-      /* Each profile card sits on the ring */
       .carousel-btn {
         position: absolute;
         left: 50%;
         top: 50%;
         width: 200px;
         height: 240px;
-        margin-left: -100px;   /* -width / 2  */
-        margin-top: -120px;    /* -height / 2 */
+        margin-left: -100px;
+        margin-top: -120px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -442,13 +455,15 @@
         cursor: pointer;
         box-shadow: 0 8px 24px rgba(0,0,0,0.25);
       }
+        
       .carousel-btn:focus-visible {
         outline: 3px solid #D4A857;
         outline-offset: 3px;
       }
+        
       .carousel-btn.ryan { background: #7FA692; }
       .carousel-btn.ida  { background: #C87D56; }
-      /* Circular headshot inside each card */
+        
       .doctor-photo {
         width: 130px;
         height: 130px;
@@ -457,18 +472,21 @@
         display: block;
         border: 3px solid rgba(245, 241, 232, 0.6);
       }
+        
       .doctor-name {
         font-size: 18px;
         text-align: center;
       }
+        
       .home-heading {
         max-width: 1000px;
         margin: 0 auto 24px;
         font-family: 'Roboto', sans-serif;
       }
+        
       .home-heading span {
         display: inline-block;
-        background: rgba(47, 74, 63, 0.65);   /* translucent brand-green chip */
+        background: rgba(47, 74, 63, 0.65);
         -webkit-backdrop-filter: blur(2px);
         backdrop-filter: blur(2px);
         color: #F5F1E8;
@@ -589,12 +607,55 @@
         border-radius: 6px;
       }
       .hours-list li.today .time { color: #F5F1E8; }
+
+      /* Scrolling announcement bar under the navbar */
+      .announcement-bar {
+        background: #2F4A3F;
+        color: #F5F1E8;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 8px 0;
+        font-size: 14px;
+        font-weight: bold;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+      .announcement-track {
+        display: inline-block;
+        white-space: nowrap;
+        will-change: transform;
+        animation: announce-scroll 24s linear infinite;
+      }
+      .announcement-bar:hover .announcement-track {
+        animation-play-state: paused;
+      }
+      .announcement-track span { padding: 0 40px; }
+      .announcement-track a { color: #D4A857; text-decoration: underline; }
+        
+      @keyframes announce-scroll {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
+      }
+
+      /* Site footer */
+      .site-footer {
+        background: #202124;
+        color: #E4DFD2;
+        text-align: center;
+        padding: 28px 30px;
+        font-size: 14px;
+      }
+      .site-footer a { color: #D4A857; text-decoration: none; }
+      .site-footer a:hover { text-decoration: underline; }
+
       @media (prefers-reduced-motion: reduce) {
         .info-card { animation: none; }
+        .announcement-track { animation: none; }
       }
     </style>
 </head>
+    
 <body>
+    <div class="site-header">
     <nav class="navbar">
         <div class="nav-logo unhighlightable">
             <a href="#home">
@@ -647,6 +708,11 @@
             </ul>
         </div>
     </nav>
+    <div class="announcement-bar unhighlightable" role="status" aria-label="Announcements">
+        <div class="announcement-track" id="announcement-track"></div>
+    </div>
+    </div>
+    
     <section id="home">
         <div class="home-heading"><span>Our Providers:</span></div>
         <div class="grid-container">
@@ -722,6 +788,10 @@
         </div>
       </div>
     </section>
+    <footer class="site-footer">
+        <p>&copy; <span id="footer-year"></span> Wang Family Medicine. All rights reserved.</p>
+    </footer>
+    
     <!-- Nav mobile dropwdown script-->
     <script>
         const navToggle = document.querySelector('.nav-toggle');
@@ -741,7 +811,8 @@
           if (window.innerWidth > 600) setMenu(false);
         });
     </script>
-    <!-- Office Hours Script -->
+    
+    <!-- Office Hours and Announcement Bar Script -->
     <script>
         // Ranges are minutes from midnight; keys match JS getDay() (0 = Sun … 6 = Sat).
         const OFFICE_HOURS = {
@@ -753,20 +824,42 @@
           5: [[540, 780], [840, 1080]],   // Friday    — 9–1, 2–6
           6: []                           // Saturday  — Closed
         };
+
+        // Holiday closures. Add dates as 'YYYY-MM-DD' strings (clinic's local date).
+        // On any date listed here the status shows "On Holiday" and the clinic
+        // counts as closed regardless of the normal office hours above.
+        // These same dates also feed the scrolling announcement bar (upcoming only).
+        const HOLIDAYS = [
+          '2026-09-07',   // Labor Day
+          '2026-11-26',   // Thanksgiving
+          '2026-12-25',   // Christmas
+          '2027-01-01',   // New Year's Day
+        ];
+
         function clinicNow() {
           const laString = new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
           return new Date(laString);
+        }
+        // Format a Date as 'YYYY-MM-DD' to compare against the HOLIDAYS list.
+        function dateKey(d) {
+          const y = d.getFullYear();
+          const m = String(d.getMonth() + 1).padStart(2, '0');
+          const day = String(d.getDate()).padStart(2, '0');
+          return `${y}-${m}-${day}`;
         }
         function refreshStatus() {
           const now  = clinicNow();
           const day  = now.getDay();
           const mins = now.getHours() * 60 + now.getMinutes();
-          const open = (OFFICE_HOURS[day] || []).some(([start, end]) => mins >= start && mins < end);
+          const holiday = HOLIDAYS.includes(dateKey(now));
+          const open = !holiday && (OFFICE_HOURS[day] || []).some(([start, end]) => mins >= start && mins < end);
           const badge = document.getElementById('status-badge');
           if (badge) {
             badge.classList.toggle('open', open);
-            badge.classList.toggle('closed', !open);
-            badge.querySelector('.status-text').textContent = open ? 'Open' : 'Closed';
+            badge.classList.toggle('closed', !open && !holiday);
+            badge.classList.toggle('holiday', holiday);
+            badge.querySelector('.status-text').textContent =
+              holiday ? 'On Holiday' : (open ? 'Open' : 'Closed');
           }
           document.querySelectorAll('.hours-list li').forEach((li) => {
             li.classList.toggle('today', Number(li.dataset.day) === day);
@@ -774,7 +867,36 @@
         }
         refreshStatus();
         setInterval(refreshStatus, 60 * 1000);
+
+        const footerYear = document.getElementById('footer-year');
+        if (footerYear) footerYear.textContent = new Date().getFullYear();
+
+        // Announcement bar text. Edit ANNOUNCEMENT freely; holiday dates are
+        // appended automatically from HOLIDAYS (only today's and future ones).
+        const ANNOUNCEMENT =
+          '📢 Now accepting new patients! &nbsp;•&nbsp; Flu shots available — walk-ins welcome. &nbsp;•&nbsp; Call <a href="tel:+6264478000">(626) 447-8000</a> to schedule.';
+
+        function formatHoliday(key) {
+          const [y, m, d] = key.split('-').map(Number);
+          const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+          return `${months[m - 1]} ${d}`;
+        }
+
+        function buildAnnouncement() {
+          const track = document.getElementById('announcement-track');
+          if (!track) return;
+          const todayKey = dateKey(clinicNow());
+          const upcoming = HOLIDAYS.filter((h) => h >= todayKey).sort();
+          let msg = ANNOUNCEMENT;
+          if (upcoming.length) {
+            msg += ' &nbsp;•&nbsp; 🎄 Holiday closures: ' + upcoming.map(formatHoliday).join(', ');
+          }
+          track.innerHTML =
+            `<span>${msg}</span><span aria-hidden="true">${msg}</span>`;
+        }
+        buildAnnouncement();
     </script>
+    
     <!-- Carousel Script-->
     <script>
         const carousel   = document.getElementById('carousel');
@@ -870,7 +992,6 @@
         carousel.addEventListener('touchstart', (e) => startDrag(e.touches[0].clientX, e.target), { passive: true });
         window.addEventListener('touchmove', (e) => { if (dragging) moveDrag(e.touches[0].clientX); }, { passive: true });
         window.addEventListener('touchend', endDrag);
-        // Keyboard: Enter or Space selects the focused card.
         items.forEach((btn) => {
           btn.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
