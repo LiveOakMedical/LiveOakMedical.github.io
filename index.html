@@ -569,7 +569,54 @@
       .services-heading {
         font-family: 'Roboto', sans-serif;
       }
-        
+      .services-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin-top: 22px;
+      }
+      .service-card {
+        background: #FFFFFF;
+        border: 1px solid rgba(47, 74, 63, 0.12);
+        border-radius: 14px;
+        padding: 20px 16px;
+        text-align: center;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+      }
+      .service-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
+      }
+      .service-icon {
+        width: 54px;
+        height: 54px;
+        margin: 0 auto 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: rgba(127, 166, 146, 0.18);
+        color: #2F4A3F;
+      }
+      .service-icon svg {
+        width: 30px;
+        height: 30px;
+      }
+      .service-name {
+        font-family: 'Roboto', sans-serif;
+        color: #2F4A3F;
+        font-size: 17px;
+        margin-bottom: 7px;
+      }
+      .service-desc {
+        font-size: 13.5px;
+        line-height: 1.5;
+        color: #5A6B62;
+      }
+      @media (max-width: 600px) {
+        #services .services-grid { grid-template-columns: 1fr; }
+      }
       #about, #visit {
         padding: 60px 30px;
       }
@@ -667,7 +714,7 @@
             <a href="#home">
                 <img src="WFM_logo_green.png" alt="WFM Logo">
             </a>
-            <a href="#home">Wang <br>Family Medicine</a>
+            <a href="#home">Wang <br> Family Medicine</a>
         </div>
         <select id="lang-select" class="lang-select unhighlightable" aria-label="Language">
             <option value="en">English</option>
@@ -753,8 +800,79 @@
     <section id="services">
       <div class="grid-container services-grid">
         <div class="services-info">
-          <h2 class="services-heading unhighlightable" data-i18n="services_title">Services</h2>
-          <p data-i18n="services_body">This is the target destination when clicking the Services link.</p>
+          <h2 class="services-heading unhighlightable" data-i18n="services_title">Our Services</h2>
+          <div class="services-list">
+            <div class="service-card">
+              <div class="service-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 4h6a1 1 0 0 1 1 1a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1a1 1 0 0 1 1-1z"/>
+                  <path d="M8 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+                  <path d="M9 13l2 2 4-4"/>
+                </svg>
+              </div>
+              <h3 class="service-name" data-i18n="svc_checkups_t">Checkups</h3>
+              <p class="service-desc" data-i18n="svc_checkups_b">Annual visits and health screenings</p>
+            </div>
+            <div class="service-card">
+              <div class="service-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="2" x2="22" y2="6"/>
+                  <line x1="17" y1="5" x2="19" y2="7"/>
+                  <path d="M14.5 6.5L6 15l-1 4 4-1 8.5-8.5-3-3z"/>
+                  <line x1="11" y1="8" x2="13" y2="10"/>
+                  <line x1="8" y1="11" x2="10" y2="13"/>
+                  <line x1="3" y1="21" x2="6" y2="18"/>
+                </svg>
+              </div>
+              <h3 class="service-name" data-i18n="svc_vaccinations_t">Vaccinations</h3>
+              <p class="service-desc" data-i18n="svc_vaccinations_b">Routine and travel immunizations</p>
+            </div>
+            <div class="service-card">
+              <div class="service-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.8 5.6a5.5 5.5 0 0 0-7.8 0L12 6.6l-1-1a5.5 5.5 0 0 0-7.8 7.8L12 22l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/>
+                  <path d="M3.5 12.5h4l1.5-3 2 5 1.5-2h4"/>
+                </svg>
+              </div>
+              <h3 class="service-name" data-i18n="svc_adult_t">Adult Care</h3>
+              <p class="service-desc" data-i18n="svc_adult_b">Disease management and health planning</p>
+            </div>
+            <div class="service-card">
+              <div class="service-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="9" cy="4" r="2"/>
+                  <path d="M9 7c-1.7 0-3 1.3-3 3v4h2l.5 6h3l.5-6"/>
+                  <line x1="15" y1="8" x2="15" y2="22"/>
+                </svg>
+              </div>
+              <h3 class="service-name" data-i18n="svc_geriatric_t">Geriatric Care</h3>
+              <p class="service-desc" data-i18n="svc_geriatric_b">Wellness plans and personal care goals</p>
+            </div>
+            <div class="service-card">
+              <div class="service-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="5"/>
+                  <line x1="12" y1="13" x2="12" y2="22"/>
+                  <line x1="8.5" y1="18" x2="15.5" y2="18"/>
+                </svg>
+              </div>
+              <h3 class="service-name" data-i18n="svc_women_t">Women's Health</h3>
+              <p class="service-desc" data-i18n="svc_women_b">Preventative screenings and reproductive health services</p>
+            </div>
+            <div class="service-card">
+              <div class="service-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="12" rx="2"/>
+                  <line x1="8" y1="20" x2="16" y2="20"/>
+                  <line x1="12" y1="16" x2="12" y2="20"/>
+                  <line x1="12" y1="8" x2="12" y2="12"/>
+                  <line x1="10" y1="10" x2="14" y2="10"/>
+                </svg>
+              </div>
+              <h3 class="service-name" data-i18n="svc_telehealth_t">Telehealth</h3>
+              <p class="service-desc" data-i18n="svc_telehealth_b">Digital delivery of healthcare services and health education</p>
+            </div>
+          </div>
         </div>
         <div class="hours-card unhighlightable">
           <h3 class="hours-title" data-i18n="office_hours">Office Hours</h3>
@@ -830,7 +948,13 @@
             blurb_ryan: 'Board-certified in family medicine, Dr. Ryan Wang focuses on preventive care and chronic disease management for patients of every age.',
             blurb_ida: "Dr. Ida Wang provides comprehensive primary care with a special interest in women's health and geriatric medicine.",
             about_title: 'About Us', about_body: 'This is the target destination when clicking the About link.',
-            services_title: 'Services', services_body: 'This is the target destination when clicking the Services link.',
+            services_title: 'Our Services', services_body: 'This is the target destination when clicking the Services link.',
+            svc_checkups_t: 'Checkups', svc_checkups_b: 'Annual visits and health screenings',
+            svc_vaccinations_t: 'Vaccinations', svc_vaccinations_b: 'Routine and travel immunizations',
+            svc_adult_t: 'Adult Care', svc_adult_b: 'Disease management and health planning',
+            svc_geriatric_t: 'Geriatric Care', svc_geriatric_b: 'Wellness plans and personal care goals',
+            svc_women_t: "Women's Health", svc_women_b: 'Preventative screenings and reproductive health services',
+            svc_telehealth_t: 'Telehealth', svc_telehealth_b: 'Digital delivery of healthcare services and health education',
             office_hours: 'Office Hours',
             day_mon: 'Monday', day_tue: 'Tuesday', day_wed: 'Wednesday', day_thu: 'Thursday', day_fri: 'Friday', day_sat: 'Saturday', day_sun: 'Sunday',
             hours_full: '9 AM–1 PM, 2–6 PM', hours_half: '9 AM–1 PM', closed: 'Closed',
@@ -849,7 +973,13 @@
             blurb_ryan: 'Certificado en medicina familiar, el Dr. Ryan Wang se enfoca en la atención preventiva y el manejo de enfermedades crónicas para pacientes de todas las edades.',
             blurb_ida: 'La Dra. Ida Wang ofrece atención primaria integral, con un interés especial en la salud de la mujer y la medicina geriátrica.',
             about_title: 'Sobre nosotros', about_body: 'Este es el destino al hacer clic en el enlace Nosotros.',
-            services_title: 'Servicios', services_body: 'Este es el destino al hacer clic en el enlace Servicios.',
+            services_title: 'Nuestros Servicios', services_body: 'Este es el destino al hacer clic en el enlace Servicios.',
+            svc_checkups_t: 'Chequeos', svc_checkups_b: 'Visitas anuales y exámenes de salud',
+            svc_vaccinations_t: 'Vacunas', svc_vaccinations_b: 'Inmunizaciones de rutina y de viaje',
+            svc_adult_t: 'Atención para adultos', svc_adult_b: 'Manejo de enfermedades y planificación de la salud',
+            svc_geriatric_t: 'Atención geriátrica', svc_geriatric_b: 'Planes de bienestar y objetivos de cuidado personal',
+            svc_women_t: 'Salud de la mujer', svc_women_b: 'Exámenes preventivos y servicios de salud reproductiva',
+            svc_telehealth_t: 'Telemedicina', svc_telehealth_b: 'Prestación digital de servicios de salud y educación sanitaria',
             office_hours: 'Horario de atención',
             day_mon: 'Lunes', day_tue: 'Martes', day_wed: 'Miércoles', day_thu: 'Jueves', day_fri: 'Viernes', day_sat: 'Sábado', day_sun: 'Domingo',
             hours_full: '9:00–13:00, 14:00–18:00', hours_half: '9:00–13:00', closed: 'Cerrado',
@@ -868,7 +998,13 @@
             blurb_ryan: '王瑞恩医生是家庭医学认证医生，专注于各年龄段患者的预防保健和慢性病管理。',
             blurb_ida: '王伊达医生提供全面的初级保健服务，尤其专注于妇科健康和老年医学领域。',
             about_title: '关于我们', about_body: '点击"关于"链接后将跳转至此。',
-            services_title: '服务', services_body: '点击"服务"链接后将跳转至此。',
+            services_title: '我们的服务', services_body: '点击"服务"链接后将跳转至此。',
+            svc_checkups_t: '健康检查', svc_checkups_b: '年度就诊和健康筛查',
+            svc_vaccinations_t: '疫苗接种', svc_vaccinations_b: '常规和旅行免疫接种',
+            svc_adult_t: '成人护理', svc_adult_b: '疾病管理和健康规划',
+            svc_geriatric_t: '老年护理', svc_geriatric_b: '健康计划和个人护理目标',
+            svc_women_t: '妇女健康', svc_women_b: '预防性筛查和生殖健康服务',
+            svc_telehealth_t: '远程医疗', svc_telehealth_b: '数字化医疗服务和健康教育',
             office_hours: '营业时间',
             day_mon: '星期一', day_tue: '星期二', day_wed: '星期三', day_thu: '星期四', day_fri: '星期五', day_sat: '星期六', day_sun: '星期日',
             hours_full: '上午9点–下午1点，下午2点–6点', hours_half: '上午9点–下午1点', closed: '休息',
