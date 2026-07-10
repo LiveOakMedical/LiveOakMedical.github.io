@@ -16,37 +16,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-
-        #home{
-            background-image: url('WFM_back.jpg');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-            background-color: #F5F1E8;
-            padding: 60px 30px;
-        }
-
-        #home > .grid-container {
-            align-items: center;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
         
-        #visit {
-            background-color: #202124;
-            color: #F5F1E8;
-        }
-        #visit .visit-info a { color: #D4A857; }
-        
-        .visit-info.grid-container {
-          grid-template-columns: auto 1fr;
-          column-gap: 10px;
-          align-items: center;
-        }
-        .visit-heading {
-          grid-column: 1 / -1;
-        }
-
         body {
             font-family: 'Open Sans', sans-serif;
             background-color: #F5F1E8;
@@ -98,8 +68,6 @@
             display: flex; 
         }
 
-
-        
         .nav-links li::before {
             content: "";
             position: absolute;
@@ -247,6 +215,62 @@
         .nav-toggle.open span:nth-child(2) { opacity: 0; }
         .nav-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
+        
+        #home{
+            background-image: url('WFM_back.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-color: #F5F1E8;
+            padding: 60px 30px;
+        }
+
+        #home > .grid-container {
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        #visit {
+            background-color: #202124;
+            color: #F5F1E8;
+        }
+        #visit .visit-info a { color: #D4A857; }
+        
+        .visit-info.grid-container {
+          grid-template-columns: auto 1fr;
+          column-gap: 10px;
+          align-items: center;
+        }
+        
+        .visit-heading {
+          grid-column: 1 / -1;
+        }
+
+        .visit-directions {
+          grid-column: 1 / -1;   /* span both columns so it sits full-width below */
+          margin-top: 16px;
+        }
+        #visit .visit-info a.directions-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: #7FA692;
+          color: #F5F1E8;
+          padding: 10px 18px;
+          border-radius: 8px;
+          font-weight: bold;
+          text-decoration: none;
+          transition: background-color 0.3s ease;
+        }
+        #visit .visit-info a.directions-btn:hover { background: #6B9080; }
+        
+        /* Breathing room to the right and bottom of the map */
+        #visit .curved-image {
+            margin-right: 30px;
+            margin-bottom: 30px;
+        }
+        
         /* Responsive Design: collapse the tabs into a sliding dropdown on mobile */
         @media (max-width: 600px) {
             .navbar {
@@ -350,12 +374,6 @@
             width: 100%;
             height: 450px;
             border: 0;
-        }
-
-        /* Breathing room to the right and bottom of the map */
-        #visit .curved-image {
-            margin-right: 30px;
-            margin-bottom: 30px;
         }
         
         .unhighlightable {
@@ -663,6 +681,9 @@
             <div><a class="unhighlightable" href="tel:+6264478000">(626) 447-8000</a></div>
             <div>🗨:</div>
             <div><a class="unhighlightable" href="tel:+6267757054">(626) 775-7054</a></div>
+            <div class="visit-directions">
+                <a class="directions-btn" href="https://www.google.com/maps/dir/?api=1&destination=20+E+Huntington+Dr,+Arcadia,+CA+91006" target="_blank" rel="noopener">➤ Get Directions</a>
+            </div>
         </div>
         <div class="curved-image">
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3302.252688688344!2d-118.03523014711642!3d34.13987680403843!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2dbc2cb4947e3%3A0xf532a8fbdf63d0a6!2s20%20E%20Huntington%20Dr%2C%20Arcadia%2C%20CA%2091006!5e0!3m2!1sen!2sus!4v1781736675621!5m2!1sen!2sus" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
