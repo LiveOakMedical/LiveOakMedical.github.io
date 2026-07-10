@@ -88,13 +88,21 @@
             transition: color 0.3s ease;
             position: relative;
             z-index: 1;
-        }
-        /* Keep the Call and Text groups together as one navbar item so
-           justify-content: space-between doesn't push them apart */
+        }\
         .phone-group {
             display: flex;
             align-items: stretch;
         }
+
+        .phone-group .phone-or {
+            display: flex;
+            align-items: center;
+            padding: 0 6px;     
+            color: #2F4A3F;     
+            font-size: 13px;
+            font-weight: bold;
+        }
+        
         .phone-links li {
             display: flex;
             transition: background-color 0.3s ease;
@@ -614,7 +622,7 @@
                     <a class="unhighlightable phone-btn phone-btn-call" href="tel:+6264478000">☏ (626) 447-8000</a>
                 </li>
             </ul>
-            <div>-or-</div>
+            <div class="phone-or unhighlightable">-or-</div>
             <ul class="phone-links">       
                 <li class="phone-label unhighlightable">Text</li>
                 <li>
