@@ -21,7 +21,6 @@
             font-family: 'Open Sans', sans-serif;
             background-color: #F5F1E8;
         }
-
         /* Navbar Layout styling */
         .navbar {
             position: sticky;
@@ -34,7 +33,6 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             z-index: 10;
         }
-
         .nav-logo {
             display: flex;
             align-items: center;
@@ -55,19 +53,16 @@
             transition: color 0.3s ease;
             font-family: 'Roboto', sans-serif;
         }
-
         /* Navigation List container */
         .nav-links {
             display: flex;
             list-style: none;
         }
-
         /* Navigation Links spacing */
         .nav-links li {
             position: relative;
             display: flex; 
         }
-
         .nav-links li::before {
             content: "";
             position: absolute;
@@ -99,7 +94,6 @@
             transition: background-color 0.3s ease;
             align-items: center;
         }
-
         /* Hyperlink styles */
         .phone-links a {
             display: flex;
@@ -115,6 +109,7 @@
             font-weight: bold;
             font-size: 13px;
             padding: 0 15px;
+            justify-content: center;   /* center the label text horizontally */
         }
         
         .phone-btn {
@@ -133,7 +128,7 @@
         .phone-links a.phone-btn-call {
             padding-top: 6px;
             padding-bottom: 6px;
-            margin-top: 10px;
+            margin-top: 3px;   /* tighter gap below the "Call Now" label */
         }
         .phone-btn-text {
             background-color: #F5F1E8;
@@ -155,7 +150,6 @@
         .nav-logo a:hover {
             color: #D4A857;
         }
-
         /* "Current Hours:" label sitting directly on top of the status text */
         .hours-status {
             display: flex;
@@ -172,7 +166,6 @@
             white-space: nowrap;
             line-height: 1;
         }
-
         /* Open / Closed status badge (between the tabs and phone buttons) */
         .status-badge {
             display: flex;
@@ -195,7 +188,6 @@
         .status-badge.open  .status-text { color: #2F4A3F; }
         .status-badge.closed .status-dot  { background: #C0654E; }
         .status-badge.closed .status-text { color: #C0654E; }
-
         /* Hamburger toggle — hidden on desktop, shown on mobile */
         .nav-toggle {
             display: none;
@@ -221,7 +213,6 @@
         .nav-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
         .nav-toggle.open span:nth-child(2) { opacity: 0; }
         .nav-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
         
         #home{
             background-image: url('WFM_back.jpg');
@@ -231,7 +222,6 @@
             background-color: #F5F1E8;
             padding: 60px 30px;
         }
-
         #home > .grid-container {
             align-items: center;
             max-width: 1000px;
@@ -253,7 +243,6 @@
         .visit-heading {
           grid-column: 1 / -1;
         }
-
         .visit-directions {
           grid-column: 1 / -1;   /* span both columns so it sits full-width below */
           margin-top: 16px;
@@ -291,7 +280,6 @@
             .status-badge { order: 3; }
             #google_translate_element { order: 4; }
             .phone-links { order: 5; }
-
             /* The tab list becomes a panel that slides down from under the navbar */
             .nav-links {
                 order: 6;
@@ -331,7 +319,6 @@
             .grid-split { grid-template-columns: 1fr; }
             #visit .curved-image { margin-right: 0; }
         }
-
         
         .grid-container {
           display: grid;
@@ -375,7 +362,6 @@
           border-radius: 25px;
           overflow: hidden; 
         }
-
         .curved-image iframe {
             display: block;
             width: 100%;
@@ -387,7 +373,6 @@
           -webkit-user-select: none;
           user-select: none;
         }
-
       /* The stage provides the 3D perspective */
       .carousel-stage {
         perspective: 900px;      /* lower = more dramatic 3D; higher = flatter */
@@ -432,7 +417,6 @@
       }
       .carousel-btn.ryan { background: #7FA692; }
       .carousel-btn.ida  { background: #C87D56; }
-
       /* Circular headshot inside each card */
       .doctor-photo {
         width: 130px;
@@ -446,7 +430,6 @@
         font-size: 18px;
         text-align: center;
       }
-
       .home-heading {
         max-width: 1000px;
         margin: 0 auto 24px;
@@ -464,7 +447,6 @@
         border-radius: 10px;
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
       }
-
       .info-column {
         display: flex;
         align-items: center;
@@ -515,7 +497,6 @@
         transition: background-color 0.2s ease;
       }
       .info-back:hover { background: rgba(245, 241, 232, 0.12); }
-
       #services {
         padding: 60px 30px;
       }
@@ -524,7 +505,6 @@
         margin: 0 auto;
         align-items: start;
       }
-
       #about, #visit {
         padding: 60px 30px;
       }
@@ -568,7 +548,6 @@
         border-radius: 6px;
       }
       .hours-list li.today .time { color: #F5F1E8; }
-
       @media (prefers-reduced-motion: reduce) {
         .info-card { animation: none; }
       }
@@ -618,7 +597,6 @@
             </li>
         </ul>
     </nav>
-
     <section id="home">
         <div class="home-heading"><span>Our Providers:</span></div>
         <div class="grid-container">
@@ -643,7 +621,6 @@
             </div>
           <div class="info-column">
               <div id="info-panel" class="info-panel">
-
               </div>
           </div>
         </div>
@@ -695,31 +672,25 @@
         </div>
       </div>
     </section>
-
     <!-- Nav mobile dropwdown script-->
     <script>
         const navToggle = document.querySelector('.nav-toggle');
         const navLinks  = document.getElementById('primary-nav');
-
         function setMenu(open) {
           navLinks.classList.toggle('open', open);
           navToggle.classList.toggle('open', open);
           navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         }
-
         navToggle.addEventListener('click', () => {
           setMenu(!navLinks.classList.contains('open'));
         });
-
         navLinks.querySelectorAll('a').forEach((link) => {
           link.addEventListener('click', () => setMenu(false));
         });
-
         window.addEventListener('resize', () => {
           if (window.innerWidth > 600) setMenu(false);
         });
     </script>
-
     <!-- Office Hours Script -->
     <script>
         // Ranges are minutes from midnight; keys match JS getDay() (0 = Sun … 6 = Sat).
@@ -732,34 +703,28 @@
           5: [[540, 780], [840, 1080]],   // Friday    — 9–1, 2–6
           6: []                           // Saturday  — Closed
         };
-
         function clinicNow() {
           const laString = new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
           return new Date(laString);
         }
-
         function refreshStatus() {
           const now  = clinicNow();
           const day  = now.getDay();
           const mins = now.getHours() * 60 + now.getMinutes();
           const open = (OFFICE_HOURS[day] || []).some(([start, end]) => mins >= start && mins < end);
-
           const badge = document.getElementById('status-badge');
           if (badge) {
             badge.classList.toggle('open', open);
             badge.classList.toggle('closed', !open);
             badge.querySelector('.status-text').textContent = open ? 'Open' : 'Closed';
           }
-
           document.querySelectorAll('.hours-list li').forEach((li) => {
             li.classList.toggle('today', Number(li.dataset.day) === day);
           });
         }
-
         refreshStatus();
         setInterval(refreshStatus, 60 * 1000);
     </script>
-
     <!-- Carousel Script-->
     <script>
         const carousel   = document.getElementById('carousel');
@@ -768,7 +733,6 @@
         const radius     = 160;
         const theta      = 360 / items.length;
         const autoSpeed  = 0.2;
-
         const info = {
           ryan: {
             title: 'Dr. Ryan Wang DO',
@@ -779,7 +743,6 @@
             blurb: 'Dr. Ida Wang provides comprehensive primary care with a special interest in women\'s health and pediatric medicine.',
           }
         };
-
         let angle       = 0;   // current ring rotation
         let targetAngle = 0;   // where we ease to when a card is selected
         let selected    = false;
@@ -787,7 +750,6 @@
         let lastX       = 0;
         let moved       = 0;
         let pressTarget = null;
-
         function render() {
           carousel.style.transform = `translateZ(-${radius}px)`;
           items.forEach((item, i) => {
@@ -796,7 +758,6 @@
               `rotateY(${itemAngle}deg) translateZ(${radius}px) rotateY(${-itemAngle}deg)`;
           });
         }
-
         function tick() {
           if (selected) {
             angle += (targetAngle - angle) * 0.12;
@@ -807,21 +768,17 @@
           requestAnimationFrame(tick);
         }
         tick();
-
         function selectButton(btn) {
           const data = info[btn.dataset.key];
           if (!data) return;
           const i = items.indexOf(btn);
-
           let target = -i * theta;
           while (target - angle > 180)  target -= 360;
           while (target - angle < -180) target += 360;
-
           targetAngle = target;
           selected = true;
           showInfo(data);
         }
-
         function showInfo(data) {
           infoPanel.innerHTML = `
             <div class="info-card">
@@ -832,12 +789,10 @@
           `;
           infoPanel.querySelector('.info-back').addEventListener('click', resume);
         }
-
         function resume() {
           selected = false;
           infoPanel.innerHTML = '';
         }
-
         function startDrag(x, target) {
           dragging = true;
           lastX = x;
@@ -859,15 +814,12 @@
           if (moved < 6 && pressTarget) selectButton(pressTarget);
           pressTarget = null;
         }
-
         carousel.addEventListener('mousedown', (e) => { startDrag(e.clientX, e.target); e.preventDefault(); });
         window.addEventListener('mousemove', (e) => moveDrag(e.clientX));
         window.addEventListener('mouseup', endDrag);
-
         carousel.addEventListener('touchstart', (e) => startDrag(e.touches[0].clientX, e.target), { passive: true });
         window.addEventListener('touchmove', (e) => { if (dragging) moveDrag(e.touches[0].clientX); }, { passive: true });
         window.addEventListener('touchend', endDrag);
-
         // Keyboard: Enter or Space selects the focused card.
         items.forEach((btn) => {
           btn.addEventListener('keydown', (e) => {
