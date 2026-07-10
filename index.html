@@ -223,6 +223,7 @@
             background-position: center;
             background-color: #F5F1E8;
             padding: 60px 30px;
+            font-family: 'Roboto', sans-serif;
         }
         #home > .grid-container {
             align-items: center;
@@ -244,6 +245,7 @@
         
         .visit-heading {
           grid-column: 1 / -1;
+          font-family: 'Roboto', sans-serif;
         }
         .visit-directions {
           grid-column: 1 / -1;   /* span both columns so it sits full-width below */
@@ -435,6 +437,7 @@
       .home-heading {
         max-width: 1000px;
         margin: 0 auto 24px;
+        font-family: 'Roboto', sans-serif;
       }
       .home-heading span {
         display: inline-block;
@@ -507,6 +510,11 @@
         margin: 0 auto;
         align-items: start;
       }
+
+      .services-heading {
+        font-family: 'Roboto', sans-serif;
+      }
+        
       #about, #visit {
         padding: 60px 30px;
       }
@@ -518,6 +526,10 @@
         max-width: 1000px;
         margin: 0 auto;
         align-items: start;
+      }
+
+      .about-heading{
+        font-family: 'Roboto', sans-serif;
       }
       .hours-card {
         background: #2F4A3F;
@@ -632,7 +644,7 @@
     </section>
     <section id="about">
       <div class="section-inner">
-        <h2 class="unhighlightable">About Us</h2>
+        <h2 class="about-heading unhighlightable">About Us</h2>
         <p>This is the target destination when clicking the About link.</p>
       </div>
     </section>
@@ -640,7 +652,7 @@
     <section id="services">
       <div class="grid-container services-grid">
         <div class="services-info">
-          <h2>Services</h2>
+          <h2 class="services-heading unhighlightable">Services</h2>
           <p>This is the target destination when clicking the Services link.</p>
         </div>
         <div class="hours-card unhighlightable">
