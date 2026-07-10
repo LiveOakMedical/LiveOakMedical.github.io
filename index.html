@@ -89,11 +89,17 @@
             position: relative;
             z-index: 1;
         }
+        /* Keep the Call and Text groups together as one navbar item so
+           justify-content: space-between doesn't push them apart */
+        .phone-group {
+            display: flex;
+            align-items: stretch;
+        }
         .phone-links li {
             display: flex;
             transition: background-color 0.3s ease;
             align-items: center;
-            justify-content: center
+            justify-content: center;
         }
         /* Hyperlink styles */
         .phone-links a {
@@ -130,11 +136,11 @@
             padding-top: 6px;
             padding-bottom: 6px;
             margin-top: 3px;   /* tighter gap below the "Call Now" label */
+            margin-bottom: 6px;   /* small space under the call button */
         }
         .phone-btn-text {
             background-color: #F5F1E8;
             color: #2F4A3F;
-            justify-content: center;
         }
         .phone-btn-text:hover {
             background-color: #D9D2C3;
@@ -143,6 +149,7 @@
             color: #2F4A3F;
             padding: 2px 6px;
             font-size: 13px;
+            margin-top: 3px;   /* match the call button so their tops align */
         }
         /* Hover interaction effect */
         .nav-links a:hover {
@@ -223,7 +230,6 @@
             background-position: center;
             background-color: #F5F1E8;
             padding: 60px 30px;
-            font-family: 'Roboto', sans-serif;
         }
         #home > .grid-container {
             align-items: center;
@@ -601,18 +607,20 @@
                 <span class="status-text">Checking hours…</span>
             </div>
         </div>
-        <ul class="phone-links">
-            <li class="phone-label unhighlightable">Call Now</li>
-            <li>
-                <a class="unhighlightable phone-btn phone-btn-call" href="tel:+6264478000">☏ (626) 447-8000</a>
-            </li>
-        </ul>
-        <ul class="phone-links">       
-            <li class="phone-label unhighlightable">Text</li>
-            <li>
-                <a class="unhighlightable phone-btn phone-btn-text" href="tel:+6267757054">(626) 775-7054</a>
-            </li>
-        </ul>
+        <div class="phone-group">
+            <ul class="phone-links">
+                <li class="phone-label unhighlightable">Call Now</li>
+                <li>
+                    <a class="unhighlightable phone-btn phone-btn-call" href="tel:+6264478000">☏ (626) 447-8000</a>
+                </li>
+            </ul>
+            <ul class="phone-links">       
+                <li class="phone-label unhighlightable">Text</li>
+                <li>
+                    <a class="unhighlightable phone-btn phone-btn-text" href="tel:+6267757054">(626) 775-7054</a>
+                </li>
+            </ul>
+        </div>
     </nav>
     <section id="home">
         <div class="home-heading"><span>Our Providers:</span></div>
@@ -675,7 +683,7 @@
         <div class="visit-info grid-container">
             <div class="visit-heading"><h2>Visit Us</h2></div>
             <div class="unhighlightable">⚑:</div>
-            <div><a href = "https://share.google/76EV7Pz4HS83seXYa">20 E Huntington Dr. <br> Arcadia, CA 91006 </a></div>
+            <div><a href="https://share.google/76EV7Pz4HS83seXYa">20 E Huntington Dr. <br> Arcadia, CA 91006 </a></div>
             <div class="unhighlightable">🕿:</div>
             <div><a href="tel:+6264478000">(626) 447-8000</a></div>
             <div class="unhighlightable">🗨:</div>
