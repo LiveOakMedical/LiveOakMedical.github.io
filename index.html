@@ -1188,6 +1188,39 @@
             li.classList.toggle('today', Number(li.dataset.day) === day);
           });
         }
+        // Combine consecutive calendar dates so a multi-day closure shows as a
+        // range (e.g. "Dec 24–26") instead of a list of separate days.
+        function nextDayKey(key) {
+          const [y, m, d] = key.split('-').map(Number);
+          return dateKey(new Date(y, m - 1, d + 1));
+        }
+        function groupHolidays(keys) {
+          const groups = [];
+          keys.forEach((key) => {
+            const last = groups[groups.length - 1];
+            if (last && nextDayKey(last.end) === key) last.end = key;
+            else groups.push({ start: key, end: key });
+          });
+          return groups;
+        }
+        function formatHolidayRange(startKey, endKey) {
+          const t = translations[currentLang];
+          const [, m1, d1] = startKey.split('-').map(Number);
+          const [, m2, d2] = endKey.split('-').map(Number);
+          const sameMonth = m1 === m2;
+          if (currentLang === 'zh') {
+            return sameMonth ? `${m1}月${d1}日–${d2}日` : `${m1}月${d1}日–${m2}月${d2}日`;
+          }
+          if (currentLang === 'es') {
+            return sameMonth ? `${d1}–${d2} ${t.months[m1 - 1]}` : `${d1} ${t.months[m1 - 1]} – ${d2} ${t.months[m2 - 1]}`;
+          }
+          return sameMonth ? `${t.months[m1 - 1]} ${d1}–${d2}` : `${t.months[m1 - 1]} ${d1} – ${t.months[m2 - 1]} ${d2}`;
+        }
+        function formatHolidayEntry(group) {
+          return group.start === group.end
+            ? formatHoliday(group.start)
+            : formatHolidayRange(group.start, group.end);
+        }
         function buildAnnouncement() {
           const track = document.getElementById('announcement-track');
           if (!track) return;
@@ -1197,7 +1230,7 @@
           const upcoming = HOLIDAYS.filter((h) => h >= todayKey).sort();
           let msg = t.announcement;
           if (upcoming.length) {
-            msg += t.holiday_prefix + upcoming.map(formatHoliday).join(', ');
+            msg += t.holiday_prefix + groupHolidays(upcoming).map(formatHolidayEntry).join(', ');
           }
           const unit = `<span>${msg}</span>`;
           track.style.animation = 'none';
