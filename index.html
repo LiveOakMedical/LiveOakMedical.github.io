@@ -1047,7 +1047,7 @@
             visit_title: '就诊信息', get_directions: '➤ 获取路线',
             footer: '© {year} Wang Family Medicine. 版权所有。',
             announcement: '📢 正在接收新患者！&nbsp;•&nbsp; 提供流感疫苗，无需预约。&nbsp;•&nbsp; 请致电 <a href="tel:+6264478000">(626) 447-8000</a> 或发送短信至 <a href="tel:+6267757054">(626) 775-7054</a> 进行预约。',
-            holiday_prefix: ' &nbsp;•&nbsp;  <span style="color: #D4A857;">🎄 假期休息：</span>',
+            holiday_prefix: ' &nbsp;•&nbsp;  <span style="color: #D4A857;">🎄 假期休息：',
             months: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
           }
         };
@@ -1236,7 +1236,7 @@
           if (upcoming.length) {
             msg += t.holiday_prefix + groupHolidays(upcoming).map(formatHolidayEntry).join(', ');
           }
-          const unit = `<span>${msg}</span>`;
+          const unit = `${msg}</span>`;
           track.style.animation = 'none';
           track.innerHTML = unit;
           let chunk = unit;
