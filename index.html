@@ -993,7 +993,7 @@
             visit_title: 'Visit Us', get_directions: '➤ Get Directions',
             footer: '© {year} Wang Family Medicine. All rights reserved.',
             announcement: '📢 Now accepting new patients! &nbsp;•&nbsp; Flu shots available - walk-ins welcome. &nbsp;•&nbsp; Call <a href="tel:+6264478000">(626) 447-8000</a> or text <a href="tel:+6267757054">(626) 775-7054</a> to schedule.',
-            holiday_prefix: ' &nbsp;•&nbsp; 🎄 Holiday closures: ',
+            holiday_prefix: ' &nbsp;•&nbsp; <span style="color: #D4A857;">🎄 Holiday closures: </span>',
             months: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
           },
           es: {
@@ -1020,7 +1020,7 @@
             visit_title: 'Visítenos', get_directions: '➤ Cómo llegar',
             footer: '© {year} Wang Family Medicine. Todos los derechos reservados.',
             announcement: '📢 ¡Aceptamos nuevos pacientes! &nbsp;•&nbsp; Vacunas contra la gripe disponibles - sin cita previa. &nbsp;•&nbsp; Llame al <a href="tel:+6264478000">(626) 447-8000</a> o envíe un mensaje de texto al <a href="tel:+6267757054">(626) 775-7054</a> para agendar.',
-            holiday_prefix: ' &nbsp;•&nbsp; 🎄 Cierres por festivos: ',
+            holiday_prefix: ' &nbsp;•&nbsp; <span style="color: #D4A857;">🎄 Cierres por festivos:</span> ',
             months: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']
           },
           zh: {
@@ -1047,7 +1047,7 @@
             visit_title: '就诊信息', get_directions: '➤ 获取路线',
             footer: '© {year} Wang Family Medicine. 版权所有。',
             announcement: '📢 正在接收新患者！&nbsp;•&nbsp; 提供流感疫苗，无需预约。&nbsp;•&nbsp; 请致电 <a href="tel:+6264478000">(626) 447-8000</a> 或发送短信至 <a href="tel:+6267757054">(626) 775-7054</a> 进行预约。',
-            holiday_prefix: ' &nbsp;•&nbsp; 🎄 假期休息：',
+            holiday_prefix: ' &nbsp;•&nbsp;  <span style="color: #D4A857;">🎄 假期休息：</span>',
             months: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
           }
         };
@@ -1199,7 +1199,7 @@
           if (upcoming.length) {
             msg += t.holiday_prefix + upcoming.map(formatHoliday).join(', ');
           }
-          const unit = `<span>${msg}</span>`;
+          const unit = `<span "color: #D4A857;">${msg}</span>`;
           track.style.animation = 'none';
           track.innerHTML = unit;
           let chunk = unit;
