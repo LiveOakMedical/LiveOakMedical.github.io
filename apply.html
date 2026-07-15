@@ -3,52 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Oak Medical Inc</title>
+    <title>Apply Now — Wang Family Medicine</title>
+    <link rel="icon" type="image/png" href="WFM_favicon.png">
     <link rel="stylesheet" href="global.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Reset default browser margins and paddings */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        #home{
-            background-image: url('live_oak_front.jpg');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #F5F1E8;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        body {
-            font-family: 'Open-Sans', sans-serif;
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         /* Navbar Layout styling */
         .navbar {
-            position: sticky;
-            top: 0;
+            position: relative;
             display: flex;
             justify-content: space-between;
             align-items: stretch;
-            background-color: #fff;
+            background-color: #F5F1E8;
             padding: 0px 30px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 10;
         }
-
         .nav-logo {
             display: flex;
             align-items: center;
+            gap: 10px;
         }
-        
+        .nav-logo img {
+            height: 40px;
+            width: auto;
+            display: block;
+        }
+
         /* Brand Logo styling */
         .nav-logo a {
-            color: #000;
+            color: #2F4A3F;
             font-size: 24px;
             font-weight: bold;
             text-decoration: none;
             transition: color 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .lang-select {
+            align-self: center;
+            font-family: inherit;
+            font-size: 14px;
+            color: #2F4A3F;
+            background: #F5F1E8;
+            border: 1px solid rgba(47,74,63,0.3);
+            border-radius: 6px;
+            padding: 6px 8px;
+            cursor: pointer;
         }
 
         /* Navigation List container */
@@ -59,22 +82,70 @@
 
         /* Navigation Links spacing */
         .nav-links li {
+            position: relative;
             display: flex;
         }
+        .nav-links li::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(0deg, #D4A857 0%, #F5F1E8 20%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+
+        .nav-links li:hover::before {
+            opacity: 1;
+        }
+
+        /* Current-page tab gets a persistent gold underline accent */
+        .nav-links li.active::before {
+            opacity: 1;
+        }
+        .nav-links li.active a { color: #2F4A3F; font-weight: 700; }
 
         /* Hyperlink styles */
         .nav-links a {
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             padding: 15px;
-            color: #000;
+            color: #2F4A3F;
             text-decoration: none;
             font-size: 16px;
             transition: color 0.3s ease;
+            position: relative;
+            z-index: 1;
         }
-        
+
+        .phone-group {
+            display: flex;
+            align-items: stretch;
+        }
+
+        .phone-group .phone-or {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 6px;
+            color: #2F4A3F;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .phone-or .phone-or-spacer {
+            visibility: hidden;
+            font-size: 13px;
+            padding: 0 15px;
+        }
+        .phone-or .phone-or-text {
+            margin-top: 3px;
+            padding: 6px 0;
+        }
         .phone-links li {
             display: flex;
+            transition: background-color 0.3s ease;
+            align-items: center;
+            justify-content: center;
         }
 
         /* Hyperlink styles */
@@ -82,123 +153,487 @@
             display: flex;
             align-items: center;
             padding: 15px;
-            color: #000;
+            color: #F5F1E8;
             text-decoration: none;
             font-size: 16px;
-            transition: color 0.3s ease;
         }
-        .nav-links li:hover{
-            background-image: linear-gradient(0deg, #2A7E19 0%, white 33%);
+
+        .phone-links .phone-label {
+            color: #2F4A3F;
+            font-weight: bold;
+            font-size: 13px;
+            padding: 0 15px;
+            justify-content: center;
         }
+
+        .phone-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 5px;
+            color: #F5F1E8;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .phone-btn-call { background-color: #7FA692; }
+        .phone-btn-call:hover { background-color: #6B9080;}
+        .phone-links a.phone-btn-call {
+            padding-top: 6px;
+            padding-bottom: 6px;
+            margin-top: 3px;
+            margin-bottom: 6px;
+        }
+        .phone-btn-text {
+            background-color: #F5F1E8;
+            color: #2F4A3F;
+        }
+        .phone-btn-text:hover {
+            background-color: #D9D2C3;
+        }
+        .phone-links a.phone-btn-text {
+            color: #2F4A3F;
+            padding: 2px 6px;
+            margin-top: 3px;
+        }
+
         /* Hover interaction effect */
         .nav-links a:hover {
-            color: #2A7E19;
-        }   
-        
-        .nav-logo a:hover {
-            color: #2A7E19;
+            color: #D4A857;
         }
 
-        /* Responsive Design: Stack layout on mobile screens */
+        .nav-logo a:hover {
+            color: #D4A857;
+        }
+
+        .hours-status {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            text-align: center;
+        }
+        .hours-label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #2F4A3F;
+            white-space: nowrap;
+            line-height: 1;
+        }
+
+        /* Open and Closed status badge */
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 0 14px;
+            font-size: 14px;
+            font-weight: bold;
+            white-space: nowrap;
+            color: #2F4A3F;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #9aa0a6;
+            flex: none;
+        }
+        .status-badge.open  .status-dot  { background: #6B9080; }
+        .status-badge.open  .status-text { color: #2F4A3F; }
+        .status-badge.closed .status-dot  { background: #C0654E; }
+        .status-badge.closed .status-text { color: #C0654E; }
+        .status-badge.holiday .status-dot  { background: #D4A857; }
+        .status-badge.holiday .status-text { color: #D4A857; }
+
+        /* Hamburger toggle — hidden on desktop, shown on mobile */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 42px;
+            height: 42px;
+            padding: 9px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        .nav-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            border-radius: 2px;
+            background-color: #2F4A3F;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        /* Morph the three bars into an X when the menu is open */
+        .nav-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .nav-toggle.open span:nth-child(2) { opacity: 0; }
+        .nav-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        /* Scrolling announcement bar under the navbar */
+        .announcement-bar {
+            background: #2F4A3F;
+            color: #F5F1E8;
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 8px 0;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .announcement-track {
+            display: inline-block;
+            white-space: nowrap;
+            will-change: transform;
+            animation: announce-scroll 24s linear infinite;
+        }
+        .announcement-bar:hover .announcement-track {
+            animation-play-state: paused;
+        }
+        .announcement-track span { padding: 0 40px; }
+        .announcement-track a { color: #D4A857; text-decoration: underline; }
+
+        @keyframes announce-scroll {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+
+        /* ---- Apply page body ---- */
+        #apply {
+            flex: 1 0 auto;
+            padding: 64px 30px;
+        }
+        .apply-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .apply-eyebrow {
+            display: inline-block;
+            font-family: 'Roboto', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #7FA692;
+            margin-bottom: 12px;
+        }
+        .apply-title {
+            font-family: 'Roboto', sans-serif;
+            color: #2F4A3F;
+            font-size: 34px;
+            line-height: 1.15;
+            margin-bottom: 18px;
+        }
+        .apply-lead {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #4A5A52;
+            margin-bottom: 24px;
+        }
+        .apply-steps {
+            list-style: none;
+            counter-reset: step;
+            display: grid;
+            gap: 14px;
+        }
+        .apply-steps li {
+            counter-increment: step;
+            position: relative;
+            padding-left: 46px;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #4A5A52;
+            min-height: 32px;
+            display: flex;
+            align-items: center;
+        }
+        .apply-steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #2F4A3F;
+            color: #D4A857;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        /* Manager contact card — mirrors the site's green card treatment */
+        .manager-card {
+            background: #2F4A3F;
+            color: #F5F1E8;
+            border-radius: 14px;
+            padding: 32px 30px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+        }
+        .manager-card-label {
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #D4A857;
+            margin-bottom: 14px;
+        }
+        .manager-name {
+            font-family: 'Roboto', sans-serif;
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+        .manager-role {
+            font-size: 14px;
+            color: #C7D2CA;
+            margin-bottom: 22px;
+        }
+        .contact-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 0;
+            border-top: 1px solid rgba(245, 241, 232, 0.14);
+        }
+        .contact-row:last-of-type { border-bottom: 1px solid rgba(245, 241, 232, 0.14); }
+        .contact-ico {
+            width: 40px;
+            height: 40px;
+            flex: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(127, 166, 146, 0.22);
+            color: #F5F1E8;
+            font-size: 18px;
+        }
+        .contact-meta { display: flex; flex-direction: column; gap: 1px; }
+        .contact-kind {
+            font-size: 12px;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            color: #A9B8AF;
+        }
+        .contact-row a, .contact-value {
+            color: #F5F1E8;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            word-break: break-word;
+        }
+        .contact-row a:hover { color: #D4A857; }
+
+        .manager-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 24px;
+            background: #7FA692;
+            color: #F5F1E8;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .manager-cta:hover { background: #6B9080; }
+
+        /* Site footer */
+        .site-footer {
+            flex-shrink: 0;
+            background: #202124;
+            color: #E4DFD2;
+            text-align: center;
+            padding: 28px 30px;
+            font-size: 14px;
+        }
+        .site-footer a { color: #D4A857; text-decoration: none; }
+        .site-footer a:hover { text-decoration: underline; }
+
+        .unhighlightable {
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 820px) {
+            .apply-inner { grid-template-columns: 1fr; gap: 32px; }
+        }
         @media (max-width: 600px) {
             .navbar {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-            .nav-links {
-                flex-direction: column;
+                flex-wrap: wrap;
+                align-items: center;
                 gap: 10px;
+                padding: 10px 20px;
             }
-            .nav-links li {
-                padding: 5px 0;
+            .nav-logo   { order: 1; flex: 1 1 auto; }
+            .nav-toggle { display: flex; order: 2; }
+            .status-badge { order: 3; }
+            .lang-select { order: 4; }
+            .phone-links { order: 5; }
+
+            .nav-links {
+                order: 6;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 0;
+                background-color: #F5F1E8;
+                box-shadow: 0 8px 10px rgba(0,0,0,0.12);
+                border-top: 1px solid rgba(47,74,63,0.12);
+                overflow: hidden;
+                max-height: 0;
+                transition: max-height 0.35s ease;
+                z-index: 20;
             }
-        }
-        .curved-image {
-          width: 50%;
-          height: auto;
-          border: 0px
-          border-radius: 25px;
+            .nav-links.open { max-height: 340px; }
+            .nav-links li { padding: 0; width: 100%; }
+            .nav-links li:not(:last-child) { border-bottom: 1px solid rgba(47,74,63,0.08); }
+            .nav-links a {
+                width: 100%;
+                padding: 16px 24px;
+                align-items: center;
+                justify-content: flex-start;
+            }
+            .apply-title { font-size: 28px; }
         }
 
-        .grid-container {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr); 
-          gap: 20px; 
-        }
-        
-        .grid-item {
-          background-color: #3498db;
-          color: white;
-          padding: 20px;
-          text-align: center;
-          font-size: 1.5rem;
-          border-radius: 5px; 
-        }
-        
-        .circle-img {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            object-fit: cover; /* Prevents distortion if the image isn't perfectly square */
-        }
-        
-        .unhighlightable {
-          -webkit-user-select: none; /* Safari */
-          user-select: none;         /* Standard syntax */
+        @media (prefers-reduced-motion: reduce) {
+            .announcement-track { animation: none; }
         }
     </style>
 </head>
+
 <body>
-    <!-- Semantic HTML5 Navigation Block -->
+    <div class="site-header">
     <nav class="navbar">
         <div class="nav-logo unhighlightable">
-            <a href="#home">
-                <img src="live_oak_logo.png" alt="Live Oak Logo" class="circle-img">
+            <a href="index.html">
+                <img src="WFM_logo_green.png" alt="WFM Logo">
             </a>
-            <a href="#home">Live Oak Medical Inc</a>
+            <a href="index.html">Wang <br> Family Medicine</a>
         </div>
-        <div id="google_translate_element" style="
-            display: flex;
-            align-items: center;"></div>
-        <script type="text/javascript">
-        function googleTranslateElementInit() {
-          new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,es,zh,zh-CN', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-        }
-        </script>
-        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-        <ul class="nav-links unhighlightable">
-            <li><a href="index#home">Home</a></li>
-            <li><a href="index#about">About</a></li>
-            <li><a href="index#services">Services</a></li>
-            <li><a href="index#visit">Visit Us</a></li>
-            <li><a href="apply">Apply Now</a></li>
+        <select id="lang-select" class="lang-select unhighlightable" aria-label="Language">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="zh">中文</option>
+        </select>
+        <button class="nav-toggle unhighlightable" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-nav">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links unhighlightable" id="primary-nav">
+            <li><a href="index.html#home" data-i18n="nav_home">Home</a></li>
+            <li><a href="index.html#about" data-i18n="nav_about">About</a></li>
+            <li><a href="index.html#services" data-i18n="nav_services">Services</a></li>
+            <li><a href="index.html#visit" data-i18n="nav_visit">Visit Us</a></li>
+            <li class="active"><a href="apply.html" aria-current="page" data-i18n="nav_apply">Apply Now</a></li>
         </ul>
-        <ul class="phone-links">
-            <li>
-                <a href="tel:+6264478000" style="
-                  display: inline-flex; 
-                  align-items: center; 
-                  background-color: #28a745; 
-                  color: white; 
-                  padding: 10px 20px; 
-                  text-decoration: none; 
-                  border-radius: 5px; 
-                  font-weight: bold; 
-                  gap: 8px;">
-                  ☏ (626) 447-8000
-                </a>
-            </li>
-            <li>
-                <a class="unhighlightable" href="tel:+6267757054" style="
-                  display: inline-flex; 
-                  align-items: center;
-                  padding: 0px">
-                  Text: (626) 775-7054
-                </a>
-            </li>
-        </ul>
+        <div class="hours-status unhighlightable">
+            <div class="hours-label" data-i18n="current_hours">Current Hours:</div>
+            <div class="status-badge" id="status-badge" aria-live="polite" title="Current clinic status">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span class="status-text" data-i18n="status_checking">Checking hours…</span>
+            </div>
+        </div>
+        <div class="phone-group">
+            <ul class="phone-links">
+                <li class="phone-label unhighlightable" data-i18n="call_now">Call Now</li>
+                <li>
+                    <a class="unhighlightable phone-btn phone-btn-call" href="tel:+6264478000">☏ (626) 447-8000</a>
+                </li>
+            </ul>
+            <div class="phone-or unhighlightable" aria-hidden="true">
+                <span class="phone-or-spacer" data-i18n="text_label">Text</span>
+                <span class="phone-or-text" data-i18n="or">-or-</span>
+            </div>
+            <ul class="phone-links">
+                <li class="phone-label unhighlightable" data-i18n="text_label">Text</li>
+                <li>
+                    <a class="unhighlightable phone-btn phone-btn-text" href="tel:+6267757054">(626) 775-7054</a>
+                </li>
+            </ul>
+        </div>
     </nav>
+    <div class="announcement-bar unhighlightable" role="status" aria-label="Announcements">
+        <div class="announcement-track" id="announcement-track"></div>
+    </div>
+    </div>
 
+    <main id="apply">
+        <div class="apply-inner">
+            <div class="apply-copy">
+                <span class="apply-eyebrow" data-i18n="apply_eyebrow">Careers</span>
+                <h1 class="apply-title" data-i18n="apply_title">Join the Wang Family Medicine team</h1>
+                <p class="apply-lead" data-i18n="apply_lead">We're a growing, community-focused practice in Arcadia. If you'd like to be part of the team, reach out to our practice manager directly — no online portal, just a real person who will read your message.</p>
+                <ol class="apply-steps">
+                    <li data-i18n="apply_step1">Email your résumé and a short note about the role you're interested in.</li>
+                    <li data-i18n="apply_step2">Our practice manager will reach out to set up a time to talk.</li>
+                    <li data-i18n="apply_step3">Meet the team and see the clinic in person.</li>
+                </ol>
+            </div>
+
+            <aside class="manager-card">
+                <div class="manager-card-label" data-i18n="manager_label">Your point of contact</div>
+                <div class="manager-name">Ronald Wang</div>
+                <div class="manager-role" data-i18n="manager_role">Manager</div>
+
+                <div class="contact-row">
+                    <div class="contact-ico unhighlightable" aria-hidden="true">✉</div>
+                    <div class="contact-meta">
+                        <span class="contact-kind" data-i18n="contact_email">Email</span>
+                        <a href="mailto:careers@wangfamilymedicine.com">dridawang@gmail.com</a>
+                    </div>
+                </div>
+                <div class="contact-row">
+                    <div class="contact-ico unhighlightable" aria-hidden="true">☏</div>
+                    <div class="contact-meta">
+                        <span class="contact-kind" data-i18n="contact_call">Call</span>
+                        <a href="tel:+6264478000">(626) 447-8000</a>
+                    </div>
+                </div>
+                <div class="contact-row">
+                    <div class="contact-ico unhighlightable" aria-hidden="true">🗨</div>
+                    <div class="contact-meta">
+                        <span class="contact-kind" data-i18n="contact_text">Text</span>
+                        <a href="tel:+6267757054">(626) 775-7054</a>
+                    </div>
+                </div>
+                <div class="contact-row">
+                    <div class="contact-ico unhighlightable" aria-hidden="true">⚑</div>
+                    <div class="contact-meta">
+                        <span class="contact-kind" data-i18n="contact_office">Office</span>
+                        <span class="contact-value">20 E Huntington Dr, Arcadia, CA 91006</span>
+                    </div>
+                </div>
+
+                <a class="manager-cta" href="mailto:careers@wangfamilymedicine.com?subject=Application%20—%20Wang%20Family%20Medicine" data-i18n="manager_cta">✉ Email Grace</a>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p id="footer-line">&copy; Wang Family Medicine. All rights reserved.</p>
+    </footer>
+
+    <!-- main.js script  -->
+    <script src="main.js"></script>
 </body>
 </html>
