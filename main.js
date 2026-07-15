@@ -44,8 +44,8 @@ const translations = {
     our_providers: 'Our Providers:', info_back: '← Back to menu', info_hint: 'Click a provider to see more information',
     blurb_ryan: 'Board-certified in family medicine, Dr. Ryan Wang focuses on preventive care and chronic disease management for patients of every age.',
     blurb_ida: "Dr. Ida Wang provides comprehensive primary care with a special interest in women's health and geriatric medicine.",
-    about_title: 'About Us', about_body: 'This is the target destination when clicking the About link.',
-    services_title: 'Our Services', services_body: 'This is the target destination when clicking the Services link.',
+    about_title: 'About Us', about_body: 'Wang Family Medicine is a family-owned primary care practice serving Arcadia and the San Gabriel Valley. Drs. Ryan and Ida Wang provide personalized, whole-family care — from routine checkups and vaccinations to managing ongoing conditions — in a welcoming, multilingual setting.',
+    services_title: 'Our Services', services_body: 'Comprehensive primary care for every stage of life.',
     svc_checkups_t: 'Checkups', svc_checkups_b: 'Annual visits and health screenings',
     svc_vaccinations_t: 'Vaccinations', svc_vaccinations_b: 'Routine and travel immunizations',
     svc_adult_t: 'Adult Care', svc_adult_b: 'Disease management and health planning',
@@ -74,15 +74,15 @@ const translations = {
   es: {
     nav_home: 'Inicio', nav_about: 'Nosotros', nav_services: 'Servicios', nav_visit: 'Visítenos', nav_apply: 'Solicitar ahora',
     current_hours: 'Horario actual:', status_checking: 'Verificando horario…',
-    status_open: 'Abierto', status_closed: 'Cerrado', status_holiday: 'En festivo',
+    status_open: 'Abierto', status_closed: 'Cerrado', status_holiday: 'Cerrado por festivo',
     status_open_until: 'Abierto hasta las {time}', status_closed_until: 'Cerrado hasta las {time}',
     status_closed_tomorrow: 'Cerrado hasta mañana', status_closed_until_day: 'Cerrado hasta el {day}',
     call_now: 'Llamar', or: '-o-', text_label: 'Mensaje',
     our_providers: 'Nuestros médicos:', info_back: '← Volver al menú', info_hint: 'Haga clic en un médico para ver más información',
     blurb_ryan: 'Certificado en medicina familiar, el Dr. Ryan Wang se enfoca en la atención preventiva y el manejo de enfermedades crónicas para pacientes de todas las edades.',
     blurb_ida: 'La Dra. Ida Wang ofrece atención primaria integral, con un interés especial en la salud de la mujer y la medicina geriátrica.',
-    about_title: 'Sobre nosotros', about_body: 'Este es el destino al hacer clic en el enlace Nosotros.',
-    services_title: 'Nuestros Servicios', services_body: 'Este es el destino al hacer clic en el enlace Servicios.',
+    about_title: 'Sobre nosotros', about_body: 'Wang Family Medicine es una consulta familiar de atención primaria que atiende a Arcadia y al Valle de San Gabriel. Los doctores Ryan e Ida Wang ofrecen atención personalizada para toda la familia — desde chequeos de rutina y vacunas hasta el manejo de enfermedades crónicas — en un ambiente acogedor y multilingüe.',
+    services_title: 'Nuestros Servicios', services_body: 'Atención primaria integral para cada etapa de la vida.',
     svc_checkups_t: 'Chequeos', svc_checkups_b: 'Visitas anuales y exámenes de salud',
     svc_vaccinations_t: 'Vacunas', svc_vaccinations_b: 'Inmunizaciones de rutina y de viaje',
     svc_adult_t: 'Atención para adultos', svc_adult_b: 'Manejo de enfermedades y planificación de la salud',
@@ -118,8 +118,8 @@ const translations = {
     our_providers: '我们的医生：', info_back: '← 返回菜单', info_hint: '点击医生查看更多信息',
     blurb_ryan: '王瑞恩医生是家庭医学认证医生，专注于各年龄段患者的预防保健和慢性病管理。',
     blurb_ida: '王伊达医生提供全面的初级保健服务，尤其专注于妇科健康和老年医学领域。',
-    about_title: '关于我们', about_body: '点击"关于"链接后将跳转至此。',
-    services_title: '我们的服务', services_body: '点击"服务"链接后将跳转至此。',
+    about_title: '关于我们', about_body: 'Wang Family Medicine 是一家家族经营的初级保健诊所，服务于 Arcadia 及圣盖博谷地区。王瑞恩医生与王伊达医生为整个家庭提供个性化的医疗服务——从常规体检、疫苗接种到慢性病管理——并营造温馨、多语言的就诊环境。',
+    services_title: '我们的服务', services_body: '为人生各个阶段提供全面的初级保健服务。',
     svc_checkups_t: '健康检查', svc_checkups_b: '年度就诊和健康筛查',
     svc_vaccinations_t: '疫苗接种', svc_vaccinations_b: '常规和旅行免疫接种',
     svc_adult_t: '成人护理', svc_adult_b: '疾病管理和健康规划',
@@ -158,6 +158,7 @@ function formatHoliday(key) {
 
 function applyLanguage(lang) {
   currentLang = translations[lang] ? lang : 'en';
+  try { localStorage.setItem('wfm-lang', currentLang); } catch (e) {}
   const t = translations[currentLang];
   document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : currentLang;
   document.querySelectorAll('[data-i18n]').forEach((el) => {
@@ -183,7 +184,7 @@ function applyLanguage(lang) {
 })();
 
 /* -------------------------------------------------------------------------
-   3. Office hours: live status badge + scrolling announcement bar
+   3. Office hours: live status badge and scrolling announcement bar
    ------------------------------------------------------------------------- */
 // Ranges are minutes from midnight; keys match JS getDay() (0 = Sun … 6 = Sat).
 const OFFICE_HOURS = {
@@ -473,7 +474,13 @@ const PROVIDERS = {
    5. Boot
    ------------------------------------------------------------------------- */
 setInterval(refreshStatus, 60 * 1000);
-applyLanguage(currentLang);
+
+let savedLang = 'en';
+try {
+  const s = localStorage.getItem('wfm-lang');
+  if (s && translations[s]) savedLang = s;
+} catch (e) {}
+applyLanguage(savedLang);
 
 let announcementTimer;
 window.addEventListener('resize', () => {
