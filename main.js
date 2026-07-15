@@ -1,0 +1,482 @@
+/* =========================================================================
+   main.js
+   ========================================================================= */
+
+/* -------------------------------------------------------------------------
+   1. Mobile navigation dropdown
+   ------------------------------------------------------------------------- */
+(function initNav() {
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks  = document.getElementById('primary-nav');
+  if (!navToggle || !navLinks) return;
+
+  function setMenu(open) {
+    navLinks.classList.toggle('open', open);
+    navToggle.classList.toggle('open', open);
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  navToggle.addEventListener('click', () => {
+    setMenu(!navLinks.classList.contains('open'));
+  });
+  navLinks.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setMenu(false));
+  });
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 600) setMenu(false);
+  });
+})();
+
+/* -------------------------------------------------------------------------
+   2. Translations
+   ------------------------------------------------------------------------- */
+let currentLang = 'en';
+let selected = false;
+let selectedKey = null;
+
+const translations = {
+  en: {
+    nav_home: 'Home', nav_about: 'About', nav_services: 'Services', nav_visit: 'Visit Us', nav_apply: 'Apply Now',
+    current_hours: 'Current Hours:', status_checking: 'Checking hours…',
+    status_open: 'Open', status_closed: 'Closed', status_holiday: 'On Holiday',
+    status_open_until: 'Open until {time}', status_closed_until: 'Closed until {time}',
+    status_closed_tomorrow: 'Closed until tomorrow', status_closed_until_day: 'Closed until {day}',
+    call_now: 'Call Now', or: '-or-', text_label: 'Text',
+    our_providers: 'Our Providers:', info_back: '← Back to menu', info_hint: 'Click a provider to see more information',
+    blurb_ryan: 'Board-certified in family medicine, Dr. Ryan Wang focuses on preventive care and chronic disease management for patients of every age.',
+    blurb_ida: "Dr. Ida Wang provides comprehensive primary care with a special interest in women's health and geriatric medicine.",
+    about_title: 'About Us', about_body: 'This is the target destination when clicking the About link.',
+    services_title: 'Our Services', services_body: 'This is the target destination when clicking the Services link.',
+    svc_checkups_t: 'Checkups', svc_checkups_b: 'Annual visits and health screenings',
+    svc_vaccinations_t: 'Vaccinations', svc_vaccinations_b: 'Routine and travel immunizations',
+    svc_adult_t: 'Adult Care', svc_adult_b: 'Disease management and health planning',
+    svc_geriatric_t: 'Geriatric Care', svc_geriatric_b: 'Wellness plans and personal care goals',
+    svc_women_t: "Women's Health", svc_women_b: 'Preventative screenings and reproductive health services',
+    svc_telehealth_t: 'Telehealth', svc_telehealth_b: 'Digital delivery of healthcare services and health education',
+    office_hours: 'Office Hours',
+    day_mon: 'Monday', day_tue: 'Tuesday', day_wed: 'Wednesday', day_thu: 'Thursday', day_fri: 'Friday', day_sat: 'Saturday', day_sun: 'Sunday',
+    hours_full: '9 AM–1 PM, 2–6 PM', hours_half: '9 AM–1 PM', closed: 'Closed',
+    visit_title: 'Visit Us', get_directions: '➤ Get Directions',
+    // Apply page
+    apply_eyebrow: 'Careers',
+    apply_title: 'Join the Wang Family Medicine team',
+    apply_lead: "We're a growing, community-focused practice in Arcadia. If you'd like to be part of the team, reach out to our practice manager directly — no online portal, just a real person who will read your message.",
+    apply_step1: "Email your résumé and a short note about the role you're interested in.",
+    apply_step2: 'Our practice manager will reach out to set up a time to talk.',
+    apply_step3: 'Meet the team and see the clinic in person.',
+    manager_label: 'Your point of contact', manager_role: 'Practice Manager',
+    contact_email: 'Email', contact_call: 'Call', contact_text: 'Text', contact_office: 'Office',
+    manager_cta: '✉ Email Grace',
+    footer: '© {year} Wang Family Medicine. All rights reserved.',
+    announcement: '📢 Now accepting new patients! &nbsp;•&nbsp; Flu shots available &nbsp;•&nbsp; walk-ins welcome. &nbsp;•&nbsp; Call <a href="tel:+6264478000">(626) 447-8000</a> or text <a href="tel:+6267757054">(626) 775-7054</a> to schedule.',
+    holiday_prefix: ' &nbsp;•&nbsp; <span style="color: #D4A857;">🎄 Holiday closures: ',
+    months: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+  },
+  es: {
+    nav_home: 'Inicio', nav_about: 'Nosotros', nav_services: 'Servicios', nav_visit: 'Visítenos', nav_apply: 'Solicitar ahora',
+    current_hours: 'Horario actual:', status_checking: 'Verificando horario…',
+    status_open: 'Abierto', status_closed: 'Cerrado', status_holiday: 'En festivo',
+    status_open_until: 'Abierto hasta las {time}', status_closed_until: 'Cerrado hasta las {time}',
+    status_closed_tomorrow: 'Cerrado hasta mañana', status_closed_until_day: 'Cerrado hasta el {day}',
+    call_now: 'Llamar', or: '-o-', text_label: 'Mensaje',
+    our_providers: 'Nuestros médicos:', info_back: '← Volver al menú', info_hint: 'Haga clic en un médico para ver más información',
+    blurb_ryan: 'Certificado en medicina familiar, el Dr. Ryan Wang se enfoca en la atención preventiva y el manejo de enfermedades crónicas para pacientes de todas las edades.',
+    blurb_ida: 'La Dra. Ida Wang ofrece atención primaria integral, con un interés especial en la salud de la mujer y la medicina geriátrica.',
+    about_title: 'Sobre nosotros', about_body: 'Este es el destino al hacer clic en el enlace Nosotros.',
+    services_title: 'Nuestros Servicios', services_body: 'Este es el destino al hacer clic en el enlace Servicios.',
+    svc_checkups_t: 'Chequeos', svc_checkups_b: 'Visitas anuales y exámenes de salud',
+    svc_vaccinations_t: 'Vacunas', svc_vaccinations_b: 'Inmunizaciones de rutina y de viaje',
+    svc_adult_t: 'Atención para adultos', svc_adult_b: 'Manejo de enfermedades y planificación de la salud',
+    svc_geriatric_t: 'Atención geriátrica', svc_geriatric_b: 'Planes de bienestar y objetivos de cuidado personal',
+    svc_women_t: 'Salud de la mujer', svc_women_b: 'Exámenes preventivos y servicios de salud reproductiva',
+    svc_telehealth_t: 'Telemedicina', svc_telehealth_b: 'Prestación digital de servicios de salud y educación sanitaria',
+    office_hours: 'Horario de atención',
+    day_mon: 'Lunes', day_tue: 'Martes', day_wed: 'Miércoles', day_thu: 'Jueves', day_fri: 'Viernes', day_sat: 'Sábado', day_sun: 'Domingo',
+    hours_full: '9:00–13:00, 14:00–18:00', hours_half: '9:00–13:00', closed: 'Cerrado',
+    visit_title: 'Visítenos', get_directions: '➤ Cómo llegar',
+    // Apply page
+    apply_eyebrow: 'Empleo',
+    apply_title: 'Únase al equipo de Wang Family Medicine',
+    apply_lead: 'Somos una consulta en crecimiento y centrada en la comunidad en Arcadia. Si desea formar parte del equipo, comuníquese directamente con nuestra gerente de la consulta: sin portales en línea, solo una persona real que leerá su mensaje.',
+    apply_step1: 'Envíe su currículum y una breve nota sobre el puesto que le interesa.',
+    apply_step2: 'Nuestra gerente de la consulta se pondrá en contacto para coordinar una cita.',
+    apply_step3: 'Conozca al equipo y visite la clínica en persona.',
+    manager_label: 'Su persona de contacto', manager_role: 'Gerente de la consulta',
+    contact_email: 'Correo', contact_call: 'Llamar', contact_text: 'Mensaje', contact_office: 'Oficina',
+    manager_cta: '✉ Escribir a Grace',
+    footer: '© {year} Wang Family Medicine. Todos los derechos reservados.',
+    announcement: '📢 ¡Aceptamos nuevos pacientes! &nbsp;•&nbsp; Vacunas contra la gripe disponibles &nbsp;•&nbsp; sin cita previa. &nbsp;•&nbsp; Llame al <a href="tel:+6264478000">(626) 447-8000</a> o envíe un mensaje de texto al <a href="tel:+6267757054">(626) 775-7054</a> para agendar.',
+    holiday_prefix: ' &nbsp;•&nbsp; <span style="color: #D4A857;">🎄 Cierres por festivos: ',
+    months: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']
+  },
+  zh: {
+    nav_home: '首页', nav_about: '关于我们', nav_services: '服务', nav_visit: '就诊信息', nav_apply: '立即申请',
+    current_hours: '当前营业时间：', status_checking: '正在查询…',
+    status_open: '营业中', status_closed: '已关闭', status_holiday: '假期休息',
+    status_open_until: '营业至{time}', status_closed_until: '休息至{time}',
+    status_closed_tomorrow: '休息至明天', status_closed_until_day: '休息至{day}',
+    call_now: '致电', or: '或', text_label: '短信',
+    our_providers: '我们的医生：', info_back: '← 返回菜单', info_hint: '点击医生查看更多信息',
+    blurb_ryan: '王瑞恩医生是家庭医学认证医生，专注于各年龄段患者的预防保健和慢性病管理。',
+    blurb_ida: '王伊达医生提供全面的初级保健服务，尤其专注于妇科健康和老年医学领域。',
+    about_title: '关于我们', about_body: '点击"关于"链接后将跳转至此。',
+    services_title: '我们的服务', services_body: '点击"服务"链接后将跳转至此。',
+    svc_checkups_t: '健康检查', svc_checkups_b: '年度就诊和健康筛查',
+    svc_vaccinations_t: '疫苗接种', svc_vaccinations_b: '常规和旅行免疫接种',
+    svc_adult_t: '成人护理', svc_adult_b: '疾病管理和健康规划',
+    svc_geriatric_t: '老年护理', svc_geriatric_b: '健康计划和个人护理目标',
+    svc_women_t: '妇女健康', svc_women_b: '预防性筛查和生殖健康服务',
+    svc_telehealth_t: '远程医疗', svc_telehealth_b: '数字化医疗服务和健康教育',
+    office_hours: '营业时间',
+    day_mon: '星期一', day_tue: '星期二', day_wed: '星期三', day_thu: '星期四', day_fri: '星期五', day_sat: '星期六', day_sun: '星期日',
+    hours_full: '上午9点–下午1点，下午2点–6点', hours_half: '上午9点–下午1点', closed: '休息',
+    visit_title: '就诊信息', get_directions: '➤ 获取路线',
+    // Apply page
+    apply_eyebrow: '招聘',
+    apply_title: '加入 Wang Family Medicine 团队',
+    apply_lead: '我们是一家位于 Arcadia、不断发展且注重社区的诊所。如果您希望加入我们的团队，请直接联系我们的诊所经理——无需网上申请系统，会有专人阅读您的信息。',
+    apply_step1: '发送您的简历，并简要说明您感兴趣的职位。',
+    apply_step2: '我们的诊所经理会与您联系，安排面谈时间。',
+    apply_step3: '与团队见面，并实地参观诊所。',
+    manager_label: '您的联系人', manager_role: '诊所经理',
+    contact_email: '电子邮件', contact_call: '致电', contact_text: '短信', contact_office: '地址',
+    manager_cta: '✉ 给 Grace 发邮件',
+    footer: '© {year} Wang Family Medicine. 版权所有。',
+    announcement: '📢 正在接收新患者！&nbsp;•&nbsp; 提供流感疫苗 &nbsp;•&nbsp; 无需预约。&nbsp;•&nbsp; 请致电 <a href="tel:+6264478000">(626) 447-8000</a> 或发送短信至 <a href="tel:+6267757054">(626) 775-7054</a> 进行预约。',
+    holiday_prefix: ' &nbsp;•&nbsp;  <span style="color: #D4A857;">🎄 假期休息：',
+    months: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+  }
+};
+
+function formatHoliday(key) {
+  const t = translations[currentLang];
+  const parts = key.split('-').map(Number);
+  const m = parts[1], d = parts[2];
+  if (currentLang === 'zh') return `${m}月${d}日`;
+  if (currentLang === 'es') return `${d} ${t.months[m - 1]}`;
+  return `${t.months[m - 1]} ${d}`;
+}
+
+function applyLanguage(lang) {
+  currentLang = translations[lang] ? lang : 'en';
+  const t = translations[currentLang];
+  document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : currentLang;
+  document.querySelectorAll('[data-i18n]').forEach((el) => {
+    const key = el.getAttribute('data-i18n');
+    const value = (t[key] != null) ? t[key] : translations.en[key];
+    if (value != null) el.textContent = value;
+  });
+  const footerLine = document.getElementById('footer-line');
+  if (footerLine) footerLine.textContent = t.footer.replace('{year}', new Date().getFullYear());
+  if (typeof refreshStatus === 'function') refreshStatus();
+  if (typeof buildAnnouncement === 'function') buildAnnouncement();
+  if (typeof infoPanel !== 'undefined' && infoPanel) {
+    if (selected && selectedKey && typeof showInfo === 'function') showInfo(selectedKey);
+    else if (!selected && typeof showHint === 'function') showHint();
+  }
+  const sel = document.getElementById('lang-select');
+  if (sel && sel.value !== currentLang) sel.value = currentLang;
+}
+
+(function initLangSelect() {
+  const langSelect = document.getElementById('lang-select');
+  if (langSelect) langSelect.addEventListener('change', () => applyLanguage(langSelect.value));
+})();
+
+/* -------------------------------------------------------------------------
+   3. Office hours: live status badge + scrolling announcement bar
+   ------------------------------------------------------------------------- */
+// Ranges are minutes from midnight; keys match JS getDay() (0 = Sun … 6 = Sat).
+const OFFICE_HOURS = {
+  0: [],                          // Sunday    — Closed
+  1: [[540, 780], [840, 1080]],   // Monday    — 9–1, 2–6
+  2: [[540, 780], [840, 1080]],   // Tuesday   — 9–1, 2–6
+  3: [[540, 780]],                // Wednesday — 9–1
+  4: [[540, 780], [840, 1080]],   // Thursday  — 9–1, 2–6
+  5: [[540, 780], [840, 1080]],   // Friday    — 9–1, 2–6
+  6: []                           // Saturday  — Closed
+};
+
+// Holiday closures as 'YYYY-MM-DD'.
+const HOLIDAYS = [
+  '2026-09-07',   // Labor Day
+  '2026-11-26',   // Thanksgiving
+  '2026-12-25',   // Christmas
+  '2027-01-01',   // New Year's Day
+];
+
+function clinicNow() {
+  const laString = new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
+  return new Date(laString);
+}
+function dateKey(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+const DAY_KEYS = ['day_sun', 'day_mon', 'day_tue', 'day_wed', 'day_thu', 'day_fri', 'day_sat'];
+function dayName(wd) {
+  return translations[currentLang][DAY_KEYS[wd]];
+}
+function formatTime(mins) {
+  const h = Math.floor(mins / 60);
+  const m = mins % 60;
+  if (currentLang === 'zh') {
+    const period = h < 12 ? '上午' : '下午';
+    let hh = h % 12; if (hh === 0) hh = 12;
+    return period + hh + '点' + (m ? m + '分' : '');
+  }
+  if (currentLang === 'es') {
+    return h + ':' + String(m).padStart(2, '0');
+  }
+  const period = h < 12 ? 'AM' : 'PM';
+  let hh = h % 12; if (hh === 0) hh = 12;
+  return m ? `${hh}:${String(m).padStart(2, '0')} ${period}` : `${hh} ${period}`;
+}
+function computeStatus() {
+  const now  = clinicNow();
+  const day  = now.getDay();
+  const mins = now.getHours() * 60 + now.getMinutes();
+  const todayHoliday = HOLIDAYS.includes(dateKey(now));
+  const closedState = todayHoliday ? 'holiday' : 'closed';
+  if (!todayHoliday) {
+    for (const [start, end] of (OFFICE_HOURS[day] || [])) {
+      if (mins >= start && mins < end) return { state: 'open', kind: 'open_until', value: end };
+    }
+    for (const [start] of (OFFICE_HOURS[day] || [])) {
+      if (start > mins) return { state: closedState, kind: 'closed_until_time', value: start };
+    }
+  }
+  for (let offset = 1; offset <= 7; offset++) {
+    const d = new Date(now);
+    d.setDate(now.getDate() + offset);
+    if (HOLIDAYS.includes(dateKey(d))) continue;
+    if ((OFFICE_HOURS[d.getDay()] || []).length) {
+      if (offset === 1) return { state: closedState, kind: 'closed_tomorrow' };
+      return { state: closedState, kind: 'closed_until_day', value: d.getDay() };
+    }
+  }
+  return { state: closedState, kind: 'closed_generic' };
+}
+function statusText(res) {
+  const t = translations[currentLang];
+  switch (res.kind) {
+    case 'open_until':        return t.status_open_until.replace('{time}', formatTime(res.value));
+    case 'closed_until_time': return t.status_closed_until.replace('{time}', formatTime(res.value));
+    case 'closed_tomorrow':   return t.status_closed_tomorrow;
+    case 'closed_until_day':  return t.status_closed_until_day.replace('{day}', dayName(res.value));
+    default:                  return res.state === 'holiday' ? t.status_holiday : t.status_closed;
+  }
+}
+function refreshStatus() {
+  const now = clinicNow();
+  const day = now.getDay();
+  const res = computeStatus();
+  const badge = document.getElementById('status-badge');
+  if (badge) {
+    badge.classList.toggle('open', res.state === 'open');
+    badge.classList.toggle('closed', res.state === 'closed');
+    badge.classList.toggle('holiday', res.state === 'holiday');
+    badge.querySelector('.status-text').textContent = statusText(res);
+  }
+  
+  document.querySelectorAll('.hours-list li').forEach((li) => {
+    li.classList.toggle('today', Number(li.dataset.day) === day);
+  });
+}
+function nextDayKey(key) {
+  const [y, m, d] = key.split('-').map(Number);
+  return dateKey(new Date(y, m - 1, d + 1));
+}
+function groupHolidays(keys) {
+  const groups = [];
+  keys.forEach((key) => {
+    const last = groups[groups.length - 1];
+    if (last && nextDayKey(last.end) === key) last.end = key;
+    else groups.push({ start: key, end: key });
+  });
+  return groups;
+}
+function formatHolidayRange(startKey, endKey) {
+  const t = translations[currentLang];
+  const [, m1, d1] = startKey.split('-').map(Number);
+  const [, m2, d2] = endKey.split('-').map(Number);
+  const sameMonth = m1 === m2;
+  if (currentLang === 'zh') {
+    return sameMonth ? `${m1}月${d1}日–${d2}日` : `${m1}月${d1}日–${m2}月${d2}日`;
+  }
+  if (currentLang === 'es') {
+    return sameMonth ? `${d1}–${d2} ${t.months[m1 - 1]}` : `${d1} ${t.months[m1 - 1]} – ${d2} ${t.months[m2 - 1]}`;
+  }
+  return sameMonth ? `${t.months[m1 - 1]} ${d1}–${d2}` : `${t.months[m1 - 1]} ${d1} – ${t.months[m2 - 1]} ${d2}`;
+}
+function formatHolidayEntry(group) {
+  return group.start === group.end
+    ? formatHoliday(group.start)
+    : formatHolidayRange(group.start, group.end);
+}
+function buildAnnouncement() {
+  const track = document.getElementById('announcement-track');
+  if (!track) return;
+  const t = translations[currentLang];
+  const bar = track.parentElement;
+  const todayKey = dateKey(clinicNow());
+  const upcoming = HOLIDAYS.filter((h) => h >= todayKey).sort();
+  let msg = t.announcement;
+  if (upcoming.length) {
+    msg += t.holiday_prefix + groupHolidays(upcoming).map(formatHolidayEntry).join(', ');
+  }
+  const unit = `${msg}</span>`;
+  track.style.animation = 'none';
+  track.innerHTML = unit;
+  let chunk = unit;
+  while (track.scrollWidth < bar.offsetWidth && track.children.length < 50) {
+    chunk += unit;
+    track.innerHTML = chunk;
+  }
+  const chunkWidth = track.scrollWidth;
+  track.innerHTML = chunk + chunk;
+  track.style.animation = '';
+  track.style.animationDuration = Math.max(chunkWidth / 60, 12) + 's';
+}
+
+/* -------------------------------------------------------------------------
+   4. Provider carousel
+   ------------------------------------------------------------------------- */
+const carousel  = document.getElementById('carousel');
+const infoPanel = document.getElementById('info-panel');
+
+function showInfo(key) {
+  if (!infoPanel) return;
+  const t = translations[currentLang];
+  infoPanel.innerHTML = `
+    <div class="info-card">
+      <h3 class="info-title">${PROVIDERS[key]}</h3>
+      <p class="info-blurb">${t['blurb_' + key]}</p>
+      <button class="info-back" type="button">${t.info_back}</button>
+    </div>
+  `;
+  infoPanel.querySelector('.info-back').addEventListener('click', resume);
+}
+function showHint() {
+  if (!infoPanel) return;
+  const t = translations[currentLang];
+  infoPanel.innerHTML = `
+    <div class="unhighlightable info-hint">
+      <span class="hint-cursor" aria-hidden="true">&#11013;</span>
+      ${t.info_hint}
+    </div>
+  `;
+}
+function resume() {
+  selected = false;
+  selectedKey = null;
+  showHint();
+}
+
+const PROVIDERS = {
+  ryan: 'Dr. Ryan Wang DO',
+  ida: 'Dr. Ida Wang MD'
+};
+
+(function initCarousel() {
+  if (!carousel) return;
+
+  const items     = Array.from(carousel.querySelectorAll('.carousel-btn'));
+  const radius    = 160;
+  const theta     = 360 / items.length;
+  const autoSpeed = 0.1;
+
+  let angle       = 0;   // current ring rotation
+  let targetAngle = 0;   // where we ease to when a card is selected
+  let dragging    = false;
+  let lastX       = 0;
+  let moved       = 0;
+  let pressTarget = null;
+
+  function render() {
+    carousel.style.transform = `translateZ(-${radius}px)`;
+    items.forEach((item, i) => {
+      const itemAngle = i * theta + angle;
+      item.style.transform =
+        `rotateY(${itemAngle}deg) translateZ(${radius}px) rotateY(${-itemAngle}deg)`;
+    });
+  }
+  function tick() {
+    if (selected) {
+      angle += (targetAngle - angle) * 0.12;
+    } else if (!dragging) {
+      angle += autoSpeed;
+    }
+    render();
+    requestAnimationFrame(tick);
+  }
+  tick();
+
+  function selectButton(btn) {
+    const key = btn.dataset.key;
+    if (!PROVIDERS[key]) return;
+    items.forEach((b) => b.classList.remove('inviting'));
+    const i = items.indexOf(btn);
+    let target = -i * theta;
+    while (target - angle > 180)  target -= 360;
+    while (target - angle < -180) target += 360;
+    targetAngle = target;
+    selected = true;
+    selectedKey = key;
+    showInfo(key);
+  }
+
+  function startDrag(x, target) {
+    dragging = true;
+    lastX = x;
+    moved = 0;
+    pressTarget = target ? target.closest('.carousel-btn') : null;
+    carousel.classList.add('dragging');
+  }
+  function moveDrag(x) {
+    if (!dragging) return;
+    const dx = x - lastX;
+    lastX = x;
+    moved += Math.abs(dx);
+    if (!selected) angle += dx * 0.5;
+  }
+  function endDrag() {
+    if (!dragging) return;
+    dragging = false;
+    carousel.classList.remove('dragging');
+    if (moved < 6 && pressTarget) selectButton(pressTarget);
+    pressTarget = null;
+  }
+
+  carousel.addEventListener('mousedown', (e) => { startDrag(e.clientX, e.target); e.preventDefault(); });
+  window.addEventListener('mousemove', (e) => moveDrag(e.clientX));
+  window.addEventListener('mouseup', endDrag);
+  carousel.addEventListener('touchstart', (e) => startDrag(e.touches[0].clientX, e.target), { passive: true });
+  window.addEventListener('touchmove', (e) => { if (dragging) moveDrag(e.touches[0].clientX); }, { passive: true });
+  window.addEventListener('touchend', endDrag);
+
+  items.forEach((btn) => {
+    btn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectButton(btn);
+      }
+    });
+  });
+
+  items.forEach((btn) => btn.classList.add('inviting'));
+  showHint();
+})();
+
+/* -------------------------------------------------------------------------
+   5. Boot
+   ------------------------------------------------------------------------- */
+setInterval(refreshStatus, 60 * 1000);
+applyLanguage(currentLang);
+
+let announcementTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(announcementTimer);
+  announcementTimer = setTimeout(buildAnnouncement, 200);
+});
