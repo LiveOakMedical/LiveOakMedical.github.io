@@ -3,8 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wang Family Medicine</title>
+    <title>Wang Family Medicine — Primary Care in Arcadia, CA</title>
+    <meta name="description" content="Wang Family Medicine is a family-owned primary care practice in Arcadia, CA. Checkups, vaccinations, adult &amp; geriatric care, women's health, and telehealth. Now accepting new patients.">
     <link rel="icon" type="image/png" href="WFM_favicon.png">
+    <!-- Structured data: helps Google show hours, phone, and a call button in search results.
+         TODO: replace the "url"/"image" domain below with your real site domain. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalClinic",
+      "name": "Wang Family Medicine",
+      "url": "https://www.wangfamilymedicine.com/",
+      "image": "https://www.wangfamilymedicine.com/WFM_logo_green.png",
+      "telephone": "+1-626-447-8000",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "20 E Huntington Dr",
+        "addressLocality": "Arcadia",
+        "addressRegion": "CA",
+        "postalCode": "91006",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 34.139877,
+        "longitude": -118.035230
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Thursday","Friday"], "opens": "09:00", "closes": "13:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Thursday","Friday"], "opens": "14:00", "closes": "18:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "09:00", "closes": "13:00" }
+      ],
+      "member": [
+        { "@type": "Physician", "name": "Dr. Ryan Wang, DO" },
+        { "@type": "Physician", "name": "Dr. Ida Wang, MD" }
+      ]
+    }
+    </script>
     <link rel="stylesheet" href="global.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -770,7 +805,7 @@
             <ul class="phone-links">
                 <li class="phone-label unhighlightable" data-i18n="call_now">Call Now</li>
                 <li>
-                    <a class="unhighlightable phone-btn phone-btn-call" href="tel:+6264478000">☏ (626) 447-8000</a>
+                    <a class="unhighlightable phone-btn phone-btn-call" href="tel:+16264478000">☏ (626) 447-8000</a>
                 </li>
             </ul>
             <div class="phone-or unhighlightable" aria-hidden="true">
@@ -780,7 +815,7 @@
             <ul class="phone-links">       
                 <li class="phone-label unhighlightable" data-i18n="text_label">Text</li>
                 <li>
-                    <a class="unhighlightable phone-btn phone-btn-text" href="tel:+6267757054">(626) 775-7054</a>
+                    <a class="unhighlightable phone-btn phone-btn-text" href="sms:+16267757054">(626) 775-7054</a>
                 </li>
             </ul>
         </div>
@@ -924,9 +959,9 @@
             <div class="unhighlightable">⚑</div>
             <div><a href="https://share.google/76EV7Pz4HS83seXYa">20 E Huntington Dr. <br> Arcadia, CA 91006 </a></div>
             <div class="unhighlightable">🕿</div>
-            <div><a href="tel:+6264478000">(626) 447-8000</a></div>
+            <div><a href="tel:+16264478000">(626) 447-8000</a></div>
             <div class="unhighlightable">🗨</div>
-            <div><a href="tel:+6267757054">(626) 775-7054</a></div>
+            <div><a href="sms:+16267757054">(626) 775-7054</a></div>
             <div class="visit-directions">
                 <a class="unhighlightable directions-btn" href="https://www.google.com/maps/dir/?api=1&destination=20+E+Huntington+Dr,+Arcadia,+CA+91006" target="_blank" rel="noopener" data-i18n="get_directions">➤ Get Directions</a>
             </div>
