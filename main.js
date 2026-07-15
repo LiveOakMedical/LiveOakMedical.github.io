@@ -67,7 +67,7 @@ const translations = {
     contact_email: 'Email', contact_call: 'Call', contact_text: 'Text', contact_office: 'Office',
     manager_cta: '✉ Email Ron',
     footer: '© {year} Wang Family Medicine. All rights reserved.',
-    announcement: '📢 Now accepting new patients! &nbsp;•&nbsp; Flu shots available &nbsp;•&nbsp; walk-ins welcome. &nbsp;•&nbsp; Call <a href="tel:+6264478000">(626) 447-8000</a> or text <a href="tel:+6267757054">(626) 775-7054</a> to schedule.',
+    announcement: '📢 Now accepting new patients! &nbsp;•&nbsp; Flu shots available &nbsp;•&nbsp; walk-ins welcome. &nbsp;•&nbsp; Call <a href="tel:+16264478000">(626) 447-8000</a> or text <a href="sms:+16267757054">(626) 775-7054</a> to schedule.',
     holiday_prefix: ' &nbsp;•&nbsp; <span style="color: #D4A857;">🎄 Holiday closures: ',
     months: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
   },
@@ -104,7 +104,7 @@ const translations = {
     contact_email: 'Correo', contact_call: 'Llamar', contact_text: 'Mensaje', contact_office: 'Oficina',
     manager_cta: '✉ Escribir a Ron',
     footer: '© {year} Wang Family Medicine. Todos los derechos reservados.',
-    announcement: '📢 ¡Aceptamos nuevos pacientes! &nbsp;•&nbsp; Vacunas contra la gripe disponibles &nbsp;•&nbsp; sin cita previa. &nbsp;•&nbsp; Llame al <a href="tel:+6264478000">(626) 447-8000</a> o envíe un mensaje de texto al <a href="tel:+6267757054">(626) 775-7054</a> para agendar.',
+    announcement: '📢 ¡Aceptamos nuevos pacientes! &nbsp;•&nbsp; Vacunas contra la gripe disponibles &nbsp;•&nbsp; sin cita previa. &nbsp;•&nbsp; Llame al <a href="tel:+16264478000">(626) 447-8000</a> o envíe un mensaje de texto al <a href="sms:+16267757054">(626) 775-7054</a> para agendar.',
     holiday_prefix: ' &nbsp;•&nbsp; <span style="color: #D4A857;">🎄 Cierres por festivos: ',
     months: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']
   },
@@ -118,7 +118,7 @@ const translations = {
     our_providers: '我们的医生：', info_back: '← 返回菜单', info_hint: '点击医生查看更多信息',
     blurb_ryan: '王瑞恩医生是家庭医学认证医生，专注于各年龄段患者的预防保健和慢性病管理。',
     blurb_ida: '王伊达医生提供全面的初级保健服务，尤其专注于妇科健康和老年医学领域。',
-    about_title: '关于我们', about_body: '王氏家庭医学诊所是一家家族经营的初级保健诊所，服务于阿卡迪亚和圣加布里埃尔谷地区。瑞安·王医生和伊达·王医生为患者提供个性化的全家人医疗服务。从常规体检和疫苗接种到慢性病管理，所有服务均在安全且支持多语言的环境中进行。',
+    about_title: '关于我们', about_body: '王氏家庭医学诊所是一家家族经营的初级保健诊所，服务于阿卡迪亚和圣加布里埃尔谷地区。王瑞恩医生和王伊达医生为患者提供个性化的全家人医疗服务。从常规体检和疫苗接种到慢性病管理，所有服务均在安全且支持多语言的环境中进行。',
     services_title: '我们的服务', services_body: '为人生各个阶段提供全面的初级保健服务。',
     svc_checkups_t: '健康检查', svc_checkups_b: '年度就诊和健康筛查',
     svc_vaccinations_t: '疫苗接种', svc_vaccinations_b: '常规和旅行免疫接种',
@@ -141,7 +141,7 @@ const translations = {
     contact_email: '电子邮件', contact_call: '致电', contact_text: '短信', contact_office: '地址',
     manager_cta: '✉ 给 Ron 发邮件',
     footer: '© {year} Wang Family Medicine. 版权所有。',
-    announcement: '📢 正在接收新患者！&nbsp;•&nbsp; 提供流感疫苗 &nbsp;•&nbsp; 无需预约。&nbsp;•&nbsp; 请致电 <a href="tel:+6264478000">(626) 447-8000</a> 或发送短信至 <a href="tel:+6267757054">(626) 775-7054</a> 进行预约。',
+    announcement: '📢 正在接收新患者！&nbsp;•&nbsp; 提供流感疫苗 &nbsp;•&nbsp; 无需预约。&nbsp;•&nbsp; 请致电 <a href="tel:+16264478000">(626) 447-8000</a> 或发送短信至 <a href="sms:+16267757054">(626) 775-7054</a> 进行预约。',
     holiday_prefix: ' &nbsp;•&nbsp;  <span style="color: #D4A857;">🎄 假期休息：',
     months: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
   }
@@ -325,9 +325,9 @@ function buildAnnouncement() {
   const upcoming = HOLIDAYS.filter((h) => h >= todayKey).sort();
   let msg = t.announcement;
   if (upcoming.length) {
-    msg += t.holiday_prefix + groupHolidays(upcoming).map(formatHolidayEntry).join(', ');
+    msg += t.holiday_prefix + groupHolidays(upcoming).map(formatHolidayEntry).join(', ') + '</span>';
   }
-  const unit = `${msg}</span>`;
+  const unit = msg;
   track.style.animation = 'none';
   track.innerHTML = unit;
   let chunk = unit;
@@ -387,6 +387,10 @@ const PROVIDERS = {
   const radius    = 160;
   const theta     = 360 / items.length;
   const autoSpeed = 0.1;
+  // Respect the visitor's OS "reduce motion" setting: no idle spin, and
+  // snap straight to a selected card instead of easing.
+  const reduceMotion = window.matchMedia
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let angle       = 0;   // current ring rotation
   let targetAngle = 0;   // where we ease to when a card is selected
@@ -405,8 +409,8 @@ const PROVIDERS = {
   }
   function tick() {
     if (selected) {
-      angle += (targetAngle - angle) * 0.12;
-    } else if (!dragging) {
+      angle += (targetAngle - angle) * (reduceMotion ? 1 : 0.12);
+    } else if (!dragging && !reduceMotion) {
       angle += autoSpeed;
     }
     render();
