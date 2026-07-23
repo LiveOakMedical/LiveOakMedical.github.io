@@ -209,13 +209,8 @@ iframe:focus-visible {
     margin-top: 3px; 
     margin-bottom: 6px;
 }
-.phone-btn-text {
-    background-color: #F5F1E8;
-    color: #2F4A3F;
-}
-.phone-btn-text:hover {
-    background-color: #D9D2C3;
-}
+.phone-btn-text {background-color: #F5F1E8; color: #2F4A3F;}
+.phone-btn-text:hover {background-color: #D9D2C3;}
 .phone-links a.phone-btn-text {
     color: #2F4A3F;
     padding-top: 6px;
