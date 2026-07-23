@@ -24,9 +24,21 @@ body {
 }
 
 /* -------------------------------------------------------------------------
-   Accessibility: skip link + visible keyboard focus
+   Accessibility: skip link and visible keyboard focus
    ------------------------------------------------------------------------- */
-/* Hidden until focused, then slides into view for keyboard users. */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
 .skip-link {
     position: absolute;
     top: 0;
@@ -57,8 +69,7 @@ iframe:focus-visible {
     outline: 3px solid #D4A857;
     outline-offset: 3px;
 }
-/* Section skip targets shouldn't paint a stray ring when focused via the
-   skip link (they're not really interactive controls). */
+
 #home:focus-visible,
 #apply:focus-visible {
     outline: none;
@@ -270,7 +281,7 @@ iframe:focus-visible {
 .status-badge.holiday .status-dot  { background: #D4A857; }
 .status-badge.holiday .status-text { color: #D4A857; }
 
-/* Hamburger toggle — hidden on desktop, shown on mobile */
+/* Hamburger toggle shown on mobile */
 .nav-toggle {
     display: none;
     flex-direction: column;
@@ -719,7 +730,7 @@ iframe:focus-visible {
         font-weight: 700;
         letter-spacing: 1.5px;
         text-transform: uppercase;
-        color: #7FA692;
+        color: #4A7460; /* darkened from #7FA692 for WCAG AA contrast */
         margin-bottom: 10px;
       }
       .newpatient-card h3 {
@@ -763,7 +774,6 @@ iframe:focus-visible {
         font-weight: 700;
       }
 
-      /* Insurance grid, full width at the bottom of the Services section */
       .insurance-block {
         max-width: 1000px;
         margin: 46px auto 0;
@@ -901,6 +911,81 @@ iframe:focus-visible {
         from { transform: translateX(0); }
         to   { transform: translateX(-50%); }
       }
+
+/* -------------------------------------------------------------------------
+   Legal pages (Notice of Privacy Practices)
+   ------------------------------------------------------------------------- */
+#legal {
+    padding: 48px 30px 64px;
+}
+.legal-inner {
+    max-width: 780px;
+    margin: 0 auto;
+}
+.legal-eyebrow {
+    display: inline-block;
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #4A7460;
+    margin-bottom: 10px;
+}
+.legal-title {
+    font-family: 'Roboto', sans-serif;
+    color: #2F4A3F;
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+.legal-effective {
+    font-size: 13px;
+    color: #5A6B62;
+    margin-bottom: 22px;
+}
+.legal-lead {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #4A5A52;
+    background: #FFFFFF;
+    border-left: 4px solid #D4A857;
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+}
+.legal-inner h2 {
+    font-family: 'Roboto', sans-serif;
+    color: #2F4A3F;
+    font-size: 20px;
+    margin: 30px 0 10px;
+}
+.legal-inner p,
+.legal-inner li {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #4A5A52;
+}
+.legal-inner p { margin-bottom: 12px; }
+.legal-inner ul {
+    list-style: disc;
+    padding-left: 22px;
+    margin-bottom: 12px;
+}
+.legal-inner li { margin-bottom: 9px; }
+.legal-inner a { color: #2F4A3F; }
+.legal-inner strong { color: #2F4A3F; }
+.legal-contact {
+    background: #FFFFFF;
+    border: 1px solid rgba(47, 74, 63, 0.12);
+    border-radius: 12px;
+    padding: 18px 20px;
+    line-height: 1.9;
+}
+@media (max-width: 600px) {
+    #legal { padding: 32px 20px 48px; }
+    .legal-title { font-size: 26px; }
+}
+
       /* Site footer */
       .site-footer {
         flex-shrink: 0;
@@ -912,6 +997,10 @@ iframe:focus-visible {
       }
       .site-footer a { color: #D4A857; text-decoration: none; }
       .site-footer a:hover { text-decoration: underline; }
+      .site-footer .footer-links {
+        margin-top: 8px;
+        font-size: 13px;
+      }
       @media (prefers-reduced-motion: reduce) {
         .info-card { animation: none; }
         .announcement-track { animation: none; }
@@ -949,7 +1038,7 @@ iframe:focus-visible {
     font-weight: 700;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: #7FA692;
+    color: #4A7460;
     margin-bottom: 12px;
 }
 .apply-title {
