@@ -90,7 +90,7 @@ iframe:focus-visible {
     display: block;
 }
 
-/* Brand Logo styling */
+/* Brand Logo styling */w
 .nav-logo a {
     color: #2F4A3F;
     font-size: 24px;
@@ -151,9 +151,8 @@ iframe:focus-visible {
 }
 
 .phone-group {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    place-content: center; 
 }
 
 .phone-group .phone-or {
