@@ -842,8 +842,7 @@ iframe:focus-visible {
         justify-content: center;
         width: 100%;
         height: 46px;
-        border-radius: 8px;
-        background: rgba(127, 166, 146, 0.10);
+        border-radius: 8px
       }
       .insurance-logo img {
         max-height: 38px;
