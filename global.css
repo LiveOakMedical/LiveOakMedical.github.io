@@ -773,19 +773,6 @@ iframe:focus-visible {
         font-size: 12px;
         font-weight: 700;
       }
-      .newpatient-badge {
-        display: inline-block;
-        margin-top: 20px;
-        background: rgba(212, 168, 87, 0.18);
-        color: #7A5A12;
-        border: 1px solid rgba(212, 168, 87, 0.55);
-        font-family: 'Roboto', sans-serif;
-        font-size: 12.5px;
-        font-weight: 700;
-        letter-spacing: 0.3px;
-        padding: 7px 14px;
-        border-radius: 999px;
-      }
 
       /* Insurance grid, full width at the bottom of the Services section */
       .insurance-block {
