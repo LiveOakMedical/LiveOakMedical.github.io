@@ -470,7 +470,7 @@ iframe:focus-visible {
     user-select: none;
 }
 
-      /* The stage provides the 3D perspective */
+/* The stage provides the 3D perspective */
 .carousel-stage {
     perspective: 900px;      /* lower = more dramatic 3D; higher = flatter */
     width: 260px;
@@ -478,7 +478,7 @@ iframe:focus-visible {
     margin: 0 auto;
 }
     
-      /* The ring that actually rotates */
+      /* The ring that rotates */
       .carousel {
         position: relative;
         width: 100%;
@@ -834,8 +834,7 @@ iframe:focus-visible {
         transform: translateY(-3px);
         box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
       }
-      /* Logo slot: an empty tinted frame acts as a placeholder until a real
-         logo file is dropped in; the image then fills it via object-fit. */
+
       .insurance-logo {
         display: flex;
         align-items: center;
