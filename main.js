@@ -78,7 +78,7 @@ const translations = {
     contact_email: 'Email', contact_call: 'Call', contact_text: 'Text', contact_office: 'Office',
     manager_cta: '✉ Email Ron',
     footer: '© {year} Wang Family Medicine. All rights reserved.',
-    announcement: '📢 Now accepting new patients! &nbsp;•&nbsp; Flu shots available &nbsp;•&nbsp; walk-ins welcome. &nbsp;•&nbsp; Call <a href="tel:+16264478000">(626) 447-8000</a> or text <a href="sms:+16267757054">(626) 775-7054</a> to schedule.',
+    announcement: '📢 Now accepting <a href="#about">new patients</a>! &nbsp;•&nbsp; Flu shots available &nbsp;•&nbsp; walk-ins welcome. &nbsp;•&nbsp; Call <a href="tel:+16264478000">(626) 447-8000</a> or text <a href="sms:+16267757054">(626) 775-7054</a> to schedule.',
     holiday_prefix: ' &nbsp;•&nbsp; <span style="color: #D4A857;">🎄 Holiday closures: ',
     months: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
   },
@@ -126,7 +126,7 @@ const translations = {
     contact_email: 'Correo', contact_call: 'Llamar', contact_text: 'Mensaje', contact_office: 'Oficina',
     manager_cta: '✉ Escribir a Ron',
     footer: '© {year} Wang Family Medicine. Todos los derechos reservados.',
-    announcement: '📢 ¡Aceptamos nuevos pacientes! &nbsp;•&nbsp; Vacunas contra la gripe disponibles &nbsp;•&nbsp; sin cita previa. &nbsp;•&nbsp; Llame al <a href="tel:+16264478000">(626) 447-8000</a> o envíe un mensaje de texto al <a href="sms:+16267757054">(626) 775-7054</a> para agendar.',
+    announcement: '📢 ¡Aceptamos <a href="#about">nuevos pacientes</a>! &nbsp;•&nbsp; Vacunas contra la gripe disponibles &nbsp;•&nbsp; sin cita previa. &nbsp;•&nbsp; Llame al <a href="tel:+16264478000">(626) 447-8000</a> o envíe un mensaje de texto al <a href="sms:+16267757054">(626) 775-7054</a> para agendar.',
     holiday_prefix: ' &nbsp;•&nbsp; <span style="color: #D4A857;">🎄 Cierres por festivos: ',
     months: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']
   },
@@ -174,7 +174,7 @@ const translations = {
     contact_email: '电子邮件', contact_call: '致电', contact_text: '短信', contact_office: '地址',
     manager_cta: '✉ 给 Ron 发邮件',
     footer: '© {year} Wang Family Medicine. 版权所有。',
-    announcement: '📢 正在接收新患者！&nbsp;•&nbsp; 提供流感疫苗 &nbsp;•&nbsp; 无需预约。&nbsp;•&nbsp; 请致电 <a href="tel:+16264478000">(626) 447-8000</a> 或发送短信至 <a href="sms:+16267757054">(626) 775-7054</a> 进行预约。',
+    announcement: '📢 正在接收 <a href="#about">新患者</a>！&nbsp;•&nbsp; 提供流感疫苗 &nbsp;•&nbsp; 无需预约。&nbsp;•&nbsp; 请致电 <a href="tel:+16264478000">(626) 447-8000</a> 或发送短信至 <a href="sms:+16267757054">(626) 775-7054</a> 进行预约。',
     holiday_prefix: ' &nbsp;•&nbsp;  <span style="color: #D4A857;">🎄 假期休息：',
     months: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
   }
