@@ -47,12 +47,12 @@ const translations = {
     skip_link: 'Skip to main content',
     about_title: 'About Us', about_body: 'Wang Family Medicine is a family-owned primary care practice serving Arcadia and the San Gabriel Valley. Drs. Ryan and Ida Wang provide personalized, whole-family care. From routine checkups and vaccinations to managing ongoing conditions, all in a safe and multilingual setting.',
     np_eyebrow: 'New Patients', np_title: 'Getting started is easy',
-    np_lead: "New to the practice? Here's what to expect for your first visit.",
+    np_lead: "New Patient? Here's what to expect for your first visit.",
     np_1: 'Call or text us to book your first appointment.',
-    np_2: 'Bring a photo ID and your insurance card.',
-    np_3: 'Arrive 15 minutes early to complete intake forms.',
+    np_2: 'Complete intake forms online at our patient portal, or in person 15 minutes before your appointment.',
+    np_3: 'Bring a photo ID and your insurance card.',
     np_4: 'Bring a list of any medications you currently take.',
-    np_badge: '✓ Now accepting new patients',
+    np_badge: '✓ Now accepting new patients!',
     insurance_title: 'Insurance We Take',
     insurance_body: "We accept most major PPO and HMO plans. Not sure about yours? Give us a call and we'll be glad to check.",
     insurance_foot: "This list isn't exhaustive — call us and we'll confirm whether we take your specific plan.",
@@ -95,12 +95,12 @@ const translations = {
     skip_link: 'Saltar al contenido principal',
     about_title: 'Sobre nosotros', about_body: 'Wang Family Medicine es una consulta de atención primaria de gestión familiar que presta servicio en Arcadia y el Valle de San Gabriel. Los doctores Ryan e Ida Wang ofrecen una atención personalizada para toda la familia. Desde revisiones rutinarias y vacunas hasta el tratamiento de enfermedades crónicas, todo ello en un entorno seguro y multilingüe.',
     np_eyebrow: 'Nuevos pacientes', np_title: 'Comenzar es muy fácil',
-    np_lead: '¿Es nuevo en la consulta? Esto es lo que puede esperar en su primera visita.',
+    np_lead: '¿Es un paciente nuevo? Esto es lo que puede esperar en su primera visita.',
     np_1: 'Llámenos o envíenos un mensaje para reservar su primera cita.',
-    np_2: 'Traiga una identificación con foto y su tarjeta del seguro.',
-    np_3: 'Llegue 15 minutos antes para completar los formularios de admisión.',
+    np_2: 'Complete los formularios de admisión en línea en nuestro portal del paciente, o en persona 15 minutos antes de su cita.',
+    np_3: 'Traiga una identificación con foto y su tarjeta del seguro.',
     np_4: 'Traiga una lista de los medicamentos que toma actualmente.',
-    np_badge: '✓ Aceptando nuevos pacientes',
+    np_badge: '✓ ¡Aceptando nuevos pacientes!',
     insurance_title: 'Seguros que aceptamos',
     insurance_body: 'Aceptamos la mayoría de los planes PPO y HMO principales. ¿No está seguro del suyo? Llámenos y con gusto lo verificamos.',
     insurance_foot: 'Esta lista no es exhaustiva: llámenos y confirmaremos si aceptamos su plan específico.',
@@ -143,12 +143,12 @@ const translations = {
     skip_link: '跳至主要内容',
     about_title: '关于我们', about_body: '王氏家庭医学诊所是一家家族经营的初级保健诊所，服务于阿卡迪亚和圣加布里埃尔谷地区。王瑞恩医生和王伊达医生为患者提供个性化的全家人医疗服务。从常规体检和疫苗接种到慢性病管理，所有服务均在安全且支持多语言的环境中进行。',
     np_eyebrow: '新患者', np_title: '轻松开始就诊',
-    np_lead: '初次就诊？以下是首次就诊的须知。',
+    np_lead: '新患者？以下是首次就诊的须知。',
     np_1: '致电或发短信预约您的首次就诊。',
-    np_2: '请携带带照片的身份证件和保险卡。',
-    np_3: '请提前 15 分钟到达以填写就诊表格。',
+    np_2: '请通过我们的患者门户网站在线填写就诊表格，或于就诊前 15 分钟到诊所现场填写。',
+    np_3: '请携带带照片的身份证件和保险卡。',
     np_4: '请携带您目前服用的所有药物清单。',
-    np_badge: '✓ 正在接收新患者',
+    np_badge: '✓ 正在接收新患者！',
     insurance_title: '我们接受的保险',
     insurance_body: '我们接受大多数主要的 PPO 和 HMO 保险计划。不确定您的保险？请致电我们，我们很乐意为您查询。',
     insurance_foot: '此列表并不完整——请致电我们，我们将确认是否接受您的具体保险计划。',
@@ -420,8 +420,6 @@ const PROVIDERS = {
   const radius    = 160;
   const theta     = 360 / items.length;
   const autoSpeed = 0.1;
-  // Respect the visitor's OS "reduce motion" setting: no idle spin, and
-  // snap straight to a selected card instead of easing.
   const reduceMotion = window.matchMedia
     && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
