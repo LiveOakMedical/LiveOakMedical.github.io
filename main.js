@@ -52,7 +52,8 @@ const translations = {
     np_2: 'Complete intake forms online at our patient portal, or in person 15 minutes before your appointment.',
     np_3: 'Bring a photo ID and your insurance card.',
     np_4: 'Bring a list of any medications you currently take.',
-    np_badge: '✓ Now accepting new patients!',
+    home_h1: 'Wang Family Medicine — Primary Care in Arcadia, CA',
+    privacy_link: 'Notice of Privacy Practices',
     insurance_title: 'Insurance',
     insurance_body: "We accept most major PPO and HMO plans. Not sure about yours? Give us a call and we'll be glad to check.",
     insurance_foot: "This list isn't exhaustive — call us and we'll confirm whether we take your specific plan.",
@@ -67,6 +68,7 @@ const translations = {
     day_mon: 'Monday', day_tue: 'Tuesday', day_wed: 'Wednesday', day_thu: 'Thursday', day_fri: 'Friday', day_sat: 'Saturday', day_sun: 'Sunday',
     hours_full: '9 AM–1 PM, 2–6 PM', hours_half: '9 AM–1 PM', closed: 'Closed',
     visit_title: 'Visit Us', get_directions: '➤ Get Directions',
+     
     // Apply page
     apply_eyebrow: 'Careers',
     apply_title: 'Join the team',
@@ -100,7 +102,8 @@ const translations = {
     np_2: 'Complete los formularios de admisión en línea en nuestro portal del paciente, o en persona 15 minutos antes de su cita.',
     np_3: 'Traiga una identificación con foto y su tarjeta del seguro.',
     np_4: 'Traiga una lista de los medicamentos que toma actualmente.',
-    np_badge: '✓ ¡Aceptando nuevos pacientes!',
+    home_h1: 'Wang Family Medicine — Atención primaria en Arcadia, CA',
+    privacy_link: 'Aviso de Prácticas de Privacidad',
     insurance_title: 'Seguros',
     insurance_body: 'Aceptamos la mayoría de los planes PPO y HMO principales. ¿No está seguro del suyo? Llámenos y con gusto lo verificamos.',
     insurance_foot: 'Esta lista no es exhaustiva: llámenos y confirmaremos si aceptamos su plan específico.',
@@ -115,6 +118,7 @@ const translations = {
     day_mon: 'Lunes', day_tue: 'Martes', day_wed: 'Miércoles', day_thu: 'Jueves', day_fri: 'Viernes', day_sat: 'Sábado', day_sun: 'Domingo',
     hours_full: '9:00–13:00, 14:00–18:00', hours_half: '9:00–13:00', closed: 'Cerrado',
     visit_title: 'Visítenos', get_directions: '➤ Cómo llegar',
+     
     // Apply page
     apply_eyebrow: 'Empleo',
     apply_title: 'Únase al equipo',
@@ -148,7 +152,8 @@ const translations = {
     np_2: '请通过我们的患者门户网站在线填写就诊表格，或于就诊前 15 分钟到诊所现场填写。',
     np_3: '请携带带照片的身份证件和保险卡。',
     np_4: '请携带您目前服用的所有药物清单。',
-    np_badge: '✓ 正在接收新患者！',
+    home_h1: '王氏家庭医学诊所 — 加州阿卡迪亚的初级保健',
+    privacy_link: '隐私实践声明',
     insurance_title: '保险',
     insurance_body: '我们接受大多数主要的 PPO 和 HMO 保险计划。不确定您的保险？请致电我们，我们很乐意为您查询。',
     insurance_foot: '此列表并不完整——请致电我们，我们将确认是否接受您的具体保险计划。',
@@ -163,6 +168,7 @@ const translations = {
     day_mon: '星期一', day_tue: '星期二', day_wed: '星期三', day_thu: '星期四', day_fri: '星期五', day_sat: '星期六', day_sun: '星期日',
     hours_full: '上午9点–下午1点，下午2点–6点', hours_half: '上午9点–下午1点', closed: '休息',
     visit_title: '就诊信息', get_directions: '➤ 获取路线',
+     
     // Apply page
     apply_eyebrow: '招聘',
     apply_title: '加入团队',
@@ -377,6 +383,7 @@ function buildAnnouncement() {
 /* -------------------------------------------------------------------------
    4. Provider carousel
    ------------------------------------------------------------------------- */
+
 const carousel  = document.getElementById('carousel');
 const infoPanel = document.getElementById('info-panel');
 
@@ -508,6 +515,7 @@ const PROVIDERS = {
 /* -------------------------------------------------------------------------
    5. Boot
    ------------------------------------------------------------------------- */
+
 setInterval(refreshStatus, 60 * 1000);
 
 let savedLang = 'en';
