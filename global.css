@@ -164,15 +164,7 @@ iframe:focus-visible {
     font-size: 13px;
     font-weight: bold;
 }
-.phone-or .phone-or-spacer {
-    visibility: hidden;
-    font-size: 13px;
-    padding: 0 15px;
-}
-.phone-or .phone-or-text {
-    margin-top: 3px;
-    padding: 6px 0;
-}
+
 .phone-links li {
     display: flex;
     transition: background-color 0.3s ease;
@@ -226,8 +218,10 @@ iframe:focus-visible {
 }
 .phone-links a.phone-btn-text {
     color: #2F4A3F;
-    padding: 2px 6px;
+    padding-top: 6px;
+    padding-bottom: 6px;
     margin-top: 3px; 
+    margin-bottom: 6px;
 }
 
 /* Hover interaction effect */
