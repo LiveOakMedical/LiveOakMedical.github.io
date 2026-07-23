@@ -203,20 +203,11 @@ iframe:focus-visible {
 
 .phone-btn-call { background-color: #7FA692; }
 .phone-btn-call:hover { background-color: #6B9080;}
-.phone-links a.phone-btn-call {
-    padding-top: 6px;
-    padding-bottom: 6px;
-    margin-top: 3px; 
-    margin-bottom: 6px;
-}
+.phone-links a.phone-btn-call {}
 .phone-btn-text {background-color: #F5F1E8; color: #2F4A3F;}
 .phone-btn-text:hover {background-color: #D9D2C3;}
 .phone-links a.phone-btn-text {
     color: #2F4A3F;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    margin-top: 3px; 
-    margin-bottom: 6px;
 }
 
 /* Hover interaction effect */
