@@ -152,7 +152,8 @@ iframe:focus-visible {
 
 .phone-group {
     display: flex;
-    align-items: stretch;
+    justify-content: center;
+    align-items: center;
 }
 
 .phone-group .phone-or {
