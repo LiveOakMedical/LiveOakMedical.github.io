@@ -24,7 +24,7 @@ body {
 }
 
 /* -------------------------------------------------------------------------
-   Accessibility: skip link and visible keyboard focus
+   Accessibility: skip link + visible keyboard focus
    ------------------------------------------------------------------------- */
 /* Hidden until focused, then slides into view for keyboard users. */
 .skip-link {
@@ -57,7 +57,6 @@ iframe:focus-visible {
     outline: 3px solid #D4A857;
     outline-offset: 3px;
 }
-
 /* Section skip targets shouldn't paint a stray ring when focused via the
    skip link (they're not really interactive controls). */
 #home:focus-visible,
@@ -490,23 +489,23 @@ iframe:focus-visible {
       .carousel.dragging { cursor: grabbing; }
     
       .carousel-btn {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 200px;
-        height: 240px;
-        margin-left: -100px;
-        margin-top: -120px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 18px 16px;
-        border-radius: 14px;
-        font-weight: bold;
-        color: #F5F1E8;
-        user-select: none;
-        cursor: pointer;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 200px;
+          height: 240px;
+          margin-left: -100px;
+          margin-top: -120px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 18px 16px;
+          border-radius: 14px;
+          font-weight: bold;
+          color: #F5F1E8;
+          user-select: none;
+          cursor: pointer;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.25);
       }
 
       .carousel-btn:focus-visible {
@@ -788,8 +787,10 @@ iframe:focus-visible {
         border-radius: 999px;
       }
 
+      /* Insurance grid, full width at the bottom of the Services section */
       .insurance-block {
-        margin-top: 46px;
+        max-width: 1000px;
+        margin: 46px auto 0;
         padding-top: 36px;
         border-top: 1px solid rgba(47, 74, 63, 0.14);
       }
@@ -812,10 +813,15 @@ iframe:focus-visible {
         gap: 14px;
       }
       .insurance-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 12px;
         background: #FFFFFF;
         border: 1px solid rgba(47, 74, 63, 0.12);
         border-radius: 12px;
-        padding: 18px 14px;
+        padding: 16px 14px;
         text-align: center;
         font-family: 'Roboto', sans-serif;
         font-weight: 700;
@@ -827,6 +833,25 @@ iframe:focus-visible {
       .insurance-card:hover {
         transform: translateY(-3px);
         box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
+      }
+      /* Logo slot: an empty tinted frame acts as a placeholder until a real
+         logo file is dropped in; the image then fills it via object-fit. */
+      .insurance-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 46px;
+        border-radius: 8px;
+        background: rgba(127, 166, 146, 0.10);
+      }
+      .insurance-logo img {
+        max-height: 38px;
+        max-width: 88%;
+        object-fit: contain;
+      }
+      .insurance-name {
+        line-height: 1.3;
       }
       .insurance-foot {
         margin-top: 18px;
@@ -899,8 +924,8 @@ iframe:focus-visible {
       .announcement-track a { color: #D4A857; text-decoration: underline; }
 
       @keyframes announce-scroll {
-from { transform: translateX(0); }
-to   { transform: translateX(-50%); }
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
       }
       /* Site footer */
       .site-footer {
