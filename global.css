@@ -39,6 +39,7 @@ body {
     border: 0;
 }
 
+/* Hidden until focused, then slides into view for keyboard users. */
 .skip-link {
     position: absolute;
     top: 0;
@@ -83,6 +84,8 @@ iframe:focus-visible {
 .navbar {
     position: relative;
     display: flex;
+    flex-wrap: wrap;
+    row-gap: 6px;
     justify-content: space-between;
     align-items: stretch;
     background-color: #F5F1E8;
@@ -163,7 +166,31 @@ iframe:focus-visible {
 
 .phone-group {
     display: grid;
-    place-content: center; 
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    align-items: end;
+    justify-content: center;
+    gap: 8px;
+    margin-left: auto;
+}
+.phone-group .phone-links {
+    display: flex;
+    flex-direction: column;
+}
+.phone-group .phone-links li {
+    width: 100%;
+}
+.phone-group .phone-btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.phone-group .phone-links a.phone-btn {
+    padding-left: 7px;
+    padding-right: 7px;
+    font-size: 15px;
 }
 
 .phone-group .phone-or {
@@ -371,9 +398,9 @@ iframe:focus-visible {
     }
     .nav-logo   { order: 1; flex: 1 1 auto; }
     .nav-toggle { display: flex; order: 2; }
-    .status-badge { order: 3; }
+    .hours-status { order: 3; }
     .lang-select { order: 4; }
-    .phone-links { order: 5; }
+    .phone-group { order: 5; }
     
     .nav-links {
         order: 6;
@@ -700,7 +727,6 @@ iframe:focus-visible {
         font-family: 'Roboto', sans-serif;
       }
 
-      /* About: copy on the left, new-patient box on the right */
       #about .about-top {
         display: grid;
         grid-template-columns: 1.35fr 1fr;
@@ -774,6 +800,7 @@ iframe:focus-visible {
         font-weight: 700;
       }
 
+      /* Insurance grid, full width at the bottom of the Services section */
       .insurance-block {
         max-width: 1000px;
         margin: 46px auto 0;
@@ -910,7 +937,6 @@ iframe:focus-visible {
       @keyframes announce-scroll {
         from { transform: translateX(0); }
         to   { transform: translateX(-50%); }
-      }
 
 /* -------------------------------------------------------------------------
    Legal pages (Notice of Privacy Practices)
