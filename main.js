@@ -35,7 +35,7 @@ let selectedKey = null;
 
 const translations = {
   en: {
-    nav_home: 'Home', nav_about: 'About', nav_services: 'Services', nav_visit: 'Visit Us', nav_apply: 'Apply Now',
+    nav_home: 'Home', nav_about: 'About', nav_services: 'Services', nav_visit: 'Visit Us', nav_apply: 'Careers',
     current_hours: 'Current Hours:', status_checking: 'Checking hours…',
     status_open: 'Open', status_closed: 'Closed', status_holiday: 'On Holiday',
     status_open_until: 'Open until {time}', status_closed_until: 'Closed until {time}',
@@ -85,7 +85,7 @@ const translations = {
     months: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
   },
   es: {
-    nav_home: 'Inicio', nav_about: 'Nosotros', nav_services: 'Servicios', nav_visit: 'Visítenos', nav_apply: 'Solicitar ahora',
+    nav_home: 'Inicio', nav_about: 'Nosotros', nav_services: 'Servicios', nav_visit: 'Visítenos', nav_apply: 'Oportunidades profesionales',
     current_hours: 'Horario actual:', status_checking: 'Verificando horario…',
     status_open: 'Abierto', status_closed: 'Cerrado', status_holiday: 'Cerrado por festivo',
     status_open_until: 'Abierto hasta las {time}', status_closed_until: 'Cerrado hasta las {time}',
@@ -135,7 +135,7 @@ const translations = {
     months: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']
   },
   zh: {
-    nav_home: '首页', nav_about: '关于我们', nav_services: '服务', nav_visit: '就诊信息', nav_apply: '立即申请',
+    nav_home: '首页', nav_about: '关于我们', nav_services: '服务', nav_visit: '就诊信息', nav_apply: '职业发展',
     current_hours: '当前营业时间：', status_checking: '正在查询…',
     status_open: '营业中', status_closed: '已关闭', status_holiday: '假期休息',
     status_open_until: '营业至{time}', status_closed_until: '休息至{time}',
