@@ -123,6 +123,7 @@ iframe:focus-visible {
     border: 1px solid rgba(47,74,63,0.3);
     border-radius: 6px;
     padding: 6px 8px;
+    margin: 1px;
     cursor: pointer;
 }
 
